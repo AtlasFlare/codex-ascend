@@ -60,7 +60,9 @@ export function AscendScenarioCard({ card, side, vertical, open, onClose, onChoo
       }
       const inset = 14
       const ownMarker = cardElement.closest<HTMLElement>('.waypoint-marker')
-      const obstacles = [...world.querySelectorAll<HTMLElement>('.brand-cluster, .scene-chip, .waypoint-guide, .hero-metrics, .webmcp-activity-rail, .hero-actions')]
+      const activityRail = world.querySelector<HTMLElement>('.webmcp-activity-rail')
+      const activityRailBounds = activityRail?.getClientRects().length ? activityRail.getBoundingClientRect() : undefined
+      const obstacles = [...world.querySelectorAll<HTMLElement>('.brand-cluster, .scene-chip, .waypoint-guide, .hero-metrics, .hero-actions')]
         .filter((target) => target.getClientRects().length > 0)
         .map((target) => target.getBoundingClientRect())
       const waypointObstacles = [...world.querySelectorAll<HTMLElement>('.position-beacon')]
@@ -104,11 +106,21 @@ export function AscendScenarioCard({ card, side, vertical, open, onClose, onChoo
           const height = Math.max(0, Math.min(rect.bottom, obstacle.bottom + 10) - Math.max(rect.top, obstacle.top - 10))
           return total + width * height
         }, 0)
+        const activityRailOverlapArea = activityRailBounds
+          ? Math.max(0, Math.min(rect.right, activityRailBounds.right + 8) - Math.max(rect.left, activityRailBounds.left - 8))
+            * Math.max(0, Math.min(rect.bottom, activityRailBounds.bottom + 8) - Math.max(rect.top, activityRailBounds.top - 8))
+          : 0
         // An open scenario must never make another visible waypoint unclickable.
-        // Viewport containment remains the first priority, followed by beacon
-        // reachability and then overlap with passive HUD panels.
+        // Viewport containment remains the first priority. The live WebMCP rail
+        // is the proof surface for the contest path, so a card must not cover it;
+        // beacon reachability and passive HUD panels follow.
         const displacement = Math.abs(candidateShiftX) + Math.abs(candidateShiftY)
-        const score = overflow * 100_000_000 + waypointOverlapArea * 100_000 + overlapArea + displacement * 10 + index
+        const score = overflow * 100_000_000
+          + activityRailOverlapArea * 10_000_000
+          + waypointOverlapArea * 100_000
+          + overlapArea
+          + displacement * 10
+          + index
         if (score < bestScore) {
           bestScore = score
           best = candidate
