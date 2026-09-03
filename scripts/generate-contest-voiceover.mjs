@@ -256,6 +256,10 @@ async function main() {
 
   audioParts.push(silenceBuffer(tailSeconds, reference))
   cursor += tailSeconds
+  if (plan.targetDurationSeconds && cursor < plan.targetDurationSeconds) {
+    audioParts.push(silenceBuffer(plan.targetDurationSeconds - cursor, reference))
+    cursor = plan.targetDurationSeconds
+  }
   const masterPath = path.join(outputDir, `${args.outputName}.wav`)
   await writeFile(masterPath, buildWav(reference.format, Buffer.concat(audioParts)))
 
