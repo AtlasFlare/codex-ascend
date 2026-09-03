@@ -25,7 +25,7 @@ Publication actions already completed with owner approval are recorded below. Fi
 - [x] Create and push the audited runtime release commit; deployed source SHA: `f6814a54d50cfb403f414d042e775555cff196a8`.
 - [x] **EXTERNAL GATE:** owner approved public repository creation and push.
 - [x] Verify the public repository page, README, and detectable MIT license from the public web.
-- [ ] Repeat the clean-clone build against the final pushed SHA after this documentation-only consistency commit.
+- [x] Clean-clone public snapshot `575ef1f41459ae2814df8998cab525d58dfc87ea`; locked install, ESLint, 65 tests, frontend build, Worker build, and public-release audit all passed. This checklist record is documentation-only.
 - [x] Paste the canonical repository URL into Devpost; public source documentation refers to this repository without account-branding copy.
 
 ## Video gate
