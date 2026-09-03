@@ -145,7 +145,9 @@ try {
   if (wantsCapture('01-basecamp-route')) {
   const basecamp = await openResetPage()
   await nextEvent(basecamp)
-  await capture(basecamp, '01-basecamp-route', 255)
+  await capture(basecamp, '01-basecamp-route', 255, new Map([
+    [75, (page) => selectMountainWaypoint(page, 'Camp I · Foundation')],
+  ]))
   await basecamp.close()
   }
 
