@@ -37,6 +37,22 @@ function createExperience(mission: MissionState): ExperienceSnapshot {
   }
 }
 
+export function normalizeRestoredMission(mission: MissionState): MissionState {
+  if (
+    mission.mission.status !== 'completed'
+    || (mission.mission.discoveryPercent === 100 && mission.mission.progressEstimate === 1)
+  ) return mission
+
+  return {
+    ...mission,
+    mission: {
+      ...mission.mission,
+      discoveryPercent: 100,
+      progressEstimate: 1,
+    },
+  }
+}
+
 function loadSession(): PersistedSession | undefined {
   try {
     const raw = localStorage.getItem(STORAGE_KEY) ?? localStorage.getItem(LEGACY_STORAGE_KEY)
@@ -47,7 +63,7 @@ function loadSession(): PersistedSession | undefined {
     if (!pack) return undefined
     return {
       schemaVersion: 3,
-      mission: parsed.mission,
+      mission: normalizeRestoredMission(parsed.mission),
       experience: {
         packId: pack.id,
         packVersion: pack.version,
