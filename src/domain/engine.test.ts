@@ -76,6 +76,34 @@ describe('mission engine', () => {
     expect(applyCommand(state, { type: 'complete_stage', stageId: 'build' })).toMatchObject({ ok: false, code: 'EVIDENCE_REQUIRED' })
   })
 
+  it('selects the only viable inbound path before beginning a stage', () => {
+    const state = discoveredMission()
+    state.paths.lower.selected = false
+    state.paths.lower.status = 'available'
+
+    const started = apply(state, { type: 'begin_stage', stageId: 'build' })
+
+    expect(started.paths.lower).toMatchObject({ selected: true, status: 'selected' })
+    expect(started.mission.activePathId).toBe('lower')
+  })
+
+  it('requires an explicit path choice when multiple approaches are viable', () => {
+    let state = discoveredMission()
+    const originId = state.paths.lower.originStageId
+    state.paths.lower.selected = false
+    state.paths.lower.status = 'available'
+    state = apply(state, {
+      type: 'propose_path',
+      path: { id: 'alternate', originStageId: originId, destinationStageId: 'build', title: 'Alternate', description: 'A second viable approach' },
+    })
+
+    expect(applyCommand(state, { type: 'begin_stage', stageId: 'build' })).toMatchObject({
+      ok: false,
+      code: 'INVALID_TRANSITION',
+      message: 'Select one viable path before beginning this stage.',
+    })
+  })
+
   it('turns an obstacle and human path choice into inspectable mission state', () => {
     let state = discoveredMission()
     state = apply(state, { type: 'begin_stage', stageId: 'build' })
@@ -133,6 +161,7 @@ describe('mission engine', () => {
     expect(state.paths.upper).toMatchObject({ status: 'selected', selected: true })
     state = apply(state, { type: 'complete_mission' })
     expect(state.mission.status).toBe('completed')
+    expect(state.mission.discoveryPercent).toBe(100)
     expect(state.paths.upper.status).toBe('completed')
   })
 

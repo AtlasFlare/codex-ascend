@@ -163,4 +163,33 @@ describe('Ascend geography-aware scenario cards', () => {
 
     expect(card.evidenceCount).toBe(2)
   })
+
+  it('describes completed Basecamp as mission history instead of unsurveyed terrain', () => {
+    let state = createDemoExpedition()
+    let cursor = 0
+    while (cursor < 24) {
+      const advanced = advanceDemo(state, cursor)
+      state = advanced.state
+      cursor = advanced.cursor
+      if (advanced.awaitingHuman) {
+        const decision = Object.values(state.decisions).find((item) => !item.resolvedAt)!
+        const resolved = applyCommand(state, { type: 'resolve_human_decision', decisionId: decision.id, optionId: 'repair' })
+        if (!resolved.ok) throw new Error(resolved.message)
+        state = resolved.state
+      }
+    }
+    const topology = buildMountainTopology(state, { baseAltitude: 1120, summitAltitude: 6430 })
+    const node = topology.nodes.find((candidate) => candidate.stage.kind === 'origin')!
+    const anchor = createAscendWaypointPlan(state, topology).anchors.find((candidate) => candidate.entityId === node.id)!
+    const card = createAscendScenarioCard({
+      state,
+      node,
+      anchor,
+      master: { generationId: 'master:test', assetUrl: '/master.png', width: 3840, height: 2160 },
+    })
+
+    expect(card.summary).toContain('expedition began')
+    expect(card.summary).toContain('verified at the Summit')
+    expect(card.summary).not.toContain('unsurveyed')
+  })
 })

@@ -255,6 +255,25 @@ export function applyCommand(current: MissionState, command: MissionCommand, now
         (obstacle) => obstacle.status !== 'resolved' && obstacle.blocks.includes(stage.id) && ['blocking', 'critical'].includes(obstacle.severity),
       )
       if (blocker) return failure('BLOCKED', `Stage is blocked by ${blocker.title}.`)
+      const incomingPaths = Object.values(state.paths).filter((path) => (
+        path.destinationStageId === stage.id
+        && !['completed', 'abandoned', 'invalidated'].includes(path.status)
+      ))
+      const selectedIncomingPath = incomingPaths.find((path) => path.selected && path.status !== 'blocked')
+      if (!selectedIncomingPath && incomingPaths.length > 0) {
+        const viablePaths = incomingPaths.filter((path) => ['available', 'discovered', 'selected'].includes(path.status))
+        if (viablePaths.length > 1) {
+          return failure('INVALID_TRANSITION', 'Select one viable path before beginning this stage.')
+        }
+        if (viablePaths.length === 0) {
+          return failure('BLOCKED', 'No viable path reaches this stage.')
+        }
+        const path = viablePaths[0]
+        path.selected = true
+        path.status = 'selected'
+        mission.activePathId = path.id
+        addEvent(state, 'path_selected', `${path.title} selected`, 'The only viable approach was selected before the stage began.', now, path.id)
+      }
       Object.values(state.stages).forEach((item) => {
         if (item.status === 'active') item.status = 'available'
       })
@@ -554,6 +573,7 @@ export function applyCommand(current: MissionState, command: MissionCommand, now
       })
       mission.activeStageId = completion.id
       mission.progressEstimate = 1
+      mission.discoveryPercent = 100
       mission.status = 'completed'
       addEvent(state, 'mission_completed', 'Mission completed', mission.objective, now, completion.id)
       return succeed('Mission completed.', completion.id)

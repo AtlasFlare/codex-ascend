@@ -83,9 +83,12 @@ export function createAscendScenarioCard({ state, node, anchor, master }: Scenar
   const kind = concealed ? 'discovery' : resolveKind(state, node)
   const obstacle = Object.values(state.obstacles).find((candidate) => candidate.stageId === node.id && candidate.status !== 'resolved')
   const decision = Object.values(state.decisions).find((candidate) => candidate.stageId === node.id && !candidate.resolvedAt)
+  const completedOriginSummary = node.stage.kind === 'origin' && state.mission.status === 'completed'
+    ? 'This is where the expedition began. Every required outcome is now verified at the Summit.'
+    : undefined
   const summary = concealed
     ? 'This section remains beyond the surveyed route. Advance the mission to reveal its conditions.'
-    : decision?.context ?? obstacle?.description ?? node.stage.description
+    : decision?.context ?? obstacle?.description ?? completedOriginSummary ?? node.stage.description
   const crop = createWaypointCrop(anchor)
   const geography = terrainContext(anchor)
   const sourceReference: GenerationSourceReference = {

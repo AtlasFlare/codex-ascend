@@ -78,7 +78,7 @@ OpenAI credentials and the generation administration token remain server-side. R
 - A native 3840×2160 accepted OpenAI canonical mountain served through Cloudflare.
 - Stable camera focus, moving clouds, semantic weather, waypoint imagery and an interactive elevation navigator in one coherent experience.
 - Explicit generated-art review, safe retries, provider request evidence and last-known-good world behavior.
-- Fifty-seven automated tests plus deployed desktop, mobile and full-journey browser verification.
+- Sixty automated tests plus deployed desktop, mobile and full-journey browser verification.
 
 ## What we learned
 
@@ -86,7 +86,7 @@ WebMCP becomes most useful when the website owns an interaction the agent should
 
 ## Potential impact
 
-Ascend demonstrates a general pattern for supervised agent work: give the agent semantic tools, give the human contextual authority, and let both operate on the same auditable state. The alpine experience is specific, but the underlying collaboration model can apply to release management, investigations, research plans and other consequential workflows where progress, uncertainty and approval need to remain legible.
+Ascend helps technical leads supervise long-running agentic software delivery. Instead of reconstructing blockers, route changes, approvals and evidence from chat logs, the human and agent share one visual execution contract. The agent advances through WebMCP, the human alone authorizes consequential detours, and the Summit remains unavailable until the required proof is attached. The alpine experience is specific, but the same collaboration model can support investigations, research plans and other consequential work where uncertainty and approval must remain legible.
 
 ## Future direction
 
@@ -106,7 +106,7 @@ After the contest, the highest-value work is not more visual themes. It is durab
 
 - **Live experience:** use the deployment URL entered directly in Devpost; do not commit an account-scoped hostname
 - **Source repository:** `[PUBLIC_REPOSITORY_URL]`
-- **Demo video:** `[PUBLIC_YOUTUBE_URL]`
+- **Demo video:** https://youtu.be/gNNQefKfcTs *(currently Private; change to Public only after final approval)*
 
 ## Testing instructions
 

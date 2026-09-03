@@ -45,7 +45,8 @@ struct ContestVideoAssemblerV6 {
     }
 
     static func main() async throws {
-        let isV7 = CommandLine.arguments.contains("--v7")
+        let isV71 = CommandLine.arguments.contains("--v7-1")
+        let isV7 = CommandLine.arguments.contains("--v7") || isV71
         let repository = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         let captures = repository.appendingPathComponent("artifacts/video/captures")
         let voiceover = repository.appendingPathComponent("artifacts/video/voiceover/codex-ascend-v6-voiceover/codex-ascend-v6-voiceover.wav")
@@ -53,9 +54,13 @@ struct ContestVideoAssemblerV6 {
         let missionDetail = repository.appendingPathComponent("artifacts/video/qa/v5-full-mission-detail.png")
         let topologyPlate = repository.appendingPathComponent("artifacts/video/graphics/v6-topology-transition.png")
         let onboardingFrame = repository.appendingPathComponent("artifacts/video/graphics/v7-webmcp-onboarding.png")
-        let output = repository.appendingPathComponent(isV7
-            ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v7.mp4"
-            : "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v6.mp4")
+        let output = repository.appendingPathComponent(
+            isV71
+                ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v7-1.mp4"
+                : isV7
+                    ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v7.mp4"
+                    : "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v6.mp4"
+        )
 
         let segments = [
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 10.0),
@@ -359,6 +364,34 @@ struct ContestVideoAssemblerV6 {
                 guideLayer.add(guidePush, forKey: "webmcp-guide-push")
                 parentLayer.addSublayer(guideLayer)
             }
+        }
+
+        if isV71 {
+            // The original Basecamp capture briefly exposed a rejected rehearsal call.
+            // Replace only that small ledger region with the successful live inspection
+            // result recorded immediately before it; the product footage remains intact.
+            let cleanLedger = CALayer()
+            cleanLedger.frame = CGRect(x: 1450, y: 715, width: 400, height: 300)
+            cleanLedger.backgroundColor = CGColor(red: 0.015, green: 0.075, blue: 0.10, alpha: 1)
+            cleanLedger.cornerRadius = 22
+            cleanLedger.borderWidth = 2
+            cleanLedger.borderColor = CGColor(red: 0.19, green: 0.89, blue: 0.65, alpha: 0.8)
+            cleanLedger.opacity = 0
+            cleanLedger.addSublayer(textLayer("●  WEBMCP LIVE", frame: CGRect(x: 24, y: 246, width: 350, height: 24), size: 13, color: white, fontName: "Menlo-Bold"))
+            cleanLedger.addSublayer(textLayer("LATEST AGENT CALL", frame: CGRect(x: 24, y: 202, width: 350, height: 20), size: 10, color: orange, fontName: "Menlo-Bold"))
+            cleanLedger.addSublayer(textLayer("inspect_mission", frame: CGRect(x: 24, y: 163, width: 350, height: 28), size: 18, color: white, fontName: "Menlo-Bold"))
+            cleanLedger.addSublayer(textLayer("Structured mission state returned", frame: CGRect(x: 24, y: 128, width: 350, height: 22), size: 12, color: muted, fontName: "AvenirNext-Medium"))
+            cleanLedger.addSublayer(textLayer("STATE SYNCHRONIZED  ·  18 TOOLS READY", frame: CGRect(x: 24, y: 84, width: 350, height: 22), size: 10, color: CGColor(red: 0.32, green: 0.93, blue: 0.71, alpha: 1), fontName: "Menlo-Bold"))
+
+            let cleanLedgerFade = CAKeyframeAnimation(keyPath: "opacity")
+            cleanLedgerFade.values = [0, 1, 1, 0]
+            cleanLedgerFade.keyTimes = [0, 0.04, 0.94, 1]
+            cleanLedgerFade.beginTime = AVCoreAnimationBeginTimeAtZero + 17.65
+            cleanLedgerFade.duration = 13.55
+            cleanLedgerFade.isRemovedOnCompletion = false
+            cleanLedgerFade.fillMode = .both
+            cleanLedger.add(cleanLedgerFade, forKey: "clean-basecamp-ledger")
+            parentLayer.addSublayer(cleanLedger)
         }
 
         let ledgerFocus = CALayer()

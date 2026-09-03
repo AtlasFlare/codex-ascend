@@ -35,7 +35,7 @@ Nothing here authorizes repository creation or a push.
 - Public branch history: collapsed to one contributor-anonymized release commit.
 - `.dev.vars` and `artifacts/video/`: confirmed ignored.
 - ESLint: pass.
-- Vitest: 60 tests across 17 files pass.
+- Vitest: 63 tests across 17 files pass.
 - Frontend production build: pass, 860 modules.
 - Worker TypeScript build: pass.
 - Wrangler 4.127.0 generated-binding check: up to date.

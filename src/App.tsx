@@ -100,7 +100,10 @@ export default function App() {
         selectedEntityId={snapshot.selectedEntityId}
         onSelectEntity={(id) => missionStore.selectEntity(id)}
         onChoosePath={(decisionId, optionId) => missionStore.selectDecision(decisionId, optionId)}
-        onNewMission={() => setShowBasecamp(true)}
+        onNewMission={() => {
+          missionStore.selectEntity(undefined)
+          setShowBasecamp(true)
+        }}
         onOpenWebMcpHelp={openWebMcpGuide}
       />
 

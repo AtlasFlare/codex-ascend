@@ -4,9 +4,9 @@ No upload, push, publication, or Devpost submission is authorized by this checkl
 
 ## Local package ready
 
-- [x] V5 master exists and is under three minutes.
+- [x] V7.1 master exists and is under three minutes.
 - [x] Full video and audio decode completed.
-- [x] QuickTime playback reached the 2:05 end frame without interruption.
+- [x] AVFoundation decode reached the 1:45 end frame with 3,150 video frames and complete audio.
 - [x] YouTube title, description, chapters, tags, credit, and settings are prepared.
 - [x] Two compliant 1280 × 720 thumbnails are prepared.
 - [x] Devpost long-form copy is prepared in `DEVPOST_SUBMISSION.md`.
@@ -18,21 +18,22 @@ No upload, push, publication, or Devpost submission is authorized by this checkl
 
 - [ ] Confirm the intended GitHub/GitLab/Bitbucket destination and repository name.
 - [ ] Review the complete diff and decide whether all current changes belong in the release.
-- [x] Run `pnpm check` (57 tests plus frontend and Worker production builds passed on September 2, 2026).
+- [x] Run `pnpm check` (63 tests plus frontend and Worker production builds passed on September 3, 2026).
 - [x] Run `pnpm types:worker --check` (generated Worker types are current).
 - [x] Confirm `.dev.vars`, generated candidates, raw art-direction output, and video working files remain ignored.
 - [x] Scan tracked files for tokens, private filesystem paths, and credential-like values (no matches found).
-- [ ] Create the release commit and record its exact SHA.
+- [ ] Create the final release commit after the September 3 consistency fixes and record its exact SHA. The preceding public-release base is `8d0bf8504bdd740e694a2bd415761af75e896487`.
 - [ ] **EXTERNAL GATE:** obtain approval before creating or pushing the public repository.
-- [ ] Verify the public repository from a signed-out browser and perform a clean-clone build.
+- [ ] Verify the public repository from a signed-out browser and repeat the clean-clone build against the final pushed SHA.
 - [ ] Paste the final repository URL into the README, YouTube description, Devpost copy, and release record.
 
 ## Video gate
 
-- [ ] Perform one owner listening check on ordinary laptop speakers.
+- [ ] Perform one owner listening check of the final V7.1 master on ordinary laptop speakers.
 - [ ] Choose the cinematic thumbnail or literal product-frame alternate.
 - [ ] Replace `[PUBLIC_REPOSITORY_URL]` in the YouTube description.
-- [ ] **EXTERNAL GATE:** obtain approval immediately before uploading or publishing.
+- [x] Upload configured as Private at https://youtu.be/gNNQefKfcTs; copyright check reports no issues.
+- [ ] **EXTERNAL GATE:** obtain approval immediately before changing visibility to Public.
 - [ ] Wait for 1080p processing and perform signed-out playback QA.
 - [ ] Paste the final watch URL into `DEVPOST_SUBMISSION.md`.
 

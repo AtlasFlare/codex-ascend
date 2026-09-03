@@ -10,7 +10,7 @@ This is a local paste map. Do not submit without the final approval gate.
 | Testing instructions | `submission/JUDGE_TESTING_INSTRUCTIONS.md` short version |
 | Live URL | Enter the current deployment URL directly in Devpost with `?present=1`; keep the account-scoped hostname out of source control. |
 | Repository | `[PUBLIC_REPOSITORY_URL]` |
-| Video | `[PUBLIC_YOUTUBE_URL]` |
+| Video | https://youtu.be/gNNQefKfcTs — currently Private; publish only after owner approval |
 | License | MIT |
 | Technologies | WebMCP, TypeScript, React, PixiJS, OpenAI GPT Image 2, Cloudflare Workers, Workflows, R2, Zod, Vitest |
 | Authentication | None required for judging |
@@ -39,6 +39,6 @@ All five files are 1280 × 720 PNGs and below 110 KB.
 Before submission, replace both placeholders everywhere:
 
 - `[PUBLIC_REPOSITORY_URL]`
-- `[PUBLIC_YOUTUBE_URL]`
+- No YouTube placeholder remains; verify https://youtu.be/gNNQefKfcTs is Public before submission.
 
 Then search the repository for `PUBLIC_`, `PLACEHOLDER`, `TODO`, and `TBD` and confirm that no submission-facing placeholder remains.
