@@ -1,10 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { missionStore } from '../../state/missionStore'
 
+const DEFAULT_OBJECTIVE = 'Ship this application to production'
+const DEFAULT_CONTEXT = 'Deliver a reliable public release with passing validation and a verified deployment.'
+const DEFAULT_CRITERIA = 'Critical tests pass\nLive release is verified'
+
 export function BasecampDialog({ onClose }: { onClose: () => void }) {
-  const [objective, setObjective] = useState('')
-  const [description, setDescription] = useState('')
-  const [criteria, setCriteria] = useState('')
+  const [objective, setObjective] = useState(DEFAULT_OBJECTIVE)
+  const [description, setDescription] = useState(DEFAULT_CONTEXT)
+  const [criteria, setCriteria] = useState(DEFAULT_CRITERIA)
   const dialogRef = useRef<HTMLFormElement>(null)
   const objectiveRef = useRef<HTMLInputElement>(null)
   const onCloseRef = useRef(onClose)
@@ -71,9 +75,9 @@ export function BasecampDialog({ onClose }: { onClose: () => void }) {
         <p className="eyebrow">One objective. One expedition.</p>
         <h2 id="basecamp-dialog-title">Establish a new basecamp</h2>
         <p id="basecamp-dialog-description" className="basecamp-dialog-description">Define the objective and evidence that will count as reaching the summit.</p>
-        <label>Mission objective<input ref={objectiveRef} autoFocus required value={objective} onChange={(event) => setObjective(event.target.value)} placeholder="Ship this application to production" /></label>
-        <label>Context<textarea value={description} onChange={(event) => setDescription(event.target.value)} placeholder="What matters, what is already known, and what must stay safe." /></label>
-        <label>Success criteria <span>one per line</span><textarea value={criteria} onChange={(event) => setCriteria(event.target.value)} placeholder={'Critical tests pass\nLive release is verified'} /></label>
+        <label>Mission objective<input ref={objectiveRef} autoFocus required value={objective} onChange={(event) => setObjective(event.target.value)} /></label>
+        <label>Context<textarea value={description} onChange={(event) => setDescription(event.target.value)} /></label>
+        <label>Success criteria <span>one per line</span><textarea value={criteria} onChange={(event) => setCriteria(event.target.value)} /></label>
         <button className="establish-button" type="submit">Establish basecamp <span>↗</span></button>
       </form>
     </div>

@@ -18,11 +18,11 @@ Publication actions already completed with owner approval are recorded below. Fi
 
 - [x] Confirm the intended GitHub destination and repository name.
 - [x] Review the complete diff and decide whether all current changes belong in the release.
-- [x] Run `pnpm check` (63 tests plus frontend and Worker production builds passed on September 3, 2026).
+- [x] Run `pnpm check` (65 tests across 18 files plus frontend and Worker production builds passed on September 3, 2026).
 - [x] Run `pnpm types:worker --check` (generated Worker types are current).
 - [x] Confirm `.dev.vars`, generated candidates, raw art-direction output, and video working files remain ignored.
 - [x] Scan tracked files for tokens, private filesystem paths, and credential-like values (no matches found).
-- [x] Create and push the audited release commit; public release SHA: `87c2dda2c872a0fa050a8ee72eb22868c27bdcda`.
+- [x] Create and push the audited runtime release commit; deployed source SHA: `3272f38600b49ea7a4c35dc26b06f200f9405668`.
 - [x] **EXTERNAL GATE:** owner approved public repository creation and push.
 - [x] Verify the public repository page, README, and detectable MIT license from the public web.
 - [ ] Repeat the clean-clone build against the final pushed SHA after this documentation-only consistency commit.
@@ -49,7 +49,8 @@ Publication actions already completed with owner approval are recorded below. Fi
 - [x] Five screenshots uploaded in the documented order with concise captions.
 - [x] Submitter, country, app status, tested clients, AI tools, and required learning fields completed.
 - [ ] Confirm no teammate is required for this individual submission.
-- [ ] Official rules and submission preview reviewed line by line.
+- [x] Submission preview and finalization reminder reviewed line by line without accepting terms or submitting.
+- [ ] Official rules reviewed and terms accepted by the owner.
 - [ ] **EXTERNAL GATE:** obtain approval immediately before final Devpost submission.
 
 ## Freeze after submission

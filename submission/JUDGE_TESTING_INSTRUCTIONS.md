@@ -21,7 +21,7 @@ Live URL: use the URL attached to the Devpost entry and append `?present=1`.
 ## Recovery
 
 - If the WebMCP status is not **native**, reload in a supported WebMCP testing surface. Do not treat simulation mode as native proof.
-- If the route is already complete from a previous visit, select **New** and reset to the default mission.
+- If the route is already complete from a previous visit, select **New**, keep the editable defaults, and select **Establish basecamp**.
 - If the agent stops at the human gate, that is expected. Choose one route in the Camp III card, then ask it to inspect the decision.
 - If the card is not visible, select Camp III from the elevation profile; it returns to the same mountain geography.
 - The experience requires no OpenAI key, Cloudflare credential, account, or paid generation during judging.

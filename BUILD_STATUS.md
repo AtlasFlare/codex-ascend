@@ -3,7 +3,7 @@
 **Checkpoint:** Phase 27 WebMCP onboarding deployed, live-tool verified, and V7 video-mastered
 
 **Updated:** 2026-09-03
-**Scope:** Ascend only. The contest release candidate and WebMCP connection guide are deployed to the existing public review Worker. The 1:45 V7 video master is complete locally and unpublished. No custom domain, public repository, public video upload, or Devpost submission has occurred.
+**Scope:** Ascend only. The contest release candidate and WebMCP connection guide are deployed to the existing public review Worker. The 1:45 V7.1 video, public MIT-licensed repository, and Devpost draft are live. Final Devpost rules acceptance and submission remain approval-gated.
 
 ## Phase status
 
@@ -36,7 +36,7 @@
 | 24 — Contest finalization and release hardening | Complete and deployed | Workflow-dispatch failures no longer remain queued forever; OpenAI request IDs and retry classification are retained; retries require an explicit nonce; all 18 WebMCP contracts and the human-agent recovery loop are release-tested; critical mission inspection preserves the pending decision ID within 1,500 characters; Summit evidence is consistent across hero/card/lower panel; placeholder deployment evidence was replaced with the live URL; and the final runbook/readiness docs are complete. |
 | 25 — Mountain-first contest presentation | Complete and deployed | The public candidate uses a full mountain canvas, compact mission ribbon, truthful live WebMCP activity rail, restrained global fog, and stable telemetry updates. |
 | 26 — Cinematic contest master | Complete locally | A 2:05 V5 master combines clean deployed WebMCP captures, the actual human-only repair choice, animated topology proof, warmer OpenAI narration, stronger credited music, fog transitions, and a verified-Summit finish without browser chrome or hosting URLs. |
-| 27 — Judge onboarding and V7 master | Complete and deployed | Unsupported browsers now receive a polished, dismissible, keyboard-contained WebMCP guide with current ChatGPT desktop steps, a copyable starter prompt, Chrome testing guidance, and a concise human-agent flow. The deployed in-app browser exposes all 18 tools and a live `inspect_mission` call updates the activity rail. The unpublished 1:45 V7 master adds the deployed onboarding shot with a clean transition into actual structured call proof. |
+| 27 — Judge onboarding and V7.1 master | Complete, deployed, and published | Unsupported browsers receive a polished, dismissible, keyboard-contained WebMCP guide with current ChatGPT desktop steps, a copyable starter prompt, Chrome testing guidance, and a concise human-agent flow. The deployed in-app browser exposes all 18 tools and a live `inspect_mission` call updates the activity rail. The public 1:45 V7.1 video adds the deployed onboarding shot with a clean transition into actual structured call proof. |
 
 ## Verification
 
@@ -113,7 +113,13 @@
 - Phase 26 deployed V5 path: pass; 18 native tools were discovered and the live mission advanced through blocker reporting, the human-only `repair` selection, `inspect_human_decision`, scope expansion, evidence verification, and `complete_mission` at revision 32 with 100% progress and 6,430 m secured.
 - V5 video master: pass by visual storyboard, full media decode, and uninterrupted real-time QuickTime playback through the 2:05 Verified Summit frame at full output volume; 125.27 seconds, 1920 × 1080 at 30 fps, 3,758 decoded frames, stereo AAC, complete 125.15-second audio decode, -21.54 dBFS RMS, and -3.82 dBFS peak. Final subjective mix approval remains an owner gate. Public YouTube upload remains an external gate.
 - Phase 27 deployed onboarding smoke: pass at Worker version `17a12fb5-1496-4942-929c-ceb3824a7a32`; the guide rendered, dismissed into the mountain, exposed all 18 native tools, returned a live structured `inspect_mission` result, updated the activity rail, and produced no browser warnings or errors.
-- V7 video master: pass by full media decode and representative-frame review; 105.00 seconds, 1920 × 1080 at 30 fps, 3,150 decoded frames, complete audio decode, -21.40 dBFS RMS, and -3.51 dBFS peak. SHA-256: `cb5442c0d8ee2d02f94ed03046cd5b0f2498894189035affb5ee0d8aa768c328`. Public YouTube upload remains an external gate.
+- V7 video master: pass by full media decode and representative-frame review; 105.00 seconds, 1920 × 1080 at 30 fps, 3,150 decoded frames, complete audio decode, -21.40 dBFS RMS, and -3.51 dBFS peak. SHA-256: `cb5442c0d8ee2d02f94ed03046cd5b0f2498894189035affb5ee0d8aa768c328`. It was superseded by the corrected V7.1 public master.
+- V7.1 public master: pass at 105.00 seconds, 1920 × 1080 at 30 fps with SHA-256 `8109009053922fdc2cebc8005414569dc056033cb2b36ae13d1799b19eff21f1`; signed-out playback and the YouTube copyright check both passed.
+- Final submission deployment: pass at Worker version `268730b2-a00e-49f0-8fd4-7580bd9cf218` from runtime source commit `3272f38600b49ea7a4c35dc26b06f200f9405668`; dashboard variables and secrets were preserved.
+- Legacy Summit restoration: pass on the deployed origin; the same cached completed session returned 52% before reload and 100% through native `inspect_mission` after reload.
+- Final live responsive interaction: pass at 390 × 844 with zero horizontal overflow, contained Security Ridge card imagery, working **View mission detail**, working elevation checkpoint selection, and zero browser warnings or errors.
+- Final automated gate: pass; ESLint, 65 tests across 18 files, the 860-module frontend production build, and Worker TypeScript build all succeeded. The public-release audit passed for 157 candidate files.
+- Public distribution: pass; the GitHub repository renders signed out as Public with an MIT license in the About panel, and the 1:45 V7.1 YouTube video is Public with signed-out playback verification.
 
 ## Current boundary
 
@@ -127,8 +133,7 @@
 
 ## External gates
 
-Not yet attempted:
-
-- public Git repository and repository metadata;
-- one owner mix-approval listen, then public YouTube publication of the completed 1:45 narrated V7 master;
-- Devpost registration/submission and rules review at submission time.
+- Save the corrected judge-only reset instruction in Devpost.
+- Accept the official rules and Devpost terms after owner review.
+- Obtain fresh owner approval immediately before final Devpost submission.
+- Freeze the live deployment, repository, video, and Devpost entry during judging.
