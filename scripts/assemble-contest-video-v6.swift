@@ -45,28 +45,40 @@ struct ContestVideoAssemblerV6 {
     }
 
     static func main() async throws {
+        let isV8 = CommandLine.arguments.contains("--v8")
         let isV71 = CommandLine.arguments.contains("--v7-1")
-        let isV7 = CommandLine.arguments.contains("--v7") || isV71
+        let isV7 = CommandLine.arguments.contains("--v7") || isV71 || isV8
         let repository = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         let captures = repository.appendingPathComponent("artifacts/video/captures")
         let voiceover = repository.appendingPathComponent("artifacts/video/voiceover/codex-ascend-v6-voiceover/codex-ascend-v6-voiceover.wav")
-        let music = repository.appendingPathComponent("artifacts/video/music/mountains-by-andrew-ev-mixkit.mp3")
-        let missionDetail = repository.appendingPathComponent("artifacts/video/qa/v5-full-mission-detail.png")
+        let music = repository.appendingPathComponent(
+            isV8
+                ? "artifacts/video/music/dreaming-big-by-ahjay-stelino-mixkit.mp3"
+                : "artifacts/video/music/mountains-by-andrew-ev-mixkit.mp3"
+        )
+        let missionDetail = repository.appendingPathComponent(
+            isV8
+                ? "artifacts/screenshots/lower-panels.png"
+                : "artifacts/video/qa/v5-full-mission-detail.png"
+        )
         let topologyPlate = repository.appendingPathComponent("artifacts/video/graphics/v6-topology-transition.png")
         let onboardingFrame = repository.appendingPathComponent("artifacts/video/graphics/v7-webmcp-onboarding.png")
         let output = repository.appendingPathComponent(
-            isV71
+            isV8
+                ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v8.mp4"
+                : isV71
                 ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v7-1.mp4"
                 : isV7
                     ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v7.mp4"
                     : "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v6.mp4"
         )
+        let routeReveal = isV8 ? "18-v8-route-reveal.mov" : "12-v5-route-reveal.mov"
 
-        let segments = [
+        var segments = [
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 10.0),
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 4.4, timelineStart: 10.0, duration: 5.6),
             V6Segment(filename: "11-v5-basecamp.mov", sourceStart: 0.0, timelineStart: 15.6, duration: 10.0),
-            V6Segment(filename: "12-v5-route-reveal.mov", sourceStart: 0.0, timelineStart: 25.6, duration: 8.95),
+            V6Segment(filename: routeReveal, sourceStart: 0.0, timelineStart: 25.6, duration: 8.95),
             V6Segment(filename: "v6-live-agent/v4-live-agent-01.mov", sourceStart: 0.0, timelineStart: 34.55, duration: 5.0),
             V6Segment(filename: "v6-live-agent/v4-live-agent-02.mov", sourceStart: 0.0, timelineStart: 39.55, duration: 4.67),
             V6Segment(filename: "v6-live-agent/v4-live-agent-03.mov", sourceStart: 0.0, timelineStart: 44.22, duration: 4.67),
@@ -76,10 +88,19 @@ struct ContestVideoAssemblerV6 {
             V6Segment(filename: "15-v5-scope-expansion.mov", sourceStart: 0.0, timelineStart: 69.55, duration: 11.0),
             V6Segment(filename: "15-v5-scope-expansion.mov", sourceStart: 4.3, timelineStart: 80.55, duration: 6.7),
             V6Segment(filename: "v6-live-agent/v4-live-agent-04.mov", sourceStart: 0.0, timelineStart: 87.25, duration: 4.67),
-            V6Segment(filename: "v6-live-agent/v4-live-agent-05.mov", sourceStart: 0.0, timelineStart: 91.92, duration: 4.0),
-            V6Segment(filename: "16-v5-final-ascent.mov", sourceStart: 13.0, timelineStart: 95.92, duration: 5.08),
-            V6Segment(filename: "17-v5-summit-card.mov", sourceStart: 0.0, timelineStart: 101.0, duration: 4.0),
         ]
+        if isV8 {
+            // Stay on the completed mission after the agent verifies it. The older
+            // cut briefly returned to the pre-completion ascent, which read as a
+            // continuity regression immediately before the final card.
+            segments.append(V6Segment(filename: "v6-live-agent/v4-live-agent-05.mov", sourceStart: 0.0, timelineStart: 91.92, duration: 4.0))
+            segments.append(V6Segment(filename: "v6-live-agent/v4-live-agent-05.mov", sourceStart: 0.0, timelineStart: 95.92, duration: 4.0))
+            segments.append(V6Segment(filename: "v6-live-agent/v4-live-agent-05.mov", sourceStart: 0.0, timelineStart: 99.92, duration: 1.08))
+        } else {
+            segments.append(V6Segment(filename: "v6-live-agent/v4-live-agent-05.mov", sourceStart: 0.0, timelineStart: 91.92, duration: 4.0))
+            segments.append(V6Segment(filename: "16-v5-final-ascent.mov", sourceStart: 13.0, timelineStart: 95.92, duration: 5.08))
+        }
+        segments.append(V6Segment(filename: "17-v5-summit-card.mov", sourceStart: 0.0, timelineStart: 101.0, duration: 4.0))
 
         try FileManager.default.createDirectory(at: output.deletingLastPathComponent(), withIntermediateDirectories: true)
         if FileManager.default.fileExists(atPath: output.path) {
@@ -123,8 +144,9 @@ struct ContestVideoAssemblerV6 {
         guard let sourceMusic = try await musicAsset.loadTracks(withMediaType: .audio).first else {
             throw V6AssemblyError.missingTrack(music.path)
         }
+        let musicSourceStart = isV8 ? 5.2 : 7.0
         try musicTrack.insertTimeRange(
-            CMTimeRange(start: seconds(7.0), duration: seconds(totalDuration)),
+            CMTimeRange(start: seconds(musicSourceStart), duration: seconds(totalDuration)),
             of: sourceMusic,
             at: .zero
         )
@@ -133,29 +155,57 @@ struct ContestVideoAssemblerV6 {
         let narrationMix = AVMutableAudioMixInputParameters(track: narrationTrack)
         narrationMix.setVolume(1.0, at: .zero)
         let musicMix = AVMutableAudioMixInputParameters(track: musicTrack)
-        musicMix.setVolumeRamp(fromStartVolume: 0.0, toEndVolume: 0.20, timeRange: CMTimeRange(start: .zero, duration: seconds(2.0)))
-        musicMix.setVolume(0.20, at: seconds(2.0))
-        musicMix.setVolumeRamp(fromStartVolume: 0.20, toEndVolume: 0.16, timeRange: CMTimeRange(start: seconds(14.6), duration: seconds(1.0)))
-        musicMix.setVolume(0.16, at: seconds(15.6))
-        musicMix.setVolumeRamp(fromStartVolume: 0.16, toEndVolume: 0.22, timeRange: CMTimeRange(start: seconds(32.2), duration: seconds(1.25)))
-        musicMix.setVolume(0.22, at: seconds(33.45))
-        musicMix.setVolumeRamp(fromStartVolume: 0.22, toEndVolume: 0.17, timeRange: CMTimeRange(start: seconds(34.15), duration: seconds(0.75)))
-        musicMix.setVolume(0.17, at: seconds(34.9))
-        musicMix.setVolumeRamp(fromStartVolume: 0.17, toEndVolume: 0.19, timeRange: CMTimeRange(start: seconds(68.9), duration: seconds(0.95)))
-        musicMix.setVolume(0.19, at: seconds(69.85))
-        musicMix.setVolumeRamp(fromStartVolume: 0.19, toEndVolume: 0.17, timeRange: CMTimeRange(start: seconds(86.4), duration: seconds(0.85)))
-        musicMix.setVolume(0.17, at: seconds(87.25))
-        musicMix.setVolumeRamp(fromStartVolume: 0.17, toEndVolume: 0.25, timeRange: CMTimeRange(start: seconds(98.6), duration: seconds(1.6)))
-        musicMix.setVolume(0.25, at: seconds(100.2))
-        musicMix.setVolumeRamp(fromStartVolume: 0.25, toEndVolume: 0.0, timeRange: CMTimeRange(start: seconds(102.0), duration: seconds(3.0)))
+        if isV8 {
+            // The score was auditioned against the narration arc. Keep the strings
+            // present, duck the mid-track swell beneath the human-decision beat,
+            // then give the verified summit a restrained lift.
+            musicMix.setVolumeRamp(fromStartVolume: 0.0, toEndVolume: 0.15, timeRange: CMTimeRange(start: .zero, duration: seconds(2.4)))
+            musicMix.setVolume(0.15, at: seconds(2.4))
+            musicMix.setVolumeRamp(fromStartVolume: 0.15, toEndVolume: 0.12, timeRange: CMTimeRange(start: seconds(14.6), duration: seconds(1.0)))
+            musicMix.setVolume(0.12, at: seconds(15.6))
+            musicMix.setVolumeRamp(fromStartVolume: 0.12, toEndVolume: 0.16, timeRange: CMTimeRange(start: seconds(31.3), duration: seconds(1.4)))
+            musicMix.setVolume(0.16, at: seconds(32.7))
+            musicMix.setVolumeRamp(fromStartVolume: 0.16, toEndVolume: 0.105, timeRange: CMTimeRange(start: seconds(38.8), duration: seconds(1.2)))
+            musicMix.setVolume(0.105, at: seconds(40.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.105, toEndVolume: 0.125, timeRange: CMTimeRange(start: seconds(61.0), duration: seconds(1.4)))
+            musicMix.setVolume(0.125, at: seconds(62.4))
+            musicMix.setVolumeRamp(fromStartVolume: 0.125, toEndVolume: 0.155, timeRange: CMTimeRange(start: seconds(68.6), duration: seconds(1.25)))
+            musicMix.setVolume(0.155, at: seconds(69.85))
+            musicMix.setVolumeRamp(fromStartVolume: 0.155, toEndVolume: 0.12, timeRange: CMTimeRange(start: seconds(86.2), duration: seconds(1.05)))
+            musicMix.setVolume(0.12, at: seconds(87.25))
+            musicMix.setVolumeRamp(fromStartVolume: 0.12, toEndVolume: 0.19, timeRange: CMTimeRange(start: seconds(97.4), duration: seconds(2.1)))
+            musicMix.setVolume(0.19, at: seconds(99.5))
+            musicMix.setVolumeRamp(fromStartVolume: 0.19, toEndVolume: 0.0, timeRange: CMTimeRange(start: seconds(102.0), duration: seconds(3.0)))
+        } else {
+            musicMix.setVolumeRamp(fromStartVolume: 0.0, toEndVolume: 0.20, timeRange: CMTimeRange(start: .zero, duration: seconds(2.0)))
+            musicMix.setVolume(0.20, at: seconds(2.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.20, toEndVolume: 0.16, timeRange: CMTimeRange(start: seconds(14.6), duration: seconds(1.0)))
+            musicMix.setVolume(0.16, at: seconds(15.6))
+            musicMix.setVolumeRamp(fromStartVolume: 0.16, toEndVolume: 0.22, timeRange: CMTimeRange(start: seconds(32.2), duration: seconds(1.25)))
+            musicMix.setVolume(0.22, at: seconds(33.45))
+            musicMix.setVolumeRamp(fromStartVolume: 0.22, toEndVolume: 0.17, timeRange: CMTimeRange(start: seconds(34.15), duration: seconds(0.75)))
+            musicMix.setVolume(0.17, at: seconds(34.9))
+            musicMix.setVolumeRamp(fromStartVolume: 0.17, toEndVolume: 0.19, timeRange: CMTimeRange(start: seconds(68.9), duration: seconds(0.95)))
+            musicMix.setVolume(0.19, at: seconds(69.85))
+            musicMix.setVolumeRamp(fromStartVolume: 0.19, toEndVolume: 0.17, timeRange: CMTimeRange(start: seconds(86.4), duration: seconds(0.85)))
+            musicMix.setVolume(0.17, at: seconds(87.25))
+            musicMix.setVolumeRamp(fromStartVolume: 0.17, toEndVolume: 0.25, timeRange: CMTimeRange(start: seconds(98.6), duration: seconds(1.6)))
+            musicMix.setVolume(0.25, at: seconds(100.2))
+            musicMix.setVolumeRamp(fromStartVolume: 0.25, toEndVolume: 0.0, timeRange: CMTimeRange(start: seconds(102.0), duration: seconds(3.0)))
+        }
         audioMix.inputParameters = [narrationMix, musicMix]
 
         let fullRange = CMTimeRange(start: .zero, duration: seconds(totalDuration))
         let foregroundInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: foregroundTrack)
-        foregroundInstruction.setTransform(CGAffineTransform(a: 1.2, b: 0, c: 0, d: 1.2, tx: 96, ty: 0), at: .zero)
+        foregroundInstruction.setTransform(
+            isV8
+                ? CGAffineTransform(a: 1.25, b: 0, c: 0, d: 1.25, tx: 60, ty: -22.5)
+                : CGAffineTransform(a: 1.2, b: 0, c: 0, d: 1.2, tx: 96, ty: 0),
+            at: .zero
+        )
         let backgroundInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: backgroundTrack)
         backgroundInstruction.setTransform(CGAffineTransform(a: 1.333333, b: 0, c: 0, d: 1.333333, tx: 0, ty: -60), at: .zero)
-        backgroundInstruction.setOpacity(0.42, at: .zero)
+        backgroundInstruction.setOpacity(isV8 ? 0.0 : 0.42, at: .zero)
 
         let instruction = AVMutableVideoCompositionInstruction()
         instruction.timeRange = fullRange
@@ -176,7 +226,9 @@ struct ContestVideoAssemblerV6 {
         parentLayer.addSublayer(videoLayer)
 
         let cameraDrift = CAKeyframeAnimation(keyPath: "transform.scale")
-        cameraDrift.values = [1.0, 1.035, 1.012, 1.045, 1.018, 1.05, 1.025]
+        cameraDrift.values = isV8
+            ? [1.0, 1.018, 1.008, 1.022, 1.01, 1.025, 1.012]
+            : [1.0, 1.035, 1.012, 1.045, 1.018, 1.05, 1.025]
         cameraDrift.keyTimes = [0, 0.15, 0.33, 0.48, 0.67, 0.84, 1]
         cameraDrift.beginTime = AVCoreAnimationBeginTimeAtZero
         cameraDrift.duration = totalDuration
@@ -185,7 +237,7 @@ struct ContestVideoAssemblerV6 {
         videoLayer.add(cameraDrift, forKey: "cinematic-camera-drift")
 
         let lateralDrift = CAKeyframeAnimation(keyPath: "position.x")
-        lateralDrift.values = [960, 944, 974, 946, 968, 952, 960]
+        lateralDrift.values = isV8 ? [960, 954, 966, 956, 964, 958, 960] : [960, 944, 974, 946, 968, 952, 960]
         lateralDrift.keyTimes = cameraDrift.keyTimes
         lateralDrift.beginTime = AVCoreAnimationBeginTimeAtZero
         lateralDrift.duration = totalDuration
@@ -278,17 +330,17 @@ struct ContestVideoAssemblerV6 {
             fog.backgroundColor = CGColor(red: 0.72, green: 0.86, blue: 0.90, alpha: 1)
             fog.opacity = 0
             let flash = CAKeyframeAnimation(keyPath: "opacity")
-            flash.values = [0, 0.24, 0]
+            flash.values = [0, isV8 ? 0.14 : 0.24, 0]
             flash.keyTimes = [0, 0.5, 1]
-            flash.beginTime = AVCoreAnimationBeginTimeAtZero + boundary - 0.32
-            flash.duration = 0.64
+            flash.beginTime = AVCoreAnimationBeginTimeAtZero + boundary - (isV8 ? 0.45 : 0.32)
+            flash.duration = isV8 ? 0.9 : 0.64
             flash.isRemovedOnCompletion = false
             flash.fillMode = .both
             fog.add(flash, forKey: "fog-transition")
             parentLayer.addSublayer(fog)
         }
 
-        if let transitionImage = NSImage(contentsOf: topologyPlate) {
+        if !isV8, let transitionImage = NSImage(contentsOf: topologyPlate) {
             var transitionRect = CGRect(origin: .zero, size: transitionImage.size)
             if let transitionCG = transitionImage.cgImage(forProposedRect: &transitionRect, context: nil, hints: nil) {
                 let transition = CALayer()
@@ -345,8 +397,8 @@ struct ContestVideoAssemblerV6 {
                 guideLayer.opacity = 0
 
                 let guideFade = CAKeyframeAnimation(keyPath: "opacity")
-                guideFade.values = [0, 1, 1, 0]
-                guideFade.keyTimes = [0, 0.12, 0.73, 1]
+                guideFade.values = isV8 ? [0, 0, 1, 1, 0, 0] : [0, 1, 1, 0]
+                guideFade.keyTimes = isV8 ? [0, 0.06, 0.061, 0.93, 0.931, 1] : [0, 0.12, 0.73, 1]
                 guideFade.beginTime = AVCoreAnimationBeginTimeAtZero + 31.35
                 guideFade.duration = 3.2
                 guideFade.isRemovedOnCompletion = false
@@ -366,7 +418,7 @@ struct ContestVideoAssemblerV6 {
             }
         }
 
-        if isV71 {
+        if isV71 || isV8 {
             // The original Basecamp capture briefly exposed a rejected rehearsal call.
             // Replace only that small ledger region with the successful live inspection
             // result recorded immediately before it; the product footage remains intact.
@@ -394,24 +446,26 @@ struct ContestVideoAssemblerV6 {
             parentLayer.addSublayer(cleanLedger)
         }
 
-        let ledgerFocus = CALayer()
-        ledgerFocus.frame = CGRect(x: 1510, y: 725, width: 350, height: 265)
-        ledgerFocus.borderWidth = 4
-        ledgerFocus.borderColor = orange
-        ledgerFocus.cornerRadius = 24
-        ledgerFocus.shadowColor = orange
-        ledgerFocus.shadowOpacity = 0.55
-        ledgerFocus.shadowRadius = 18
-        ledgerFocus.opacity = 0
-        let ledgerPulse = CAKeyframeAnimation(keyPath: "opacity")
-        ledgerPulse.values = [0, 0.95, 0.72, 0.95, 0]
-        ledgerPulse.keyTimes = [0, 0.08, 0.45, 0.88, 1]
-        ledgerPulse.beginTime = AVCoreAnimationBeginTimeAtZero + 34.65
-        ledgerPulse.duration = 14.9
-        ledgerPulse.isRemovedOnCompletion = false
-        ledgerPulse.fillMode = .both
-        ledgerFocus.add(ledgerPulse, forKey: "ledger-focus")
-        parentLayer.addSublayer(ledgerFocus)
+        if !isV8 {
+            let ledgerFocus = CALayer()
+            ledgerFocus.frame = CGRect(x: 1510, y: 725, width: 350, height: 265)
+            ledgerFocus.borderWidth = 4
+            ledgerFocus.borderColor = orange
+            ledgerFocus.cornerRadius = 24
+            ledgerFocus.shadowColor = orange
+            ledgerFocus.shadowOpacity = 0.55
+            ledgerFocus.shadowRadius = 18
+            ledgerFocus.opacity = 0
+            let ledgerPulse = CAKeyframeAnimation(keyPath: "opacity")
+            ledgerPulse.values = [0, 0.95, 0.72, 0.95, 0]
+            ledgerPulse.keyTimes = [0, 0.08, 0.45, 0.88, 1]
+            ledgerPulse.beginTime = AVCoreAnimationBeginTimeAtZero + 34.65
+            ledgerPulse.duration = 14.9
+            ledgerPulse.isRemovedOnCompletion = false
+            ledgerPulse.fillMode = .both
+            ledgerFocus.add(ledgerPulse, forKey: "ledger-focus")
+            parentLayer.addSublayer(ledgerFocus)
+        }
 
         let callProofs: [(String, String, Double)] = [
             ("inspect_mission", "structured state  ·  revision 20", 37.15),
@@ -440,19 +494,26 @@ struct ContestVideoAssemblerV6 {
         }
 
         let humanProof = CALayer()
-        humanProof.frame = CGRect(x: 335, y: 300, width: 1250, height: 290)
+        humanProof.frame = isV8
+            ? CGRect(x: 495, y: 74, width: 930, height: 122)
+            : CGRect(x: 335, y: 300, width: 1250, height: 290)
         humanProof.backgroundColor = CGColor(red: 0.008, green: 0.045, blue: 0.065, alpha: 0.94)
-        humanProof.cornerRadius = 30
+        humanProof.cornerRadius = isV8 ? 24 : 30
         humanProof.borderWidth = 2
         humanProof.borderColor = orange
         humanProof.opacity = 0
-        humanProof.addSublayer(textLayer("HUMAN AUTHORITY", frame: CGRect(x: 44, y: 225, width: 1162, height: 32), size: 18, color: orange, alignment: .center))
-        humanProof.addSublayer(textLayer("Repair persistence", frame: CGRect(x: 60, y: 130, width: 470, height: 58), size: 31, color: white, alignment: .center))
-        humanProof.addSublayer(textLayer("SELECTED BY PERSON", frame: CGRect(x: 60, y: 94, width: 470, height: 28), size: 14, color: muted, fontName: "Menlo-Bold", alignment: .center))
-        humanProof.addSublayer(textLayer("→", frame: CGRect(x: 560, y: 120, width: 130, height: 70), size: 42, color: orange, alignment: .center))
-        humanProof.addSublayer(textLayer("inspect_human_decision", frame: CGRect(x: 710, y: 136, width: 480, height: 42), size: 21, color: white, fontName: "Menlo-Bold", alignment: .center))
-        humanProof.addSublayer(textLayer("selectedOptionId: repair", frame: CGRect(x: 710, y: 94, width: 480, height: 30), size: 15, color: orange, fontName: "Menlo-Bold", alignment: .center))
-        humanProof.addSublayer(textLayer("THE AGENT CAN READ THE DECISION. IT CANNOT MAKE IT.", frame: CGRect(x: 80, y: 34, width: 1090, height: 34), size: 17, color: muted, alignment: .center))
+        if isV8 {
+            humanProof.addSublayer(textLayer("HUMAN DECISION RECORDED", frame: CGRect(x: 30, y: 70, width: 870, height: 30), size: 18, color: orange, alignment: .center))
+            humanProof.addSublayer(textLayer("Repair persistence  →  inspect_human_decision", frame: CGRect(x: 30, y: 30, width: 870, height: 36), size: 21, color: white, fontName: "Menlo-Bold", alignment: .center))
+        } else {
+            humanProof.addSublayer(textLayer("HUMAN AUTHORITY", frame: CGRect(x: 44, y: 225, width: 1162, height: 32), size: 18, color: orange, alignment: .center))
+            humanProof.addSublayer(textLayer("Repair persistence", frame: CGRect(x: 60, y: 130, width: 470, height: 58), size: 31, color: white, alignment: .center))
+            humanProof.addSublayer(textLayer("SELECTED BY PERSON", frame: CGRect(x: 60, y: 94, width: 470, height: 28), size: 14, color: muted, fontName: "Menlo-Bold", alignment: .center))
+            humanProof.addSublayer(textLayer("→", frame: CGRect(x: 560, y: 120, width: 130, height: 70), size: 42, color: orange, alignment: .center))
+            humanProof.addSublayer(textLayer("inspect_human_decision", frame: CGRect(x: 710, y: 136, width: 480, height: 42), size: 21, color: white, fontName: "Menlo-Bold", alignment: .center))
+            humanProof.addSublayer(textLayer("selectedOptionId: repair", frame: CGRect(x: 710, y: 94, width: 480, height: 30), size: 15, color: orange, fontName: "Menlo-Bold", alignment: .center))
+            humanProof.addSublayer(textLayer("THE AGENT CAN READ THE DECISION. IT CANNOT MAKE IT.", frame: CGRect(x: 80, y: 34, width: 1090, height: 34), size: 17, color: muted, alignment: .center))
+        }
         let humanFade = CAKeyframeAnimation(keyPath: "opacity")
         humanFade.values = [0, 1, 1, 0]
         humanFade.keyTimes = [0, 0.1, 0.88, 1]
@@ -474,8 +535,8 @@ struct ContestVideoAssemblerV6 {
                 detailLayer.opacity = 0
 
                 let reveal = CAKeyframeAnimation(keyPath: "opacity")
-                reveal.values = [0, 1, 1, 0]
-                reveal.keyTimes = [0, 0.08, 0.9, 1]
+                reveal.values = isV8 ? [0, 0, 1, 1, 0, 0] : [0, 1, 1, 0]
+                reveal.keyTimes = isV8 ? [0, 0.04, 0.041, 0.959, 0.96, 1] : [0, 0.08, 0.9, 1]
                 reveal.beginTime = AVCoreAnimationBeginTimeAtZero + 79.2
                 reveal.duration = 7.65
                 reveal.isRemovedOnCompletion = false
@@ -510,6 +571,28 @@ struct ContestVideoAssemblerV6 {
                 topologyFade.fillMode = .both
                 topologyCaption.add(topologyFade, forKey: "topology-caption")
                 parentLayer.addSublayer(topologyCaption)
+            }
+        }
+
+        if isV8 {
+            // The guide and elevation detail use full-frame imagery. Switch those
+            // layers behind brief, thematic fog wipes so similar mountain frames
+            // never ghost over one another during a dissolve.
+            for center in [31.545, 34.329, 79.506, 86.544] {
+                let transitionFog = CALayer()
+                transitionFog.frame = parentLayer.frame
+                transitionFog.backgroundColor = CGColor(red: 0.76, green: 0.87, blue: 0.90, alpha: 1)
+                transitionFog.opacity = 0
+                let wipe = CAKeyframeAnimation(keyPath: "opacity")
+                wipe.values = [0, 0.72, 0]
+                wipe.keyTimes = [0, 0.5, 1]
+                wipe.beginTime = AVCoreAnimationBeginTimeAtZero + center - 0.34
+                wipe.duration = 0.68
+                wipe.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                wipe.isRemovedOnCompletion = false
+                wipe.fillMode = .both
+                transitionFog.add(wipe, forKey: "masked-full-frame-switch")
+                parentLayer.addSublayer(transitionFog)
             }
         }
 
@@ -551,7 +634,16 @@ struct ContestVideoAssemblerV6 {
             color: muted,
             fontName: "AvenirNext-DemiBold"
         ))
-        parentLayer.addSublayer(textLayer("AI VOICE  ·  MUSIC: ‘MOUNTAINS’ — ANDREW EV / MIXKIT", frame: CGRect(x: 1210, y: 2, width: 674, height: 18), size: 10, color: muted, fontName: "AvenirNext-Medium", alignment: .right))
+        parentLayer.addSublayer(textLayer(
+            isV8
+                ? "AI VOICE  ·  MUSIC: ‘DREAMING BIG’ — AHJAY STELINO / MIXKIT"
+                : "AI VOICE  ·  MUSIC: ‘MOUNTAINS’ — ANDREW EV / MIXKIT",
+            frame: CGRect(x: 1110, y: 2, width: 774, height: 18),
+            size: 10,
+            color: muted,
+            fontName: "AvenirNext-Medium",
+            alignment: .right
+        ))
 
         videoComposition.animationTool = AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: parentLayer)
 
