@@ -52,7 +52,7 @@ Commit body:
 
 ## Publication record
 
-1. The audited runtime release was pushed to `main`; deployed source SHA: `3272f38600b49ea7a4c35dc26b06f200f9405668`.
+1. The audited runtime release was pushed to `main`; deployed source SHA: `f6814a54d50cfb403f414d042e775555cff196a8`.
 2. Only `main` was pushed; local tool-managed refs were not mirrored.
 3. The public repository page, README, neutral About copy, and MIT license were verified.
 4. The canonical repository URL was added to Devpost.

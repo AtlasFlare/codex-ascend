@@ -22,7 +22,7 @@ Publication actions already completed with owner approval are recorded below. Fi
 - [x] Run `pnpm types:worker --check` (generated Worker types are current).
 - [x] Confirm `.dev.vars`, generated candidates, raw art-direction output, and video working files remain ignored.
 - [x] Scan tracked files for tokens, private filesystem paths, and credential-like values (no matches found).
-- [x] Create and push the audited runtime release commit; deployed source SHA: `3272f38600b49ea7a4c35dc26b06f200f9405668`.
+- [x] Create and push the audited runtime release commit; deployed source SHA: `f6814a54d50cfb403f414d042e775555cff196a8`.
 - [x] **EXTERNAL GATE:** owner approved public repository creation and push.
 - [x] Verify the public repository page, README, and detectable MIT license from the public web.
 - [ ] Repeat the clean-clone build against the final pushed SHA after this documentation-only consistency commit.

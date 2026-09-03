@@ -14,10 +14,10 @@
 - A deployed, dismissible WebMCP connection guide with current ChatGPT desktop instructions, a copyable judge prompt, Chrome testing guidance, and an accessible visual-demo fallback.
 - A 1920 × 1080, 30 fps V7.1 video master with warm AI narration, credited music, a deployed ChatGPT/WebMCP onboarding shot, a corrected WebMCP proof overlay, the actual human route choice, live topology, and Verified Summit.
 - Public YouTube video at https://youtu.be/gNNQefKfcTs with contest metadata, AI-use disclosure, custom thumbnail, signed-out playback verification, and a completed copyright check reporting no issues.
-- Public MIT-licensed source repository verified signed out from its rendered public page; the deployed runtime source commit is `3272f38600b49ea7a4c35dc26b06f200f9405668`.
+- Public MIT-licensed source repository verified signed out from its rendered public page; the deployed runtime source commit is `f6814a54d50cfb403f414d042e775555cff196a8`.
 - Devpost draft populated with the live URL, public repository, public video, concise judge instructions, and a five-image narrative gallery.
 - Completed missions now report 100% discovery after fresh completion and legacy-session restoration, unique inbound routes become authoritative automatically, ambiguous approaches require an explicit route choice, and opening New provides an immediately usable default Basecamp mission.
-- Final Cloudflare Worker version `268730b2-a00e-49f0-8fd4-7580bd9cf218` was deployed with existing dashboard variables and secrets preserved. Live `inspect_mission` verification proved a cached 52% completed session migrates to 100% after reload.
+- Final Cloudflare Worker version `a485f494-19dc-4f29-b922-9a4589e6bfdb` was deployed with existing dashboard variables and secrets preserved. Live `inspect_mission` verification proved a cached 52% completed session migrates to 100% after reload.
 - Final responsive smoke at 390 × 844 passed with zero horizontal overflow, contained scenario imagery, working detail/elevation navigation, and no browser warnings or errors.
 
 ## External blockers
