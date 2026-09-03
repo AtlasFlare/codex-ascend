@@ -1,0 +1,49 @@
+{
+  "title": "Codex Ascend — cinematic WebMCP Challenge demo V5",
+  "targetDurationSeconds": 120,
+  "voice": {
+    "model": "gpt-4o-mini-tts-2025-12-15",
+    "name": "marin",
+    "format": "wav",
+    "instructions": "Friendly, cool feminine narrator with a clear American accent and a warm smile in the voice. Deliver this like a short adventure documentary made for curious technical judges: confident, vivid, conversational, and slightly playful. Keep the energy moving without sounding rushed or salesy. Let visual transformation moments breathe. Pronounce Web M C P as four individual letters, tool names naturally, and Codex Ascend clearly. Emphasize human choice, deterministic verification, and the final words verified Summit.",
+    "disclosure": "AI-generated narration via OpenAI TTS"
+  },
+  "chapters": [
+    {
+      "id": "01-world-reacts",
+      "label": "A WebMCP call changes the world",
+      "targetSeconds": 17,
+      "narration": "Watch this. A session test fails. The agent reports the blocker through Web M C P, and the whole mountain reacts. The sky darkens, the route fractures, and the climb stops. Codex Ascend turns live agent work into a world you can read at a glance."
+    },
+    {
+      "id": "02-basecamp-route",
+      "label": "One objective becomes an expedition",
+      "targetSeconds": 19,
+      "narration": "Rewind to Basecamp. One real objective is shared by a person and an agent. The agent calls inspect mission, then discover mission. Camps appear. Dependencies become routes. Evidence secures terrain, while uncertainty becomes weather. The mountain is not a themed progress bar; it is the mission graph made tangible."
+    },
+    {
+      "id": "03-webmcp-native",
+      "label": "WebMCP is the interaction model",
+      "targetSeconds": 20,
+      "narration": "This is not an agent scraping a dashboard. Ascend registers eighteen typed Web M C P tools for inspection, execution, blockers, evidence, decisions, scope, and completion. The website and the agent share one deterministic command engine, so the same rules, validation, and audit trail govern every move."
+    },
+    {
+      "id": "04-human-choice",
+      "label": "The agent asks; the human decides",
+      "targetSeconds": 25,
+      "narration": "At Camp Three, the agent proposes two structured routes: repair persistence, or take a risky demo bypass. The choice appears exactly where it matters. I choose Repair persistence. There is intentionally no agent tool that can make this consequential decision for me. The agent calls inspect human decision, receives the structured answer, resolves the blocker, and continues."
+    },
+    {
+      "id": "05-mountain-reshapes",
+      "label": "New scope reshapes the mountain",
+      "targetSeconds": 22,
+      "narration": "Then the work changes. Expand scope reveals Security Ridge and lifts the route to five thousand, two hundred seventy-four meters. The camera, waypoints, scenario card, and elevation profile all update from the same topology. Click a point in the profile, and Ascend returns to that exact place on the mountain. Useful, not decorative."
+    },
+    {
+      "id": "06-verified-summit",
+      "label": "Evidence, then Summit",
+      "targetSeconds": 18,
+      "narration": "On the final approach, evidence secures each outcome. Verify completion checks every dependency, success criterion, and blocker. Only then can complete mission activate the Summit and reach one hundred percent. Codex Ascend makes ambitious agent work legible, collaborative, and honest, from Basecamp to verified Summit."
+    }
+  ]
+}

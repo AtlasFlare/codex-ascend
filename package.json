@@ -1,0 +1,50 @@
+{
+  "name": "codex-ascend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:worker": "tsc -p tsconfig.worker.json",
+    "dev:worker": "wrangler dev",
+    "deploy": "pnpm build && wrangler deploy",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "types:worker": "wrangler types",
+    "video:voiceover": "node scripts/generate-contest-voiceover.mjs",
+    "video:voiceover:v2": "node scripts/generate-contest-voiceover.mjs --plan video/contest-demo-v2-plan.json --output-name codex-ascend-v2-voiceover",
+    "video:voiceover:v5": "node scripts/generate-contest-voiceover.mjs --plan video/contest-demo-v5-plan.json --output-name codex-ascend-v5-voiceover",
+    "video:assemble": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer CLANG_MODULE_CACHE_PATH=/private/tmp/ascend-clang-cache SWIFT_MODULECACHE_PATH=/private/tmp/ascend-swift-cache xcrun swiftc -parse-as-library scripts/assemble-contest-video.swift -o /private/tmp/codex-ascend-video-assembler && /private/tmp/codex-ascend-video-assembler",
+    "video:assemble:v2": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer CLANG_MODULE_CACHE_PATH=/private/tmp/ascend-clang-cache SWIFT_MODULECACHE_PATH=/private/tmp/ascend-swift-cache xcrun swiftc -parse-as-library scripts/assemble-contest-video-v2.swift -o /private/tmp/codex-ascend-video-assembler-v2 && /private/tmp/codex-ascend-video-assembler-v2",
+    "video:assemble:v3": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer CLANG_MODULE_CACHE_PATH=/private/tmp/ascend-clang-cache SWIFT_MODULECACHE_PATH=/private/tmp/ascend-swift-cache xcrun swiftc -parse-as-library scripts/assemble-contest-video-v2.swift -o /private/tmp/codex-ascend-video-assembler-v3 && /private/tmp/codex-ascend-video-assembler-v3 --v3",
+    "video:assemble:v4": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer CLANG_MODULE_CACHE_PATH=/private/tmp/ascend-clang-cache SWIFT_MODULECACHE_PATH=/private/tmp/ascend-swift-cache xcrun swiftc -parse-as-library scripts/assemble-contest-video-v4.swift -o /private/tmp/codex-ascend-video-assembler-v4 && /private/tmp/codex-ascend-video-assembler-v4",
+    "video:assemble:v5": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer CLANG_MODULE_CACHE_PATH=/private/tmp/ascend-clang-cache SWIFT_MODULECACHE_PATH=/private/tmp/ascend-swift-cache xcrun swiftc -parse-as-library scripts/assemble-contest-video-v5.swift -o /private/tmp/codex-ascend-video-assembler-v5 && /private/tmp/codex-ascend-video-assembler-v5",
+    "video:assemble:v7": "DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer CLANG_MODULE_CACHE_PATH=/private/tmp/ascend-clang-cache SWIFT_MODULECACHE_PATH=/private/tmp/ascend-swift-cache xcrun swiftc -parse-as-library scripts/assemble-contest-video-v6.swift -o /private/tmp/codex-ascend-video-assembler-v7 && /private/tmp/codex-ascend-video-assembler-v7 --v7",
+    "check:public": "node scripts/check-public-release.mjs",
+    "check": "pnpm lint && pnpm test && pnpm build && pnpm build:worker"
+  },
+  "dependencies": {
+    "pixi.js": "^8.14.3",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^24.10.13",
+    "@types/react": "^19.2.10",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.2",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.3.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.53.1",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18",
+    "wrangler": "^4.127.0"
+  }
+}

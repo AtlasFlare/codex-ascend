@@ -1,0 +1,85 @@
+{
+  "brief": {
+    "schemaVersion": 1,
+    "id": "generation:handoff:codex-ascend-generated-world-v1:mission_-qzrt9v:8:normal_route",
+    "experiencePackId": "ascend",
+    "experiencePackVersion": "1.1.0",
+    "missionId": "mission_-qzrt9v",
+    "missionRevision": 8,
+    "sourceHandoffId": "handoff:codex-ascend-generated-world-v1",
+    "sceneKey": "normal_route",
+    "prompt": "Premium editorial illustrated alpine environment for Codex Ascend: one broad iconic pyramidal massif, simplified large snow and rock planes, blue-white atmosphere, restrained rust-orange sunlit rock and one tiny signal-orange camp detail. The expedition represents the project “Codex Ascend”. Its objective is: Deliver the WebMCP contest experience with a persistent generated mountain world and deterministic semantic mission overlays. Current phase: Camp III scenario-card beta. Current work: Normal validation; Persistence blocker; Human route decision. Known constraints: Frozen mission topology; Canonical mountain identity; No baked UI or route graphics. Known risks: Local ridge drift; Crowded copy area. This project has 6 semantic stages represented by 6 visual waypoints. Reserve physically plausible, uncluttered snow ledges or rock shelves at these normalized coordinates: 1:(0.680,0.790), 2:(0.640,0.672), 3:(0.600,0.554), 4:(0.560,0.436), 5:(0.520,0.318), 6:(0.480,0.200). Keep each anchor area clear enough for a 5% viewport UI label and marker, but do not draw the marker, label, or connecting line into the artwork. Render semantic scene “normal_route” for mission revision 8. Keep one coherent mountain with a calm readable silhouette, a soft cloud cutoff around the lower and side edges, physical camps, terrain-led travel, layered depth, and quiet space for a transparent live HUD. No people are required. No interface is baked into the artwork.",
+    "negativePrompt": "jagged sawtooth skyline, many spires, dense granular crags, busy background range, text, labels, logos, interface, HUD, graph, flowchart, route line, map pins, infographic, tourism booking UI, crowds, watermark",
+    "sourceEntityCount": 6,
+    "placementAnchors": [
+      {
+        "entityId": "stage_origin_-qzrt9v",
+        "x": 0.68,
+        "y": 0.79,
+        "safeRadius": 0.05,
+        "emphasis": "secondary"
+      },
+      {
+        "entityId": "cp_foundation",
+        "x": 0.64,
+        "y": 0.672,
+        "safeRadius": 0.05,
+        "emphasis": "secondary"
+      },
+      {
+        "entityId": "cp_implementation",
+        "x": 0.6000000000000001,
+        "y": 0.554,
+        "safeRadius": 0.05,
+        "emphasis": "secondary"
+      },
+      {
+        "entityId": "cp_validation",
+        "x": 0.56,
+        "y": 0.43600000000000005,
+        "safeRadius": 0.05,
+        "emphasis": "primary"
+      },
+      {
+        "entityId": "cp_deployment",
+        "x": 0.52,
+        "y": 0.31800000000000006,
+        "safeRadius": 0.05,
+        "emphasis": "latent"
+      },
+      {
+        "entityId": "cp_summit",
+        "x": 0.48000000000000004,
+        "y": 0.20000000000000007,
+        "safeRadius": 0.05,
+        "emphasis": "latent"
+      }
+    ],
+    "assets": [
+      {
+        "id": "environment.hero_master_4k",
+        "role": "environment_base",
+        "aspectRatio": "16:9",
+        "transparent": false,
+        "width": 3840,
+        "height": 2160
+      }
+    ],
+    "createdAt": "2026-08-29T18:57:33.495Z"
+  },
+  "waypointProjectionRevision": "ascend-wp-v1-r8",
+  "expeditionVisualSeed": 8516028,
+  "scenarioCard": {
+    "sceneType": "scenario_card_camp_iii",
+    "focalEntityId": "cp_validation",
+    "kind": "camp",
+    "prompt": "Create an Ascend camp scenario-card illustration derived from canonical master gen_029ca28ab431b3125275dd4339734d7f. Use the exact local geography around waypoint cp_validation at normalized position 0.560,0.436: upper face, narrow snow shelf, and steep rock buttress. Reference crop x=0.390, y=0.266, width=0.340, height=0.340. Preserve mountain identity, ridge direction, rock and snow shapes, lighting, palette, scale, and weather from the master. Reframe this location as a close contextual vignette with quiet left-side space for live transparent UI. Show a physically plausible tiny expedition camp fitted to the existing ledge; do not invent a different mountain shelf. Mission context: Integration behavior and mission invariants are proven.",
+    "negativePrompt": "different mountain, changed ridge geometry, unrelated landscape, generic alpine stock image, baked text, UI chrome, graph, route line, map pin, logo, crowd, oversized tents",
+    "crop": {
+      "x": 0.39,
+      "y": 0.266,
+      "width": 0.34,
+      "height": 0.34
+    }
+  }
+}

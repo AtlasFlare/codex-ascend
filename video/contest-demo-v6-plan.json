@@ -1,0 +1,49 @@
+{
+  "title": "Codex Ascend — WebMCP Challenge demo V6",
+  "targetDurationSeconds": 108,
+  "voice": {
+    "model": "gpt-4o-mini-tts-2025-12-15",
+    "name": "marin",
+    "format": "wav",
+    "instructions": "Friendly, cool feminine narrator with a clear American accent and a warm smile in the voice. Deliver this like an energetic ninety-second adventure documentary for technical judges: confident, vivid, conversational, and crisp. Keep momentum without sounding rushed or salesy. Add a small lift of excitement on visible world changes and the verified Summit. Pronounce Web M C P as four individual letters, tool names naturally, and Codex Ascend clearly. Emphasize that the page and agent share deterministic state, that consequential choices remain human, and that completion is verified. Avoid long pauses.",
+    "disclosure": "AI-generated narration via OpenAI TTS"
+  },
+  "chapters": [
+    {
+      "id": "01-world-reacts",
+      "label": "A real tool call changes the world",
+      "targetSeconds": 14,
+      "narration": "Watch the mountain. A session test fails. The agent reports the blocker through Web M C P—and the world reacts. Weather closes in, the route breaks, and progress stops. Codex Ascend makes agent work visible before you read a log."
+    },
+    {
+      "id": "02-mission-route",
+      "label": "One objective becomes a route",
+      "targetSeconds": 17,
+      "narration": "Back at Basecamp, one release objective becomes an expedition. Inspect mission reads the shared state. Discover mission reveals camps and dependencies. Evidence secures terrain; uncertainty becomes weather. This is not a themed progress bar. It is the mission graph, made tangible."
+    },
+    {
+      "id": "03-native-tools",
+      "label": "Native WebMCP proof",
+      "targetSeconds": 14,
+      "narration": "Now watch the call surface. Ascend registers eighteen typed Web M C P tools. Every call returns structured state through the same deterministic engine used by the page—no screen scraping, and no parallel truth."
+    },
+    {
+      "id": "04-human-authority",
+      "label": "The agent asks; the human decides",
+      "targetSeconds": 20,
+      "narration": "At Camp Three, the agent proposes two routes: repair persistence, or take a risky demo bypass. The decision appears on the mountain, where its consequences are clear. I choose Repair persistence. No agent tool can choose for me. The agent reads that structured answer, resolves the blocker, and continues."
+    },
+    {
+      "id": "05-live-topology",
+      "label": "Scope and elevation stay connected",
+      "targetSeconds": 16,
+      "narration": "Then the mission changes. Expand scope reveals Security Ridge at five thousand, two hundred seventy-four meters. Camera, waypoints, scenario card, and elevation profile update together. Select the profile, and Ascend returns to that exact camp. Useful, not decorative."
+    },
+    {
+      "id": "06-verified-summit",
+      "label": "Evidence before Summit",
+      "targetSeconds": 14,
+      "narration": "On final approach, evidence secures each outcome. Verify completion checks dependencies, criteria, and blockers. Only then can complete mission activate one hundred percent and the Summit. Agent work stays legible and honest—from Basecamp to verified Summit."
+    }
+  ]
+}

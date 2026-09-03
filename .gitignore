@@ -1,0 +1,37 @@
+node_modules
+.pnpm-store
+dist
+.DS_Store
+.idea/
+.vscode/
+coverage
+.wrangler
+*.local
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.mobileprovision
+*.sqlite
+*.sqlite3
+*.db
+
+# Local visual-foundry sources and rejected/provider outputs are not part of
+# the distributable contest repository. Runtime artwork lives under public/.
+artifacts/art-direction/
+artifacts/generated/
+artifacts/video/
+
+# Superseded review plates and card iterations retained only in the local art
+# workspace. The application references the later reviewed variants.
+public/art/ascend/camp-ii-mountain-review-plate-v1.png
+public/art/ascend/camp-ii-mountain-review-plate-v3.png
+public/art/ascend/scenario-cards/camp-i-foundation-subscription-v1.png
+public/art/ascend/scenario-cards/camp-iii-normal-subscription-v1.png

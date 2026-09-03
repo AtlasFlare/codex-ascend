@@ -1,0 +1,79 @@
+{
+  "title": "Codex Ascend — WebMCP Challenge demo V2",
+  "targetDurationSeconds": 130,
+  "voice": {
+    "model": "gpt-4o-mini-tts-2025-12-15",
+    "name": "marin",
+    "format": "wav",
+    "instructions": "Warm, friendly feminine narrator with a clear American accent, calm confidence, and a subtle sense of wonder. Keep the pace energetic and precise for a short judge demo. Sound conversational, never salesy. Use brief intentional pauses after tool names and verdicts. Pronounce Web M C P as four individual letters, Codex naturally, and Ascend clearly."
+  },
+  "disclosure": "AI-generated narration via OpenAI TTS",
+  "chapters": [
+    {
+      "id": "01-live-consequence",
+      "label": "A tool call changes the world",
+      "targetSeconds": 16,
+      "narration": "A persistence test fails. The agent reports the blocker through Web M C P, and the mountain reacts: clouds close in, the route fractures, and the climb stops. This is not a progress dashboard. It is live mission state becoming a world.",
+      "shots": [
+        "Open directly on the storm and blocker card.",
+        "Overlay the truthful call report_obstacle and returned status blocked.",
+        "Keep the moving cloud and route fracture visible in the first ten seconds."
+      ]
+    },
+    {
+      "id": "02-basecamp-graph",
+      "label": "The objective becomes a semantic expedition",
+      "targetSeconds": 20,
+      "narration": "At Basecamp, one objective becomes a semantic expedition shared by a person and an agent. Stages become camps. Dependencies become routes. Evidence secures terrain. Risk becomes weather. The visual layer never invents progress; it projects the same authoritative mission graph the tools read and change.",
+      "shots": [
+        "Jump to Basecamp and reveal the route.",
+        "Show inspect_mission returning draft state, then the discovered camps.",
+        "Use a restrained camera push rather than a static hold."
+      ]
+    },
+    {
+      "id": "03-webmcp-native",
+      "label": "WebMCP is the product interaction model",
+      "targetSeconds": 22,
+      "narration": "Here is the Web M C P difference. The agent calls inspect mission instead of reading pixels. It reports obstacles, attaches evidence, requests decisions, expands required scope, and verifies completion through closed, validated tools. The interface and the agent share one deterministic command engine, so every action has the same rules and audit trail.",
+      "shots": [
+        "Show a compact tool-call stack with live results, not raw debug JSON.",
+        "Intercut the tool names with their visual consequences.",
+        "Keep the actual in-app browser and native WebMCP context visible."
+      ]
+    },
+    {
+      "id": "04-human-authority",
+      "label": "The agent asks; the human decides",
+      "targetSeconds": 27,
+      "narration": "When the safe route requires judgment, the agent proposes two structured strategies: repair persistence, or accept a risky demo bypass. The choice appears exactly where it matters, with effort, risk, and an agent recommendation. I choose Repair persistence. The agent reads that structured answer, resolves the verified blocker, and continues. Agent initiative remains fast; consequential authority stays human.",
+      "shots": [
+        "Show the route card and both options at readable scale.",
+        "Make the human click the visual centerpiece of the sequence.",
+        "Overlay inspect_human_decision returning selectedOptionId repair, then resolve_obstacle success."
+      ]
+    },
+    {
+      "id": "05-dynamic-topology",
+      "label": "New work reshapes the mountain",
+      "targetSeconds": 20,
+      "narration": "Then the mission changes. The agent discovers that security review is required and calls expand scope. Security Ridge rises from the cloud at five thousand, two hundred seventy-four meters. The route, camera, scenario card, and elevation profile all update from that same topology—so the map is useful, not decorative.",
+      "shots": [
+        "Overlay expand_scope and the available result.",
+        "Hold long enough to read Security Ridge and 5,274 meters.",
+        "Cut to the elevation profile only after the physical ridge appears."
+      ]
+    },
+    {
+      "id": "06-verified-summit",
+      "label": "Evidence, then Summit",
+      "targetSeconds": 20,
+      "narration": "On the final approach, Ascend checks every dependency, success criterion, and blocker. Verify completion returns completion ready. Only then can complete mission activate the Summit and reach one hundred percent. Codex Ascend makes complex agent work legible, collaborative, and honest—from Basecamp to verified Summit.",
+      "shots": [
+        "Show verify_completion returning completion_ready.",
+        "Show complete_mission returning completed.",
+        "End on the full Verified Summit card and one-hundred-percent state."
+      ]
+    }
+  ]
+}

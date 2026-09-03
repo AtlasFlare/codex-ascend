@@ -1,0 +1,72 @@
+{
+  "brief": {
+    "schemaVersion": 1,
+    "id": "generation:handoff:codex-ascend-generated-world-v1:mission_-qzrt9v:5:normal_route",
+    "experiencePackId": "ascend",
+    "experiencePackVersion": "1.1.0",
+    "missionId": "mission_-qzrt9v",
+    "missionRevision": 5,
+    "sourceHandoffId": "handoff:codex-ascend-generated-world-v1",
+    "sceneKey": "normal_route",
+    "prompt": "Premium editorial illustrated alpine environment for Codex Ascend: one broad iconic pyramidal massif, simplified large snow and rock planes, blue-white atmosphere, restrained rust-orange sunlit rock and one tiny signal-orange camp detail. The expedition represents the project “Codex Ascend”. Its objective is: Deliver the WebMCP contest experience with a persistent generated mountain world and deterministic semantic mission overlays. Current phase: Camp II / Active Ascent. Current work: Cloudflare Worker image provider; R2 generation persistence; Camp II reference-image continuity; PixiJS living-scene treatment. Known constraints: Frozen mission topology remains authoritative; Only Ascend is implemented; Waypoints remain deterministic overlays; No baked UI, route line, labels, or graph imagery. Known risks: Generated ridge geometry may drift between master and derivative; Waypoint safe areas may be visually cluttered; Image generation can be slow or rate limited. This project has 6 semantic stages represented by 6 visual waypoints. Reserve physically plausible, uncluttered snow ledges or rock shelves at these normalized coordinates: 1:(0.680,0.790), 2:(0.640,0.672), 3:(0.600,0.554), 4:(0.560,0.436), 5:(0.520,0.318), 6:(0.480,0.200). Keep each anchor area clear enough for a 5% viewport UI label and marker, but do not draw the marker, label, or connecting line into the artwork. Render semantic scene “normal_route” for mission revision 5. Keep one coherent mountain with a calm readable silhouette, a soft cloud cutoff around the lower and side edges, physical camps, terrain-led travel, layered depth, and quiet space for a transparent live HUD. No people are required. No interface is baked into the artwork.",
+    "negativePrompt": "jagged sawtooth skyline, many spires, dense granular crags, busy background range, text, labels, logos, interface, HUD, graph, flowchart, route line, map pins, infographic, tourism booking UI, crowds, watermark",
+    "sourceEntityCount": 6,
+    "placementAnchors": [
+      {
+        "entityId": "stage_origin_-qzrt9v",
+        "x": 0.68,
+        "y": 0.79,
+        "safeRadius": 0.05,
+        "emphasis": "secondary"
+      },
+      {
+        "entityId": "cp_foundation",
+        "x": 0.64,
+        "y": 0.672,
+        "safeRadius": 0.05,
+        "emphasis": "secondary"
+      },
+      {
+        "entityId": "cp_implementation",
+        "x": 0.6000000000000001,
+        "y": 0.554,
+        "safeRadius": 0.05,
+        "emphasis": "primary"
+      },
+      {
+        "entityId": "cp_validation",
+        "x": 0.56,
+        "y": 0.43600000000000005,
+        "safeRadius": 0.05,
+        "emphasis": "latent"
+      },
+      {
+        "entityId": "cp_deployment",
+        "x": 0.52,
+        "y": 0.31800000000000006,
+        "safeRadius": 0.05,
+        "emphasis": "latent"
+      },
+      {
+        "entityId": "cp_summit",
+        "x": 0.48000000000000004,
+        "y": 0.20000000000000007,
+        "safeRadius": 0.05,
+        "emphasis": "latent"
+      }
+    ],
+    "assets": [
+      {
+        "id": "environment.hero_master_4k",
+        "role": "environment_base",
+        "aspectRatio": "16:9",
+        "transparent": false,
+        "width": 3840,
+        "height": 2160
+      }
+    ],
+    "createdAt": "2026-08-29T17:44:48.497Z"
+  },
+  "waypointProjectionRevision": "ascend-wp-v1-r5",
+  "expeditionVisualSeed": 8516028
+}

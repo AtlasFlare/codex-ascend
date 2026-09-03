@@ -1,0 +1,91 @@
+{
+  "title": "Codex Ascend — WebMCP Challenge demo",
+  "targetDurationSeconds": 150,
+  "voice": {
+    "model": "gpt-4o-mini-tts-2025-12-15",
+    "name": "marin",
+    "format": "wav",
+    "instructions": "Warm, friendly feminine narrator with a clear American accent, calm confidence, and a subtle sense of wonder. Sound conversational and intelligent, with natural breaths and varied intonation. Never sound salesy, overly dramatic, or synthetic. Follow the requested chapter duration closely. Pronounce Web M C P as four individual letters, Codex naturally, and Ascend clearly."
+  },
+  "disclosure": "AI-generated narration via OpenAI TTS",
+  "chapters": [
+    {
+      "id": "01-cold-open",
+      "label": "A real blocker stops the climb",
+      "targetSeconds": 14,
+      "narration": "A persistence test fails. The agent reports a blocker through Web M C P, and Ascend responds immediately: weather closes in, a crevasse opens across the route, and the climb stops. This is mission state becoming a world.",
+      "shots": [
+        "Open on the live Camp Three blocker state, already framed tightly on the storm and crevasse.",
+        "Flash the report_obstacle WebMCP call or result for two seconds.",
+        "Let cloud, snow, route warning, and crevasse motion play without cursor movement."
+      ]
+    },
+    {
+      "id": "02-premise",
+      "label": "One mission becomes a shared world",
+      "targetSeconds": 16,
+      "narration": "Codex Ascend turns one real objective into a shared expedition for a human and an AI agent. Instead of hiding work inside a checklist, it projects stages, risks, decisions, and evidence onto one persistent mountain.",
+      "shots": [
+        "Jump cut to clean Basecamp at event zero.",
+        "Frame the mission objective, Basecamp scenario card, tent imagery, and cloud-covered route.",
+        "Use a slow two-percent camera push toward Basecamp."
+      ]
+    },
+    {
+      "id": "03-webmcp-tools",
+      "label": "The agent reads structured mission state",
+      "targetSeconds": 22,
+      "narration": "At Basecamp, the agent calls inspect mission and reads structured state rather than pixels. It discovers Foundation, Implementation, Validation, and Deployment; each becomes a physical camp. The same validated commands power the Web M C P tools, the human controls, and every visual transition.",
+      "shots": [
+        "Show the agent actually call inspect_mission and briefly expose the structured result.",
+        "Cut to discover_mission, then reveal camps and route segments in quick succession.",
+        "Keep the native WebMCP indicator visible long enough to read."
+      ]
+    },
+    {
+      "id": "04-evidence-blocker",
+      "label": "Evidence advances; blockers stop",
+      "targetSeconds": 24,
+      "narration": "As the agent works, it records progress, attaches evidence, and secures terrain. Fog thins, elevation rises, and completed camps remain stable. Then the session persistence tests fail. The agent’s obstacle report blocks the active stage, opens the crevasse, and prevents the visual world from pretending the mission is healthy.",
+      "shots": [
+        "Use two or three jump cuts across Foundation and Implementation evidence states.",
+        "Show elevation and weather changing with the mission, not as a separate beauty shot.",
+        "Land again on the Camp Three blocker and hold just long enough to read its cause."
+      ]
+    },
+    {
+      "id": "05-human-agent-loop",
+      "label": "Agent action. Human authority. Structured response.",
+      "targetSeconds": 36,
+      "narration": "The agent proposes two structured strategies: repair persistence, or take a risky demo bypass. The options appear on the mountain at the exact place they matter, with effort, risk, and a recommendation. The human chooses Repair persistence in the route card. No agent tool can make that consequential choice for them. The agent then calls inspect human decision, receives the selected repair as structured state, resolves the blocker, and continues. That two-way exchange is the heart of Ascend: agent action, human authority, and machine-readable response.",
+      "shots": [
+        "Show request_human_decision and the two route options at Camp Three.",
+        "Hold on risk, effort, and Agent pick for three seconds.",
+        "Click Repair persistence, then show inspect_human_decision returning selectedOptionId repair.",
+        "Resolve the blocker and let the route reopen as the weather clears."
+      ]
+    },
+    {
+      "id": "06-topology",
+      "label": "New scope physically reshapes the route",
+      "targetSeconds": 18,
+      "narration": "Passing tests secure Validation, but the agent discovers a required security review. A new ridge emerges from the cloud. The elevation profile is derived from the same topology, carrying evidence, blocker, and decision signals back to the exact mountain geography.",
+      "shots": [
+        "Show Security Ridge emerging after expand_scope.",
+        "Pan down to the elevation navigator only after the ridge is visible.",
+        "Select Camp Three in the profile and return to its exact mountain card."
+      ]
+    },
+    {
+      "id": "07-summit",
+      "label": "Summit requires verified evidence",
+      "targetSeconds": 20,
+      "narration": "Deployment evidence secures the final approach. Ascend checks every dependency, blocker, and success criterion before activating the Summit. Only then does the route reach one hundred percent surveyed, with every required outcome backed by evidence. The mountain is not a progress bar. It is the mission itself.",
+      "shots": [
+        "Show verify_completion before the Summit activates.",
+        "Land on the verified Summit card, one-hundred-percent metric, and evidence state.",
+        "End on the live world with the small AI narration disclosure; do not add a separate title slate."
+      ]
+    }
+  ]
+}
