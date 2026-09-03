@@ -478,10 +478,9 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
   padding: 0;
   border: 1px solid rgba(255,255,255,.86);
   border-radius: 50%;
-  background: rgba(229, 242, 247, .55);
+  background: rgba(242,248,250,.94);
   color: #23465a;
-  box-shadow: 0 7px 24px rgba(8,34,51,.18), inset 0 1px 0 rgba(255,255,255,.58);
-  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 18px rgba(8,34,51,.28), inset 0 1px 0 rgba(255,255,255,.72);
   cursor: pointer;
   pointer-events: auto;
 }
@@ -523,13 +522,13 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .waypoint-marker.is-active .waypoint-caption,
 .waypoint-marker.is-selected .waypoint-caption { opacity: 1; transform: translateY(-50%) translateX(0); }
 .waypoint-marker.is-active { width: 43px; height: 43px; }
-.waypoint-marker.is-active .position-beacon { width: 43px; height: 43px; border-color: #fff; background: var(--orange); color: white; box-shadow: 0 0 0 7px rgba(255,98,54,.15), 0 10px 30px rgba(180,64,28,.38); }
+.waypoint-marker.is-active .position-beacon { width: 43px; height: 43px; border-color: #fff; background: var(--orange); color: white; box-shadow: 0 0 0 4px rgba(255,98,54,.2), 0 9px 24px rgba(112,42,24,.34); }
 .waypoint-marker.is-active .position-beacon::after { top: 41px; background: var(--orange); box-shadow: 0 7px 0 2px var(--orange); }
 .waypoint-marker.is-active .waypoint-caption { left: 51px; }
 .waypoint-marker.is-active .waypoint-caption.caption-left { right: 51px; left: auto; }
-.waypoint-marker.is-secured:not(.is-active) .position-beacon { background: rgba(245,250,251,.72); }
+.waypoint-marker.is-secured:not(.is-active) .position-beacon { background: rgba(248,252,253,.96); }
 .waypoint-marker.is-blocked .position-beacon { color: white; background: #19384a; border-color: #ff9a78; }
-.waypoint-marker.is-selected .position-beacon { outline: 3px solid rgba(255,255,255,.6); outline-offset: 3px; }
+.waypoint-marker.is-selected .position-beacon { outline: 0; box-shadow: 0 0 0 3px rgba(255,255,255,.92), 0 0 0 6px rgba(255,104,64,.48), 0 9px 24px rgba(8,34,51,.32); }
 
 .waypoint-scenario-card {
   --scenario-base-x: 0px;

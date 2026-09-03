@@ -1,0 +1,49 @@
+{
+  "title": "Codex Ascend — WebMCP Challenge demo V9",
+  "targetDurationSeconds": 108,
+  "voice": {
+    "model": "gpt-4o-mini-tts-2025-12-15",
+    "name": "marin",
+    "format": "wav",
+    "instructions": "Warm, friendly feminine product narrator with a natural American accent and a light smile. Sound like a thoughtful guide introducing an inventive tool to technical judges, not a movie trailer or an advertisement. Keep the delivery conversational, confident, clear, and unhurried. Let the first sentence land, then build gentle momentum as the mountain changes. Use short natural pauses between ideas. Lift slightly for the human decision and the verified Summit. Pronounce Web M C P as four individual letters, tool names naturally, and Codex Ascend clearly. Never sound breathless, overly dramatic, or salesy.",
+    "disclosure": "AI-generated narration via OpenAI TTS"
+  },
+  "chapters": [
+    {
+      "id": "01-introduction",
+      "label": "What Codex Ascend is",
+      "targetSeconds": 17,
+      "narration": "Codex Ascend is a living control room for long-running agent work. Give it one real objective, and a human and agent share the same climb. Camps are outcomes. Fog is uncertainty. The Summit stays locked until the work is verified."
+    },
+    {
+      "id": "02-shared-route",
+      "label": "One shared mission becomes a route",
+      "targetSeconds": 17,
+      "narration": "From Basecamp, the agent uses Web M C P to inspect structured mission state and discover the route. Work becomes camps; dependencies become the trail. Eighteen typed tools live in the page, governed by the same deterministic engine as the human interface."
+    },
+    {
+      "id": "03-world-reacts",
+      "label": "A blocker changes the mountain",
+      "targetSeconds": 16,
+      "narration": "When persistence tests fail, report obstacle changes the world itself. Weather closes in, the trail fractures at Camp Three, and progress stops. This is not a dashboard animation. It is live mission truth, made spatial and readable."
+    },
+    {
+      "id": "04-human-authority",
+      "label": "The agent asks; the human decides",
+      "targetSeconds": 20,
+      "narration": "The agent proposes a safe repair and a risky bypass, but it cannot choose. I select Repair persistence inside the mountain. Inspect human decision returns that structured human answer. Only then can the agent resolve the blocker and continue."
+    },
+    {
+      "id": "05-live-topology",
+      "label": "New work reshapes the ascent",
+      "targetSeconds": 17,
+      "narration": "When new required work appears, expand scope reveals Security Ridge. The same topology drives the camera, waypoints, evidence, and live elevation profile. Select a checkpoint below, and Ascend returns to that exact place on the mountain."
+    },
+    {
+      "id": "06-verified-summit",
+      "label": "Evidence unlocks the Summit",
+      "targetSeconds": 17,
+      "narration": "On final approach, every outcome receives evidence. Verify completion checks blockers, dependencies, and success criteria. Only then does complete mission unlock the Summit. Codex Ascend makes ambitious agent work visible, shared, and verifiable—from Basecamp to verified Summit."
+    }
+  ]
+}

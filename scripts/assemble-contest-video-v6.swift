@@ -45,26 +45,33 @@ struct ContestVideoAssemblerV6 {
     }
 
     static func main() async throws {
+        let isV9 = CommandLine.arguments.contains("--v9")
         let isV8 = CommandLine.arguments.contains("--v8")
         let isV71 = CommandLine.arguments.contains("--v7-1")
-        let isV7 = CommandLine.arguments.contains("--v7") || isV71 || isV8
+        let isV7 = CommandLine.arguments.contains("--v7") || isV71 || isV8 || isV9
         let repository = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
         let captures = repository.appendingPathComponent("artifacts/video/captures")
-        let voiceover = repository.appendingPathComponent("artifacts/video/voiceover/codex-ascend-v6-voiceover/codex-ascend-v6-voiceover.wav")
+        let voiceover = repository.appendingPathComponent(
+            isV9
+                ? "artifacts/video/voiceover/codex-ascend-v9-voiceover/codex-ascend-v9-voiceover.wav"
+                : "artifacts/video/voiceover/codex-ascend-v6-voiceover/codex-ascend-v6-voiceover.wav"
+        )
         let music = repository.appendingPathComponent(
-            isV8
+            isV8 || isV9
                 ? "artifacts/video/music/dreaming-big-by-ahjay-stelino-mixkit.mp3"
                 : "artifacts/video/music/mountains-by-andrew-ev-mixkit.mp3"
         )
         let missionDetail = repository.appendingPathComponent(
-            isV8
+            isV8 || isV9
                 ? "artifacts/screenshots/lower-panels.png"
                 : "artifacts/video/qa/v5-full-mission-detail.png"
         )
         let topologyPlate = repository.appendingPathComponent("artifacts/video/graphics/v6-topology-transition.png")
         let onboardingFrame = repository.appendingPathComponent("artifacts/video/graphics/v7-webmcp-onboarding.png")
         let output = repository.appendingPathComponent(
-            isV8
+            isV9
+                ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v9.mp4"
+                : isV8
                 ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v8.mp4"
                 : isV71
                 ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v7-1.mp4"
@@ -74,7 +81,24 @@ struct ContestVideoAssemblerV6 {
         )
         let routeReveal = isV8 ? "18-v8-route-reveal.mov" : "12-v5-route-reveal.mov"
 
-        var segments = [
+        var segments = isV9 ? [
+            V6Segment(filename: "v9/01-basecamp-route.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 12.0),
+            V6Segment(filename: "v9/01-basecamp-route.mov", sourceStart: 7.0, timelineStart: 12.0, duration: 5.0),
+            V6Segment(filename: "v6-live-agent/v4-live-agent-01.mov", sourceStart: 0.0, timelineStart: 17.0, duration: 5.0),
+            V6Segment(filename: "v6-live-agent/v4-live-agent-02.mov", sourceStart: 0.0, timelineStart: 22.0, duration: 4.67),
+            V6Segment(filename: "v6-live-agent/v4-live-agent-03.mov", sourceStart: 0.0, timelineStart: 26.67, duration: 4.67),
+            V6Segment(filename: "v6-live-agent/v4-live-agent-04.mov", sourceStart: 0.0, timelineStart: 31.34, duration: 2.66),
+            V6Segment(filename: "v9/02-blocker.mov", sourceStart: 0.0, timelineStart: 34.0, duration: 10.0),
+            V6Segment(filename: "v9/02-blocker.mov", sourceStart: 4.0, timelineStart: 44.0, duration: 6.0),
+            V6Segment(filename: "v9/03-human-decision.mov", sourceStart: 0.0, timelineStart: 50.0, duration: 14.0),
+            V6Segment(filename: "v9/03-human-decision.mov", sourceStart: 8.0, timelineStart: 64.0, duration: 6.0),
+            V6Segment(filename: "v9/04-scope-ridge.mov", sourceStart: 0.0, timelineStart: 70.0, duration: 8.5),
+            V6Segment(filename: "v9/06-elevation.mov", sourceStart: 0.0, timelineStart: 78.5, duration: 8.5),
+            V6Segment(filename: "v6-live-agent/v4-live-agent-04.mov", sourceStart: 0.0, timelineStart: 87.0, duration: 4.67),
+            V6Segment(filename: "v6-live-agent/v4-live-agent-05.mov", sourceStart: 0.0, timelineStart: 91.67, duration: 4.67),
+            V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 0.0, timelineStart: 96.34, duration: 4.66),
+            V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 4.66, timelineStart: 101.0, duration: 4.0),
+        ] : [
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 10.0),
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 4.4, timelineStart: 10.0, duration: 5.6),
             V6Segment(filename: "11-v5-basecamp.mov", sourceStart: 0.0, timelineStart: 15.6, duration: 10.0),
@@ -89,7 +113,9 @@ struct ContestVideoAssemblerV6 {
             V6Segment(filename: "15-v5-scope-expansion.mov", sourceStart: 4.3, timelineStart: 80.55, duration: 6.7),
             V6Segment(filename: "v6-live-agent/v4-live-agent-04.mov", sourceStart: 0.0, timelineStart: 87.25, duration: 4.67),
         ]
-        if isV8 {
+        if isV9 {
+            // The V9 sequence is complete above and ends on the real Summit card.
+        } else if isV8 {
             // Stay on the completed mission after the agent verifies it. The older
             // cut briefly returned to the pre-completion ascent, which read as a
             // continuity regression immediately before the final card.
@@ -100,7 +126,9 @@ struct ContestVideoAssemblerV6 {
             segments.append(V6Segment(filename: "v6-live-agent/v4-live-agent-05.mov", sourceStart: 0.0, timelineStart: 91.92, duration: 4.0))
             segments.append(V6Segment(filename: "16-v5-final-ascent.mov", sourceStart: 13.0, timelineStart: 95.92, duration: 5.08))
         }
-        segments.append(V6Segment(filename: "17-v5-summit-card.mov", sourceStart: 0.0, timelineStart: 101.0, duration: 4.0))
+        if !isV9 {
+            segments.append(V6Segment(filename: "17-v5-summit-card.mov", sourceStart: 0.0, timelineStart: 101.0, duration: 4.0))
+        }
 
         try FileManager.default.createDirectory(at: output.deletingLastPathComponent(), withIntermediateDirectories: true)
         if FileManager.default.fileExists(atPath: output.path) {
@@ -144,7 +172,7 @@ struct ContestVideoAssemblerV6 {
         guard let sourceMusic = try await musicAsset.loadTracks(withMediaType: .audio).first else {
             throw V6AssemblyError.missingTrack(music.path)
         }
-        let musicSourceStart = isV8 ? 5.2 : 7.0
+        let musicSourceStart = isV8 || isV9 ? 5.2 : 7.0
         try musicTrack.insertTimeRange(
             CMTimeRange(start: seconds(musicSourceStart), duration: seconds(totalDuration)),
             of: sourceMusic,
@@ -155,7 +183,7 @@ struct ContestVideoAssemblerV6 {
         let narrationMix = AVMutableAudioMixInputParameters(track: narrationTrack)
         narrationMix.setVolume(1.0, at: .zero)
         let musicMix = AVMutableAudioMixInputParameters(track: musicTrack)
-        if isV8 {
+        if isV8 || isV9 {
             // The score was auditioned against the narration arc. Keep the strings
             // present, duck the mid-track swell beneath the human-decision beat,
             // then give the verified summit a restrained lift.
@@ -197,15 +225,32 @@ struct ContestVideoAssemblerV6 {
 
         let fullRange = CMTimeRange(start: .zero, duration: seconds(totalDuration))
         let foregroundInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: foregroundTrack)
+        let wideTransform = CGAffineTransform(a: 1.25, b: 0, c: 0, d: 1.25, tx: 60, ty: -22.5)
         foregroundInstruction.setTransform(
-            isV8
-                ? CGAffineTransform(a: 1.25, b: 0, c: 0, d: 1.25, tx: 60, ty: -22.5)
-                : CGAffineTransform(a: 1.2, b: 0, c: 0, d: 1.2, tx: 96, ty: 0),
+            isV8 || isV9 ? wideTransform : CGAffineTransform(a: 1.2, b: 0, c: 0, d: 1.2, tx: 96, ty: 0),
             at: .zero
         )
+        if isV9 {
+            // Keep the mountain legible, then use one purposeful punch-in for each
+            // judging beat. The previous global editor drift softened text and made
+            // the selection glow feel like blur.
+            let railTransform = CGAffineTransform(a: 1.52, b: 0, c: 0, d: 1.52, tx: -930, ty: -144)
+            let decisionTransform = CGAffineTransform(a: 1.38, b: 0, c: 0, d: 1.38, tx: -8, ty: -132)
+            let ramp: Double = 0.6
+            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: railTransform, timeRange: CMTimeRange(start: seconds(17.0 - ramp), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(railTransform, at: seconds(17.0))
+            foregroundInstruction.setTransformRamp(fromStart: railTransform, toEnd: decisionTransform, timeRange: CMTimeRange(start: seconds(34.0 - ramp), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(decisionTransform, at: seconds(34.0))
+            foregroundInstruction.setTransformRamp(fromStart: decisionTransform, toEnd: wideTransform, timeRange: CMTimeRange(start: seconds(70.0 - ramp), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(wideTransform, at: seconds(70.0))
+            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: railTransform, timeRange: CMTimeRange(start: seconds(87.0 - ramp), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(railTransform, at: seconds(87.0))
+            foregroundInstruction.setTransformRamp(fromStart: railTransform, toEnd: wideTransform, timeRange: CMTimeRange(start: seconds(96.34 - ramp), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(wideTransform, at: seconds(96.34))
+        }
         let backgroundInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: backgroundTrack)
         backgroundInstruction.setTransform(CGAffineTransform(a: 1.333333, b: 0, c: 0, d: 1.333333, tx: 0, ty: -60), at: .zero)
-        backgroundInstruction.setOpacity(isV8 ? 0.0 : 0.42, at: .zero)
+        backgroundInstruction.setOpacity(isV8 || isV9 ? 0.0 : 0.42, at: .zero)
 
         let instruction = AVMutableVideoCompositionInstruction()
         instruction.timeRange = fullRange
@@ -225,25 +270,27 @@ struct ContestVideoAssemblerV6 {
         videoLayer.frame = parentLayer.frame
         parentLayer.addSublayer(videoLayer)
 
-        let cameraDrift = CAKeyframeAnimation(keyPath: "transform.scale")
-        cameraDrift.values = isV8
-            ? [1.0, 1.018, 1.008, 1.022, 1.01, 1.025, 1.012]
-            : [1.0, 1.035, 1.012, 1.045, 1.018, 1.05, 1.025]
-        cameraDrift.keyTimes = [0, 0.15, 0.33, 0.48, 0.67, 0.84, 1]
-        cameraDrift.beginTime = AVCoreAnimationBeginTimeAtZero
-        cameraDrift.duration = totalDuration
-        cameraDrift.isRemovedOnCompletion = false
-        cameraDrift.fillMode = .both
-        videoLayer.add(cameraDrift, forKey: "cinematic-camera-drift")
+        if !isV9 {
+            let cameraDrift = CAKeyframeAnimation(keyPath: "transform.scale")
+            cameraDrift.values = isV8
+                ? [1.0, 1.018, 1.008, 1.022, 1.01, 1.025, 1.012]
+                : [1.0, 1.035, 1.012, 1.045, 1.018, 1.05, 1.025]
+            cameraDrift.keyTimes = [0, 0.15, 0.33, 0.48, 0.67, 0.84, 1]
+            cameraDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            cameraDrift.duration = totalDuration
+            cameraDrift.isRemovedOnCompletion = false
+            cameraDrift.fillMode = .both
+            videoLayer.add(cameraDrift, forKey: "cinematic-camera-drift")
 
-        let lateralDrift = CAKeyframeAnimation(keyPath: "position.x")
-        lateralDrift.values = isV8 ? [960, 954, 966, 956, 964, 958, 960] : [960, 944, 974, 946, 968, 952, 960]
-        lateralDrift.keyTimes = cameraDrift.keyTimes
-        lateralDrift.beginTime = AVCoreAnimationBeginTimeAtZero
-        lateralDrift.duration = totalDuration
-        lateralDrift.isRemovedOnCompletion = false
-        lateralDrift.fillMode = .both
-        videoLayer.add(lateralDrift, forKey: "cinematic-lateral-drift")
+            let lateralDrift = CAKeyframeAnimation(keyPath: "position.x")
+            lateralDrift.values = isV8 ? [960, 954, 966, 956, 964, 958, 960] : [960, 944, 974, 946, 968, 952, 960]
+            lateralDrift.keyTimes = cameraDrift.keyTimes
+            lateralDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            lateralDrift.duration = totalDuration
+            lateralDrift.isRemovedOnCompletion = false
+            lateralDrift.fillMode = .both
+            videoLayer.add(lateralDrift, forKey: "cinematic-lateral-drift")
+        }
 
         let navy = CGColor(red: 0.015, green: 0.075, blue: 0.10, alpha: 0.92)
         let white = CGColor(red: 0.96, green: 0.99, blue: 1.0, alpha: 1)
@@ -285,7 +332,14 @@ struct ContestVideoAssemblerV6 {
             parentLayer.addSublayer(edge)
         }
 
-        let chapters = [
+        let chapters = isV9 ? [
+            V6Chapter(title: "A LIVING CONTROL ROOM", proof: "long-running agent work  ·  made visible", start: 0.25),
+            V6Chapter(title: "ONE SHARED MISSION", proof: "WebMCP tools  ·  actual structured results", start: 17.0),
+            V6Chapter(title: "BLOCKERS CHANGE THE WORLD", proof: "report_obstacle  →  Camp III blocked", start: 34.0),
+            V6Chapter(title: "THE AGENT ASKS. YOU DECIDE.", proof: "Repair persistence  →  human authority", start: 50.0),
+            V6Chapter(title: "NEW SCOPE. NEW RIDGE.", proof: "expand_scope  ·  live elevation topology", start: 70.0),
+            V6Chapter(title: "EVIDENCE BEFORE SUMMIT", proof: "verify_completion  →  verified Summit", start: 87.0),
+        ] : [
             V6Chapter(title: "THE MOUNTAIN REACTS", proof: "report_obstacle  →  BLOCKED", start: 0.25),
             V6Chapter(title: "ONE GOAL BECOMES A ROUTE", proof: "inspect_mission  ·  discover_mission", start: 15.6),
             V6Chapter(
@@ -324,23 +378,24 @@ struct ContestVideoAssemblerV6 {
             parentLayer.addSublayer(group)
         }
 
-        for boundary in [15.6, 34.55, 50.0, 69.85, 87.25, 101.0] {
+        let chapterBoundaries = isV9 ? [17.0, 34.0, 50.0, 70.0, 87.0, 96.34] : [15.6, 34.55, 50.0, 69.85, 87.25, 101.0]
+        for boundary in chapterBoundaries {
             let fog = CALayer()
             fog.frame = parentLayer.frame
             fog.backgroundColor = CGColor(red: 0.72, green: 0.86, blue: 0.90, alpha: 1)
             fog.opacity = 0
             let flash = CAKeyframeAnimation(keyPath: "opacity")
-            flash.values = [0, isV8 ? 0.14 : 0.24, 0]
+            flash.values = [0, isV8 || isV9 ? 0.14 : 0.24, 0]
             flash.keyTimes = [0, 0.5, 1]
-            flash.beginTime = AVCoreAnimationBeginTimeAtZero + boundary - (isV8 ? 0.45 : 0.32)
-            flash.duration = isV8 ? 0.9 : 0.64
+            flash.beginTime = AVCoreAnimationBeginTimeAtZero + boundary - (isV8 || isV9 ? 0.45 : 0.32)
+            flash.duration = isV8 || isV9 ? 0.9 : 0.64
             flash.isRemovedOnCompletion = false
             flash.fillMode = .both
             fog.add(flash, forKey: "fog-transition")
             parentLayer.addSublayer(fog)
         }
 
-        if !isV8, let transitionImage = NSImage(contentsOf: topologyPlate) {
+        if !isV8 && !isV9, let transitionImage = NSImage(contentsOf: topologyPlate) {
             var transitionRect = CGRect(origin: .zero, size: transitionImage.size)
             if let transitionCG = transitionImage.cgImage(forProposedRect: &transitionRect, context: nil, hints: nil) {
                 let transition = CALayer()
@@ -387,7 +442,7 @@ struct ContestVideoAssemblerV6 {
             }
         }
 
-        if isV7, let guideImage = NSImage(contentsOf: onboardingFrame) {
+        if isV7 && !isV9, let guideImage = NSImage(contentsOf: onboardingFrame) {
             var guideRect = CGRect(origin: .zero, size: guideImage.size)
             if let guideCG = guideImage.cgImage(forProposedRect: &guideRect, context: nil, hints: nil) {
                 let guideLayer = CALayer()
@@ -418,7 +473,7 @@ struct ContestVideoAssemblerV6 {
             }
         }
 
-        if isV71 || isV8 {
+        if (isV71 || isV8) && !isV9 {
             // The original Basecamp capture briefly exposed a rejected rehearsal call.
             // Replace only that small ledger region with the successful live inspection
             // result recorded immediately before it; the product footage remains intact.
@@ -446,7 +501,7 @@ struct ContestVideoAssemblerV6 {
             parentLayer.addSublayer(cleanLedger)
         }
 
-        if !isV8 {
+        if !isV8 && !isV9 {
             let ledgerFocus = CALayer()
             ledgerFocus.frame = CGRect(x: 1510, y: 725, width: 350, height: 265)
             ledgerFocus.borderWidth = 4
@@ -472,7 +527,7 @@ struct ContestVideoAssemblerV6 {
             ("complete_stage", "stage completed  ·  revision 22", 41.35),
             ("attach_evidence", "evidence attached  ·  revision 24", 45.55),
         ]
-        for proofItem in callProofs {
+        for proofItem in isV9 ? [] : callProofs {
             let proofGroup = CALayer()
             proofGroup.frame = CGRect(x: 540, y: 72, width: 840, height: 105)
             proofGroup.backgroundColor = navy
@@ -493,6 +548,7 @@ struct ContestVideoAssemblerV6 {
             parentLayer.addSublayer(proofGroup)
         }
 
+        if !isV9 {
         let humanProof = CALayer()
         humanProof.frame = isV8
             ? CGRect(x: 495, y: 74, width: 930, height: 122)
@@ -523,8 +579,9 @@ struct ContestVideoAssemblerV6 {
         humanFade.fillMode = .both
         humanProof.add(humanFade, forKey: "human-proof")
         parentLayer.addSublayer(humanProof)
+        }
 
-        if let detailImage = NSImage(contentsOf: missionDetail) {
+        if !isV9, let detailImage = NSImage(contentsOf: missionDetail) {
             var imageRect = CGRect(origin: .zero, size: detailImage.size)
             if let cgImage = detailImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil) {
                 let detailLayer = CALayer()
@@ -635,7 +692,7 @@ struct ContestVideoAssemblerV6 {
             fontName: "AvenirNext-DemiBold"
         ))
         parentLayer.addSublayer(textLayer(
-            isV8
+            isV8 || isV9
                 ? "AI VOICE  ·  MUSIC: ‘DREAMING BIG’ — AHJAY STELINO / MIXKIT"
                 : "AI VOICE  ·  MUSIC: ‘MOUNTAINS’ — ANDREW EV / MIXKIT",
             frame: CGRect(x: 1110, y: 2, width: 774, height: 18),

@@ -48,6 +48,21 @@ describe('Ascend geography-aware scenario cards', () => {
     }
   })
 
+  it('projects the demo route onto the authored mountain terrain spine', () => {
+    const state = advanceDemo(createDemoExpedition(), 0).state
+    const topology = buildMountainTopology(state, { baseAltitude: 1120, summitAltitude: 6430 })
+    const plan = createAscendWaypointPlan(state, topology)
+
+    expect(plan.anchors.map(({ x, y }) => [Number(x.toFixed(3)), Number(y.toFixed(3))])).toEqual([
+      [0.56, 0.79],
+      [0.614, 0.662],
+      [0.598, 0.55],
+      [0.559, 0.43],
+      [0.513, 0.31],
+      [0.455, 0.17],
+    ])
+  })
+
   it('does not leak concealed mission stages into card copy or generation context', () => {
     const state = advanceDemo(createDemoExpedition(), 0).state
     const topology = buildMountainTopology(state, { baseAltitude: 1120, summitAltitude: 6430 })

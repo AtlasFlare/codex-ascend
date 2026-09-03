@@ -20,6 +20,33 @@ export interface AscendWaypointPlan {
 const MAX_WAYPOINTS = 10
 const clamp = (value: number, minimum: number, maximum: number) => Math.min(maximum, Math.max(minimum, value))
 
+// Authored against the canonical 16:9 mountain family. The lower traverse
+// deliberately bends back onto the foreground snow shelf before climbing the
+// right-hand ridge to the summit. Interpolating this spine keeps arbitrary
+// mission sizes on physical terrain instead of drawing a generic diagonal.
+const ASCEND_TERRAIN_SPINE = [
+  { x: 0.56, y: 0.79 },
+  { x: 0.615, y: 0.68 },
+  { x: 0.61, y: 0.59 },
+  { x: 0.58, y: 0.49 },
+  { x: 0.545, y: 0.39 },
+  { x: 0.505, y: 0.29 },
+  { x: 0.455, y: 0.17 },
+] as const
+
+function pointOnTerrainSpine(progress: number) {
+  const scaled = clamp(progress, 0, 1) * (ASCEND_TERRAIN_SPINE.length - 1)
+  const startIndex = Math.floor(scaled)
+  const endIndex = Math.min(ASCEND_TERRAIN_SPINE.length - 1, startIndex + 1)
+  const localProgress = scaled - startIndex
+  const start = ASCEND_TERRAIN_SPINE[startIndex]
+  const end = ASCEND_TERRAIN_SPINE[endIndex]
+  return {
+    x: start.x + (end.x - start.x) * localProgress,
+    y: start.y + (end.y - start.y) * localProgress,
+  }
+}
+
 function sampledIndexes(length: number) {
   if (length <= MAX_WAYPOINTS) return Array.from({ length }, (_, index) => index)
   return Array.from({ length: MAX_WAYPOINTS }, (_, index) => Math.round(index * (length - 1) / (MAX_WAYPOINTS - 1)))
@@ -36,6 +63,7 @@ export function createAscendWaypointPlan(state: MissionState, topology: Mountain
   const anchors = indexes.map((sourceIndex, visualIndex) => {
     const node = ordered[sourceIndex]
     const progress = indexes.length <= 1 ? 0 : visualIndex / (indexes.length - 1)
+    const position = pointOnTerrainSpine(progress)
     const stageState: AscendWaypointState = node.id === activeId
       ? 'current'
       : node.stage.status === 'completed'
@@ -50,8 +78,8 @@ export function createAscendWaypointPlan(state: MissionState, topology: Mountain
       // Stage anchors stay fixed on the authored mountain spine. Alternate
       // route proposals may change diagnostic graph geometry, but must never
       // move the physical ledge used by generated scenario-card variants.
-      x: clamp(0.68 - progress * 0.2, 0.44, 0.72),
-      y: clamp(0.79 - progress * 0.59, 0.18, 0.82),
+      x: position.x,
+      y: position.y,
       state: stageState,
     }
   })
