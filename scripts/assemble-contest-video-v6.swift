@@ -233,15 +233,19 @@ struct ContestVideoAssemblerV6 {
             // the selection glow feel like blur.
             let railTransform = CGAffineTransform(a: 1.52, b: 0, c: 0, d: 1.52, tx: -930, ty: -144)
             let decisionTransform = CGAffineTransform(a: 1.38, b: 0, c: 0, d: 1.38, tx: -8, ty: -132)
-            let ramp: Double = 0.6
-            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: railTransform, timeRange: CMTimeRange(start: seconds(17.0 - ramp), duration: seconds(ramp)))
-            foregroundInstruction.setTransform(railTransform, at: seconds(17.0))
-            foregroundInstruction.setTransformRamp(fromStart: railTransform, toEnd: decisionTransform, timeRange: CMTimeRange(start: seconds(34.0 - ramp), duration: seconds(ramp)))
-            foregroundInstruction.setTransform(decisionTransform, at: seconds(34.0))
+            let ramp: Double = 0.8
+            foregroundInstruction.setTransform(wideTransform, at: seconds(17.0))
+            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: railTransform, timeRange: CMTimeRange(start: seconds(17.0), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(railTransform, at: seconds(17.0 + ramp))
+            foregroundInstruction.setTransformRamp(fromStart: railTransform, toEnd: wideTransform, timeRange: CMTimeRange(start: seconds(34.0 - ramp), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(wideTransform, at: seconds(34.0))
+            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: decisionTransform, timeRange: CMTimeRange(start: seconds(34.0), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(decisionTransform, at: seconds(34.0 + ramp))
             foregroundInstruction.setTransformRamp(fromStart: decisionTransform, toEnd: wideTransform, timeRange: CMTimeRange(start: seconds(70.0 - ramp), duration: seconds(ramp)))
             foregroundInstruction.setTransform(wideTransform, at: seconds(70.0))
-            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: railTransform, timeRange: CMTimeRange(start: seconds(87.0 - ramp), duration: seconds(ramp)))
-            foregroundInstruction.setTransform(railTransform, at: seconds(87.0))
+            foregroundInstruction.setTransform(wideTransform, at: seconds(87.0))
+            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: railTransform, timeRange: CMTimeRange(start: seconds(87.0), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(railTransform, at: seconds(87.0 + ramp))
             foregroundInstruction.setTransformRamp(fromStart: railTransform, toEnd: wideTransform, timeRange: CMTimeRange(start: seconds(96.34 - ramp), duration: seconds(ramp)))
             foregroundInstruction.setTransform(wideTransform, at: seconds(96.34))
         }
