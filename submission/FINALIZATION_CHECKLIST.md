@@ -1,10 +1,10 @@
 # Contest Finalization Checklist
 
-Publication actions already completed with owner approval are recorded below. Final Devpost submission still requires a fresh explicit approval at its marked gate.
+Publication and submission actions already completed with owner approval are recorded below.
 
 ## Local package ready
 
-- [x] V7.1 master exists and is under three minutes.
+- [x] V9 master exists and is under three minutes.
 - [x] Full video and audio decode completed.
 - [x] AVFoundation decode reached the 1:45 end frame with 3,150 video frames and complete audio.
 - [x] YouTube title, description, chapters, tags, credit, and settings are prepared.
@@ -30,12 +30,13 @@ Publication actions already completed with owner approval are recorded below. Fi
 
 ## Video gate
 
-- [x] Perform owner review of the final V7.1 master.
+- [x] Perform owner review of the final V9 master.
 - [x] Choose and upload the cinematic custom thumbnail.
-- [x] Upload https://youtu.be/gNNQefKfcTs; copyright check reports no issues.
+- [x] Upload https://youtu.be/N8iQ5qR3ytg; copyright check reports no issues.
 - [x] **EXTERNAL GATE:** owner approved changing visibility to Public.
 - [x] Wait for 1080p processing and perform signed-out playback QA.
-- [x] Paste the final watch URL into `DEVPOST_SUBMISSION.md` and Devpost.
+- [x] Publish timed English captions and verify signed-out playback advances normally.
+- [x] Paste the final watch URL into Devpost and verify the public project page embeds video `N8iQ5qR3ytg`.
 
 ## Devpost gate
 
@@ -51,12 +52,12 @@ Publication actions already completed with owner approval are recorded below. Fi
 - [x] Confirm no teammate is required for this submission; submitter type is Individual.
 - [x] Submission preview and finalization reminder reviewed line by line without accepting terms or submitting.
 - [x] Official rules reviewed against eligibility and submission requirements.
-- [ ] Owner accepts the binding official rules and Devpost terms.
-- [ ] **EXTERNAL GATE:** obtain approval immediately before final Devpost submission.
+- [x] Owner accepts the binding official rules and Devpost terms.
+- [x] **EXTERNAL GATE:** owner approved final Devpost submission.
 
 ## Freeze after submission
 
-- [ ] Record the submission time, release commit SHA, Worker version, live URL, repository URL, and video URL.
-- [ ] Do not change the submitted live site, public repository, video, or Devpost entry during judging.
+- [x] Record the release commit SHA, Worker version, live URL, repository URL, and final video URL in the submission documentation.
+- [x] Freeze the submitted live site, public repository, video, and Devpost entry during judging unless a reproducible judging defect appears.
 - [ ] If development must continue, fork it into a separate repository/deployment that cannot alter the submitted candidate.
 - [ ] Preserve the final master and submission screenshots locally until winners are announced.

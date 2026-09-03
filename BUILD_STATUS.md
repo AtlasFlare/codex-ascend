@@ -1,9 +1,9 @@
 # Build Status
 
-**Checkpoint:** Phase 27 WebMCP onboarding deployed, live-tool verified, and V7 video-mastered
+**Checkpoint:** Phase 28 V9 published, playback-verified, and embedded in the submitted Devpost entry
 
 **Updated:** 2026-09-03
-**Scope:** Ascend only. The contest release candidate and WebMCP connection guide are deployed to the existing public review Worker. The 1:45 V7.1 video, public MIT-licensed repository, and Devpost draft are live. Final Devpost rules acceptance and submission remain approval-gated.
+**Scope:** Ascend only. The contest release candidate and WebMCP connection guide are deployed to the existing public review Worker. The 1:45 V9 video, public MIT-licensed repository, and submitted Devpost entry are live and verified.
 
 ## Phase status
 
@@ -37,6 +37,7 @@
 | 25 — Mountain-first contest presentation | Complete and deployed | The public candidate uses a full mountain canvas, compact mission ribbon, truthful live WebMCP activity rail, restrained global fog, and stable telemetry updates. |
 | 26 — Cinematic contest master | Complete locally | A 2:05 V5 master combines clean deployed WebMCP captures, the actual human-only repair choice, animated topology proof, warmer OpenAI narration, stronger credited music, fog transitions, and a verified-Summit finish without browser chrome or hosting URLs. |
 | 27 — Judge onboarding and V7.1 master | Complete, deployed, and published | Unsupported browsers receive a polished, dismissible, keyboard-contained WebMCP guide with current ChatGPT desktop steps, a copyable starter prompt, Chrome testing guidance, and a concise human-agent flow. The deployed in-app browser exposes all 18 tools and a live `inspect_mission` call updates the activity rail. The public 1:45 V7.1 video adds the deployed onboarding shot with a clean transition into actual structured call proof. |
+| 28 — V9 contest-film finalization | Complete, published, and submitted | The final 1:45 V9 master adds the stronger OpenAI Marin narration, smoother editorial transitions, corrected waypoint focus and trail alignment, and an evidence-forward opening. YouTube reports no copyright issues; the upload is Public with the cinematic thumbnail, AI-use disclosure, timed English captions, and signed-out playback verification. Devpost publicly embeds the V9 video. |
 
 ## Verification
 
@@ -115,12 +116,13 @@
 - Phase 27 deployed onboarding smoke: pass at Worker version `17a12fb5-1496-4942-929c-ceb3824a7a32`; the guide rendered, dismissed into the mountain, exposed all 18 native tools, returned a live structured `inspect_mission` result, updated the activity rail, and produced no browser warnings or errors.
 - V7 video master: pass by full media decode and representative-frame review; 105.00 seconds, 1920 × 1080 at 30 fps, 3,150 decoded frames, complete audio decode, -21.40 dBFS RMS, and -3.51 dBFS peak. SHA-256: `cb5442c0d8ee2d02f94ed03046cd5b0f2498894189035affb5ee0d8aa768c328`. It was superseded by the corrected V7.1 public master.
 - V7.1 public master: pass at 105.00 seconds, 1920 × 1080 at 30 fps with SHA-256 `8109009053922fdc2cebc8005414569dc056033cb2b36ae13d1799b19eff21f1`; signed-out playback and the YouTube copyright check both passed.
+- V9 public master: pass at 105.01 seconds, 1920 × 1080 at 30 fps with 3,150 decoded frames, complete audio decode, -21.89 dBFS RMS, -3.73 dBFS peak, and SHA-256 `635edce5739254ca5f39eb7df576775320fc150919043c908b44715d1157ee7f`. YouTube copyright checks reported no issues; the custom thumbnail, AI-use disclosure, and timed English captions are live.
 - Final submission deployment: pass at Worker version `a485f494-19dc-4f29-b922-9a4589e6bfdb` from runtime source commit `f6814a54d50cfb403f414d042e775555cff196a8`; dashboard variables and secrets were preserved.
 - Legacy Summit restoration: pass on the deployed origin; the same cached completed session returned 52% before reload and 100% through native `inspect_mission` after reload.
 - Final live responsive interaction: pass at 390 × 844 with zero horizontal overflow, contained Security Ridge card imagery, working **View mission detail**, working elevation checkpoint selection, and zero browser warnings or errors.
 - Final automated gate: pass; ESLint, 65 tests across 18 files, the 860-module frontend production build, and Worker TypeScript build all succeeded. The public-release audit passed for 157 candidate files.
-- Public distribution: pass; the GitHub repository renders signed out as Public with an MIT license in the About panel, and the 1:45 V7.1 YouTube video is Public with signed-out playback verification.
-- Devpost content finalization: pass; the judge-only recovery instruction now matches the prefilled Basecamp reset, and the public story explicitly identifies developers and technical leads supervising long-running AI execution as the target audience.
+- Public distribution: pass; the GitHub repository renders signed out as Public with an MIT license in the About panel, and the 1:45 V9 YouTube video at https://youtu.be/N8iQ5qR3ytg is Public with signed-out playback verification.
+- Devpost content finalization: pass; the public project page embeds YouTube video `N8iQ5qR3ytg`, the judge-only recovery instruction matches the prefilled Basecamp reset, and the public story explicitly identifies developers and technical leads supervising long-running AI execution as the target audience.
 
 ## Current boundary
 
@@ -132,8 +134,8 @@
 - Native WebMCP support remains experimental and browser-dependent.
 - Unsupported visitors now receive current connection guidance; the visual demo remains usable after dismissing it.
 
-## External gates
+## Post-submission boundary
 
-- Accept the official rules and Devpost terms after owner review.
-- Obtain fresh owner approval immediately before final Devpost submission.
-- Freeze the live deployment, repository, video, and Devpost entry during judging.
+- The owner accepted the official rules and Devpost terms and approved final submission.
+- The owner approved publication of V9 and replacement of the submitted Devpost video link.
+- Freeze the live deployment, repository, video, and Devpost entry during judging unless a reproducible judging defect appears.

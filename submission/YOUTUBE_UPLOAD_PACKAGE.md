@@ -1,24 +1,24 @@
-# YouTube Upload Package — Codex Ascend V7.1
+# YouTube Upload Package — Codex Ascend V9
 
 ## Current upload
 
-- Public watch URL: https://youtu.be/gNNQefKfcTs
+- Public watch URL: https://youtu.be/N8iQ5qR3ytg
 - Visibility: **Public** following owner approval
-- Title, description, chapters, audience, tags, AI disclosure, license, and embedding settings are configured.
+- Title, description, chapters, audience, AI disclosure, license, and embedding settings are configured.
 - YouTube copyright check: **No issues found**
 - Custom thumbnail: `artifacts/video/submission/youtube-thumbnail-cinematic-v5.jpg`, uploaded after phone verification.
 
 ## Uploaded master
 
-`artifacts/video/final/codex-ascend-webmcp-challenge-demo-v7-1.mp4`
+`artifacts/video/final/codex-ascend-webmcp-challenge-demo-v9.mp4`
 
 - Duration: 1:45
 - Format: 1920 × 1080, 30 fps, stereo AAC
-- Size: 136,680,344 bytes
-- SHA-256: `8109009053922fdc2cebc8005414569dc056033cb2b36ae13d1799b19eff21f1`
-- Full decode: 3,150 video frames and 9,261,000 audio samples
-- Audio RMS: -21.40 dBFS
-- Audio peak: -3.51 dBFS
+- Size: 135,320,833 bytes
+- SHA-256: `635edce5739254ca5f39eb7df576775320fc150919043c908b44715d1157ee7f`
+- Full decode: 3,150 video frames and complete audio
+- Audio RMS: -21.89 dBFS
+- Audio peak: -3.73 dBFS
 
 ## Published metadata
 
@@ -32,17 +32,18 @@ Codex Ascend turns long-running agent work into a living mountain. Camps are ver
 
 The experience exposes 18 native WebMCP tools directly from the page. An agent can inspect mission state, discover topology, advance stages, surface blockers, propose new scope, attach evidence, and verify completion. Consequential route choices remain human-authorized inside the same visual world.
 
-00:00 A blocker changes the world
-00:16 One objective becomes a route
-00:35 18 native WebMCP tools
+00:00 A living control room
+00:17 One shared mission
+00:34 Blockers change the world
 00:50 The agent asks; the human decides
 01:10 New scope reveals Security Ridge
-01:27 Evidence unlocks Verified Summit
+01:27 Evidence before Summit
+01:36 Verified Summit
 
 Built for the OpenAI WebMCP Challenge.
 
 Narration: AI-generated.
-Music: “Mountains” by Andrew Ev via Mixkit, used under the Mixkit Free License.
+Music: “Dreaming Big” by Ahjay Stelino via Mixkit, used under the Mixkit Free License.
 
 ## Settings
 
@@ -52,8 +53,7 @@ Music: “Mountains” by Andrew Ev via Mixkit, used under the Mixkit Free Licen
 - Paid promotion: off.
 - License: Standard YouTube License.
 - Allow embedding: on.
-- Tags: WebMCP, OpenAI, AI agents, human in the loop, developer tools, Codex Ascend.
-- Captions file ready: `artifacts/video/voiceover/codex-ascend-v6-voiceover/codex-ascend-v6-voiceover.vtt`.
+- Captions published from `artifacts/video/voiceover/codex-ascend-v9-voiceover/codex-ascend-v9-voiceover.vtt`.
 
 ## Publication verification
 
@@ -61,4 +61,5 @@ Music: “Mountains” by Andrew Ev via Mixkit, used under the Mixkit Free Licen
 2. Owner authorized Public visibility.
 3. Channel phone verification completed and the cinematic custom thumbnail was uploaded.
 4. Signed-out playback, title, captions, duration, and public visibility were verified.
-5. The watch URL was added to the Devpost draft.
+5. Timed English captions were published and observed on the signed-out watch page.
+6. The watch URL was saved in Devpost and verified in the public project-page embed.

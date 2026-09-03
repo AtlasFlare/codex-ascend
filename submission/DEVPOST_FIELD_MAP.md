@@ -10,7 +10,7 @@ This is a local paste map. Do not submit without the final approval gate.
 | Testing instructions | `submission/JUDGE_TESTING_INSTRUCTIONS.md` short version |
 | Live URL | Enter the current deployment URL directly in Devpost with `?present=1`; keep the account-scoped hostname out of source control. |
 | Repository | This public repository; use its canonical GitHub URL in Devpost. |
-| Video | https://youtu.be/gNNQefKfcTs — Public and verified signed out |
+| Video | https://youtu.be/N8iQ5qR3ytg — Public, captioned, embedded, and verified signed out |
 | License | MIT |
 | Technologies | WebMCP, TypeScript, React, PixiJS, OpenAI GPT Image 2, Cloudflare Workers, Workflows, R2, Zod, Vitest |
 | Authentication | None required for judging |
@@ -37,6 +37,6 @@ All five files are 1280 × 720 PNGs and below 110 KB.
 ## Final review pass
 
 - Verify the canonical repository URL opens publicly from Devpost.
-- Verify https://youtu.be/gNNQefKfcTs plays publicly and remains embeddable.
+- Verify https://youtu.be/N8iQ5qR3ytg plays publicly and remains embeddable.
 - Search the repository for `PUBLIC_`, `PLACEHOLDER`, `TODO`, and `TBD` and confirm that no submission-facing placeholder remains.
-- Do not accept the Devpost terms or submit without immediate owner approval.
+- Keep the submitted entry frozen during judging unless a reproducible judging defect appears.
