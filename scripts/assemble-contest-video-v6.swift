@@ -82,16 +82,13 @@ struct ContestVideoAssemblerV6 {
         let routeReveal = isV8 ? "18-v8-route-reveal.mov" : "12-v5-route-reveal.mov"
 
         var segments = isV9 ? [
-            V6Segment(filename: "v9/01-basecamp-route.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 12.0),
-            V6Segment(filename: "v9/01-basecamp-route.mov", sourceStart: 7.0, timelineStart: 12.0, duration: 5.0),
+            V6Segment(filename: "v9/01-basecamp-route.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 17.0),
             V6Segment(filename: "v6-live-agent/v4-live-agent-01.mov", sourceStart: 0.0, timelineStart: 17.0, duration: 5.0),
             V6Segment(filename: "v6-live-agent/v4-live-agent-02.mov", sourceStart: 0.0, timelineStart: 22.0, duration: 4.67),
             V6Segment(filename: "v6-live-agent/v4-live-agent-03.mov", sourceStart: 0.0, timelineStart: 26.67, duration: 4.67),
             V6Segment(filename: "v6-live-agent/v4-live-agent-04.mov", sourceStart: 0.0, timelineStart: 31.34, duration: 2.66),
-            V6Segment(filename: "v9/02-blocker.mov", sourceStart: 0.0, timelineStart: 34.0, duration: 10.0),
-            V6Segment(filename: "v9/02-blocker.mov", sourceStart: 4.0, timelineStart: 44.0, duration: 6.0),
-            V6Segment(filename: "v9/03-human-decision.mov", sourceStart: 0.0, timelineStart: 50.0, duration: 14.0),
-            V6Segment(filename: "v9/03-human-decision.mov", sourceStart: 8.0, timelineStart: 64.0, duration: 6.0),
+            V6Segment(filename: "v9/02-blocker.mov", sourceStart: 0.0, timelineStart: 34.0, duration: 16.0),
+            V6Segment(filename: "v9/03-human-decision.mov", sourceStart: 0.0, timelineStart: 50.0, duration: 20.0),
             V6Segment(filename: "v9/04-scope-ridge.mov", sourceStart: 0.0, timelineStart: 70.0, duration: 8.5),
             V6Segment(filename: "v9/06-elevation.mov", sourceStart: 0.0, timelineStart: 78.5, duration: 8.5),
             V6Segment(filename: "v6-live-agent/v4-live-agent-04.mov", sourceStart: 0.0, timelineStart: 87.0, duration: 4.67),

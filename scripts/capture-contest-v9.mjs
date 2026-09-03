@@ -49,6 +49,7 @@ async function openResetPage() {
     style.dataset.captureStyle = 'v9'
     style.textContent = [
       '.demo-controls { display: none !important; }',
+      '.webmcp-activity-rail, .mcp-pill { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }',
       'html, body, button, a { cursor: none !important; }',
     ].join('\n')
     document.head.append(style)
@@ -143,9 +144,8 @@ async function capture(page, name, frames, actions = new Map()) {
 try {
   if (wantsCapture('01-basecamp-route')) {
   const basecamp = await openResetPage()
-  await capture(basecamp, '01-basecamp-route', 180, new Map([
-    [30, nextEvent],
-  ]))
+  await nextEvent(basecamp)
+  await capture(basecamp, '01-basecamp-route', 255)
   await basecamp.close()
   }
 
@@ -154,14 +154,14 @@ try {
   await advanceTo(blocker, 9)
   await blocker.getByRole('button', { name: /Camp III · Validation, blocked/ }).click()
   await blocker.waitForTimeout(450)
-  await capture(blocker, '02-blocker', 150)
+  await capture(blocker, '02-blocker', 240)
   await blocker.close()
   }
 
   if (wantsCapture('03-human-decision')) {
   const decision = await openResetPage()
   await advanceTo(decision, 11)
-  await capture(decision, '03-human-decision', 210, new Map([
+  await capture(decision, '03-human-decision', 300, new Map([
     [78, async (page) => {
       await choosePersistenceRepair(page)
     }],
