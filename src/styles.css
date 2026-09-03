@@ -528,7 +528,11 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .waypoint-marker.is-active .waypoint-caption.caption-left { right: 51px; left: auto; }
 .waypoint-marker.is-secured:not(.is-active) .position-beacon { background: rgba(248,252,253,.96); }
 .waypoint-marker.is-blocked .position-beacon { color: white; background: #19384a; border-color: #ff9a78; }
-.waypoint-marker.is-selected .position-beacon { outline: 0; box-shadow: 0 0 0 3px rgba(255,255,255,.92), 0 0 0 6px rgba(255,104,64,.48), 0 9px 24px rgba(8,34,51,.32); }
+.waypoint-marker.is-selected .position-beacon {
+  outline: 2px solid rgba(255,111,70,.92);
+  outline-offset: 2px;
+  box-shadow: 0 8px 16px rgba(8,34,51,.24), inset 0 1px 0 rgba(255,255,255,.72);
+}
 
 .waypoint-scenario-card {
   --scenario-base-x: 0px;

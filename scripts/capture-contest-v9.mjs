@@ -49,6 +49,7 @@ async function openResetPage() {
     style.dataset.captureStyle = 'v9'
     style.textContent = [
       '.demo-controls { display: none !important; }',
+      '.situation-glass { display: none !important; }',
       '.webmcp-activity-rail, .mcp-pill { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }',
       'html, body, button, a { cursor: none !important; }',
     ].join('\n')
@@ -145,8 +146,12 @@ try {
   if (wantsCapture('01-basecamp-route')) {
   const basecamp = await openResetPage()
   await nextEvent(basecamp)
+  // Camp I swaps in the first real mountain texture. Let Pixi finish that
+  // upload before frame zero so the film opens on the product, not its fog
+  // fallback while the GPU texture is still arriving.
+  await basecamp.waitForTimeout(2_500)
   await capture(basecamp, '01-basecamp-route', 255, new Map([
-    [75, (page) => selectMountainWaypoint(page, 'Camp I · Foundation')],
+    [45, (page) => selectMountainWaypoint(page, 'Camp I · Foundation')],
   ]))
   await basecamp.close()
   }

@@ -83,18 +83,17 @@ struct ContestVideoAssemblerV6 {
 
         var segments = isV9 ? [
             V6Segment(filename: "v9/01-basecamp-route.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 17.0),
-            V6Segment(filename: "v6-live-agent/v4-live-agent-01.mov", sourceStart: 0.0, timelineStart: 17.0, duration: 5.0),
-            V6Segment(filename: "v6-live-agent/v4-live-agent-02.mov", sourceStart: 0.0, timelineStart: 22.0, duration: 4.67),
-            V6Segment(filename: "v6-live-agent/v4-live-agent-03.mov", sourceStart: 0.0, timelineStart: 26.67, duration: 4.67),
-            V6Segment(filename: "v6-live-agent/v4-live-agent-04.mov", sourceStart: 0.0, timelineStart: 31.34, duration: 2.66),
+            V6Segment(filename: "v9-live/01-inspect.mov", sourceStart: 0.0, timelineStart: 17.0, duration: 5.0),
+            V6Segment(filename: "v9-live/02-begin.mov", sourceStart: 0.0, timelineStart: 22.0, duration: 5.0),
+            V6Segment(filename: "v9-live/03-evidence.mov", sourceStart: 0.0, timelineStart: 27.0, duration: 7.0),
             V6Segment(filename: "v9/02-blocker.mov", sourceStart: 0.0, timelineStart: 34.0, duration: 16.0),
             V6Segment(filename: "v9/03-human-decision.mov", sourceStart: 0.0, timelineStart: 50.0, duration: 20.0),
             V6Segment(filename: "v9/04-scope-ridge.mov", sourceStart: 0.0, timelineStart: 70.0, duration: 8.5),
             V6Segment(filename: "v9/06-elevation.mov", sourceStart: 0.0, timelineStart: 78.5, duration: 8.5),
-            V6Segment(filename: "v6-live-agent/v4-live-agent-04.mov", sourceStart: 0.0, timelineStart: 87.0, duration: 4.67),
-            V6Segment(filename: "v6-live-agent/v4-live-agent-05.mov", sourceStart: 0.0, timelineStart: 91.67, duration: 4.67),
-            V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 0.0, timelineStart: 96.34, duration: 4.66),
-            V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 4.66, timelineStart: 101.0, duration: 4.0),
+            V6Segment(filename: "v9-live/04-verify.mov", sourceStart: 0.0, timelineStart: 87.0, duration: 4.33),
+            V6Segment(filename: "v9-live/05-complete.mov", sourceStart: 0.0, timelineStart: 91.33, duration: 4.33),
+            V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 0.0, timelineStart: 95.66, duration: 5.34),
+            V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 5.34, timelineStart: 101.0, duration: 4.0),
         ] : [
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 10.0),
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 4.4, timelineStart: 10.0, duration: 5.6),
@@ -222,7 +221,9 @@ struct ContestVideoAssemblerV6 {
 
         let fullRange = CMTimeRange(start: .zero, duration: seconds(totalDuration))
         let foregroundInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: foregroundTrack)
-        let wideTransform = CGAffineTransform(a: 1.25, b: 0, c: 0, d: 1.25, tx: 60, ty: -22.5)
+        // All V9 captures are 1440x900. Aspect-fill the 1920x1080 master so
+        // the film never exposes editor matte at the sides.
+        let wideTransform = CGAffineTransform(a: 1.333333, b: 0, c: 0, d: 1.333333, tx: 0, ty: -30)
         foregroundInstruction.setTransform(
             isV8 || isV9 ? wideTransform : CGAffineTransform(a: 1.2, b: 0, c: 0, d: 1.2, tx: 96, ty: 0),
             at: .zero
@@ -231,23 +232,27 @@ struct ContestVideoAssemblerV6 {
             // Keep the mountain legible, then use one purposeful punch-in for each
             // judging beat. The previous global editor drift softened text and made
             // the selection glow feel like blur.
-            let railTransform = CGAffineTransform(a: 1.52, b: 0, c: 0, d: 1.52, tx: -930, ty: -144)
+            // The live WebMCP proof frames are native 1280x720 captures from
+            // the current deployment. These transforms preserve full bleed
+            // while giving the real activity rail one deliberate close-up.
+            let liveWideTransform = CGAffineTransform(a: 1.5, b: 0, c: 0, d: 1.5, tx: 0, ty: 0)
+            let liveRailTransform = CGAffineTransform(a: 1.66, b: 0, c: 0, d: 1.66, tx: -205, ty: -58)
             let decisionTransform = CGAffineTransform(a: 1.38, b: 0, c: 0, d: 1.38, tx: -8, ty: -132)
             let ramp: Double = 0.8
-            foregroundInstruction.setTransform(wideTransform, at: seconds(17.0))
-            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: railTransform, timeRange: CMTimeRange(start: seconds(17.0), duration: seconds(ramp)))
-            foregroundInstruction.setTransform(railTransform, at: seconds(17.0 + ramp))
-            foregroundInstruction.setTransformRamp(fromStart: railTransform, toEnd: wideTransform, timeRange: CMTimeRange(start: seconds(34.0 - ramp), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(liveWideTransform, at: seconds(17.0))
+            foregroundInstruction.setTransformRamp(fromStart: liveWideTransform, toEnd: liveRailTransform, timeRange: CMTimeRange(start: seconds(17.0), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(liveRailTransform, at: seconds(17.0 + ramp))
+            foregroundInstruction.setTransformRamp(fromStart: liveRailTransform, toEnd: liveWideTransform, timeRange: CMTimeRange(start: seconds(34.0 - ramp), duration: seconds(ramp)))
             foregroundInstruction.setTransform(wideTransform, at: seconds(34.0))
             foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: decisionTransform, timeRange: CMTimeRange(start: seconds(34.0), duration: seconds(ramp)))
             foregroundInstruction.setTransform(decisionTransform, at: seconds(34.0 + ramp))
             foregroundInstruction.setTransformRamp(fromStart: decisionTransform, toEnd: wideTransform, timeRange: CMTimeRange(start: seconds(70.0 - ramp), duration: seconds(ramp)))
             foregroundInstruction.setTransform(wideTransform, at: seconds(70.0))
-            foregroundInstruction.setTransform(wideTransform, at: seconds(87.0))
-            foregroundInstruction.setTransformRamp(fromStart: wideTransform, toEnd: railTransform, timeRange: CMTimeRange(start: seconds(87.0), duration: seconds(ramp)))
-            foregroundInstruction.setTransform(railTransform, at: seconds(87.0 + ramp))
-            foregroundInstruction.setTransformRamp(fromStart: railTransform, toEnd: wideTransform, timeRange: CMTimeRange(start: seconds(96.34 - ramp), duration: seconds(ramp)))
-            foregroundInstruction.setTransform(wideTransform, at: seconds(96.34))
+            foregroundInstruction.setTransform(liveWideTransform, at: seconds(87.0))
+            foregroundInstruction.setTransformRamp(fromStart: liveWideTransform, toEnd: liveRailTransform, timeRange: CMTimeRange(start: seconds(87.0), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(liveRailTransform, at: seconds(87.0 + ramp))
+            foregroundInstruction.setTransformRamp(fromStart: liveRailTransform, toEnd: liveWideTransform, timeRange: CMTimeRange(start: seconds(95.66 - ramp), duration: seconds(ramp)))
+            foregroundInstruction.setTransform(wideTransform, at: seconds(95.66))
         }
         let backgroundInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: backgroundTrack)
         backgroundInstruction.setTransform(CGAffineTransform(a: 1.333333, b: 0, c: 0, d: 1.333333, tx: 0, ty: -60), at: .zero)
@@ -335,11 +340,11 @@ struct ContestVideoAssemblerV6 {
 
         let chapters = isV9 ? [
             V6Chapter(title: "A LIVING CONTROL ROOM", proof: "long-running agent work  ·  made visible", start: 0.25),
-            V6Chapter(title: "ONE SHARED MISSION", proof: "WebMCP tools  ·  actual structured results", start: 17.0),
+            V6Chapter(title: "ONE SHARED MISSION", proof: "WebMCP tools  ·  actual structured results", start: 17.82),
             V6Chapter(title: "BLOCKERS CHANGE THE WORLD", proof: "report_obstacle  →  Camp III blocked", start: 34.0),
             V6Chapter(title: "THE AGENT ASKS. YOU DECIDE.", proof: "Repair persistence  →  human authority", start: 50.0),
             V6Chapter(title: "NEW SCOPE. NEW RIDGE.", proof: "expand_scope  ·  live elevation topology", start: 70.0),
-            V6Chapter(title: "EVIDENCE BEFORE SUMMIT", proof: "verify_completion  →  verified Summit", start: 87.0),
+            V6Chapter(title: "EVIDENCE BEFORE SUMMIT", proof: "verify_completion  →  verified Summit", start: 87.82),
         ] : [
             V6Chapter(title: "THE MOUNTAIN REACTS", proof: "report_obstacle  →  BLOCKED", start: 0.25),
             V6Chapter(title: "ONE GOAL BECOMES A ROUTE", proof: "inspect_mission  ·  discover_mission", start: 15.6),
@@ -379,21 +384,23 @@ struct ContestVideoAssemblerV6 {
             parentLayer.addSublayer(group)
         }
 
-        let chapterBoundaries = isV9 ? [17.0, 34.0, 50.0, 70.0, 87.0, 96.34] : [15.6, 34.55, 50.0, 69.85, 87.25, 101.0]
+        let chapterBoundaries = isV9 ? [17.0, 34.0, 50.0, 70.0, 87.0, 95.66] : [15.6, 34.55, 50.0, 69.85, 87.25, 101.0]
         for boundary in chapterBoundaries {
-            let fog = CALayer()
-            fog.frame = parentLayer.frame
-            fog.backgroundColor = CGColor(red: 0.72, green: 0.86, blue: 0.90, alpha: 1)
-            fog.opacity = 0
+            let transitionVeil = CALayer()
+            transitionVeil.frame = parentLayer.frame
+            transitionVeil.backgroundColor = isV9
+                ? CGColor(red: 0.01, green: 0.055, blue: 0.075, alpha: 1)
+                : CGColor(red: 0.72, green: 0.86, blue: 0.90, alpha: 1)
+            transitionVeil.opacity = 0
             let flash = CAKeyframeAnimation(keyPath: "opacity")
-            flash.values = [0, isV8 || isV9 ? 0.14 : 0.24, 0]
+            flash.values = [0, isV9 ? 0.30 : (isV8 ? 0.14 : 0.24), 0]
             flash.keyTimes = [0, 0.5, 1]
-            flash.beginTime = AVCoreAnimationBeginTimeAtZero + boundary - (isV8 || isV9 ? 0.45 : 0.32)
-            flash.duration = isV8 || isV9 ? 0.9 : 0.64
+            flash.beginTime = AVCoreAnimationBeginTimeAtZero + boundary - (isV9 ? 0.25 : (isV8 ? 0.45 : 0.32))
+            flash.duration = isV9 ? 0.5 : (isV8 ? 0.9 : 0.64)
             flash.isRemovedOnCompletion = false
             flash.fillMode = .both
-            fog.add(flash, forKey: "fog-transition")
-            parentLayer.addSublayer(fog)
+            transitionVeil.add(flash, forKey: "chapter-transition")
+            parentLayer.addSublayer(transitionVeil)
         }
 
         if !isV8 && !isV9, let transitionImage = NSImage(contentsOf: topologyPlate) {
