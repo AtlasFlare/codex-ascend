@@ -1,6 +1,6 @@
 # Contest Finalization Checklist
 
-No upload, push, publication, or Devpost submission is authorized by this checklist. Stop at every marked external gate.
+Publication actions already completed with owner approval are recorded below. Final Devpost submission still requires a fresh explicit approval at its marked gate.
 
 ## Local package ready
 
@@ -16,38 +16,39 @@ No upload, push, publication, or Devpost submission is authorized by this checkl
 
 ## Repository gate
 
-- [ ] Confirm the intended GitHub/GitLab/Bitbucket destination and repository name.
-- [ ] Review the complete diff and decide whether all current changes belong in the release.
+- [x] Confirm the intended GitHub destination and repository name.
+- [x] Review the complete diff and decide whether all current changes belong in the release.
 - [x] Run `pnpm check` (63 tests plus frontend and Worker production builds passed on September 3, 2026).
 - [x] Run `pnpm types:worker --check` (generated Worker types are current).
 - [x] Confirm `.dev.vars`, generated candidates, raw art-direction output, and video working files remain ignored.
 - [x] Scan tracked files for tokens, private filesystem paths, and credential-like values (no matches found).
-- [ ] Create the final release commit after the September 3 consistency fixes and record its exact SHA. The preceding public-release base is `8d0bf8504bdd740e694a2bd415761af75e896487`.
-- [ ] **EXTERNAL GATE:** obtain approval before creating or pushing the public repository.
-- [ ] Verify the public repository from a signed-out browser and repeat the clean-clone build against the final pushed SHA.
-- [ ] Paste the final repository URL into the README, YouTube description, Devpost copy, and release record.
+- [x] Create and push the audited release commit; public release SHA: `87c2dda2c872a0fa050a8ee72eb22868c27bdcda`.
+- [x] **EXTERNAL GATE:** owner approved public repository creation and push.
+- [x] Verify the public repository page, README, and detectable MIT license from the public web.
+- [ ] Repeat the clean-clone build against the final pushed SHA after this documentation-only consistency commit.
+- [x] Paste the canonical repository URL into Devpost; public source documentation refers to this repository without account-branding copy.
 
 ## Video gate
 
-- [ ] Perform one owner listening check of the final V7.1 master on ordinary laptop speakers.
-- [ ] Choose the cinematic thumbnail or literal product-frame alternate.
-- [ ] Replace `[PUBLIC_REPOSITORY_URL]` in the YouTube description.
-- [x] Upload configured as Private at https://youtu.be/gNNQefKfcTs; copyright check reports no issues.
-- [ ] **EXTERNAL GATE:** obtain approval immediately before changing visibility to Public.
-- [ ] Wait for 1080p processing and perform signed-out playback QA.
-- [ ] Paste the final watch URL into `DEVPOST_SUBMISSION.md`.
+- [x] Perform owner review of the final V7.1 master.
+- [x] Choose and upload the cinematic custom thumbnail.
+- [x] Upload https://youtu.be/gNNQefKfcTs; copyright check reports no issues.
+- [x] **EXTERNAL GATE:** owner approved changing visibility to Public.
+- [x] Wait for 1080p processing and perform signed-out playback QA.
+- [x] Paste the final watch URL into `DEVPOST_SUBMISSION.md` and Devpost.
 
 ## Devpost gate
 
-- [ ] Project name: Codex Ascend.
-- [ ] Tagline and long-form description pasted from `DEVPOST_SUBMISSION.md`.
-- [ ] Live URL pasted and tested in a supported WebMCP browser.
-- [ ] Judge instructions pasted from `submission/JUDGE_TESTING_INSTRUCTIONS.md`.
-- [ ] Public repository URL pasted and opened signed out.
-- [ ] Public YouTube URL pasted and played signed out.
-- [ ] MIT license selected or identified.
-- [ ] Five screenshots uploaded in the documented order.
-- [ ] Teammates and all mandatory fields reviewed.
+- [x] Project name: Codex Ascend.
+- [x] Tagline and long-form description pasted from `DEVPOST_SUBMISSION.md`.
+- [x] Live URL pasted and tested in a supported WebMCP browser.
+- [x] Judge instructions pasted from `submission/JUDGE_TESTING_INSTRUCTIONS.md`.
+- [x] Public repository URL pasted and opened publicly.
+- [x] Public YouTube URL pasted and played signed out.
+- [x] MIT license present and publicly detectable.
+- [x] Five screenshots uploaded in the documented order with concise captions.
+- [x] Submitter, country, app status, tested clients, AI tools, and required learning fields completed.
+- [ ] Confirm no teammate is required for this individual submission.
 - [ ] Official rules and submission preview reviewed line by line.
 - [ ] **EXTERNAL GATE:** obtain approval immediately before final Devpost submission.
 

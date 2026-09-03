@@ -2,11 +2,11 @@
 
 ## Current upload
 
-- Private watch URL: https://youtu.be/gNNQefKfcTs
-- Visibility: **Private** pending owner approval
+- Public watch URL: https://youtu.be/gNNQefKfcTs
+- Visibility: **Public** following owner approval
 - Title, description, chapters, audience, tags, AI disclosure, license, and embedding settings are configured.
 - YouTube copyright check: **No issues found**
-- Custom thumbnail: blocked until the channel completes YouTube phone verification; the strongest auto-generated frame remains selected.
+- Custom thumbnail: `artifacts/video/submission/youtube-thumbnail-cinematic-v5.jpg`, uploaded after phone verification.
 
 ## Uploaded master
 
@@ -46,7 +46,7 @@ Music: “Mountains” by Andrew Ev via Mixkit, used under the Mixkit Free Licen
 
 ## Settings
 
-- Visibility: Private until the owner authorizes Public.
+- Visibility: Public.
 - Audience: not made for kids.
 - AI use: disclosed.
 - Paid promotion: off.
@@ -55,11 +55,10 @@ Music: “Mountains” by Andrew Ev via Mixkit, used under the Mixkit Free Licen
 - Tags: WebMCP, OpenAI, AI agents, human in the loop, developer tools, Codex Ascend.
 - Captions file ready: `artifacts/video/voiceover/codex-ascend-v6-voiceover/codex-ascend-v6-voiceover.vtt`.
 
-## Final publication gate
+## Publication verification
 
-1. Wait for HD processing to finish.
-2. Perform the owner listening check on ordinary speakers.
-3. Add the final public repository URL to the description.
-4. Optionally complete channel phone verification and upload `artifacts/video/submission/youtube-thumbnail-cinematic-v5.jpg`.
-5. Obtain explicit owner approval immediately before changing visibility to Public.
-6. Verify signed-out playback, then paste the URL into Devpost.
+1. HD and SD processing completed.
+2. Owner authorized Public visibility.
+3. Channel phone verification completed and the cinematic custom thumbnail was uploaded.
+4. Signed-out playback, title, captions, duration, and public visibility were verified.
+5. The watch URL was added to the Devpost draft.

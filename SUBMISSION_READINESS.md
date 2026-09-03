@@ -1,6 +1,6 @@
 # Submission Readiness
 
-**Candidate verdict:** the product source and 1:45 V7.1 demo master are locally ready. The master is uploaded to YouTube as Private with a clean copyright check. Final deployment verification, public repository publication, owner mix approval, and external contest publication remain.
+**Candidate verdict:** the product source, public repository, live experience, and 1:45 V7.1 demo are ready for judging. The video is Public with a custom thumbnail and a clean copyright check. Final Devpost preview review and submission remain; the exact deployed Worker version still needs to be recorded if Cloudflare credentials become available.
 
 ## Ready
 
@@ -13,16 +13,17 @@
 - MIT license and final three-minute demo runbook.
 - A deployed, dismissible WebMCP connection guide with current ChatGPT desktop instructions, a copyable judge prompt, Chrome testing guidance, and an accessible visual-demo fallback.
 - A 1920 × 1080, 30 fps V7.1 video master with warm AI narration, credited music, a deployed ChatGPT/WebMCP onboarding shot, a corrected WebMCP proof overlay, the actual human route choice, live topology, and Verified Summit.
-- Private YouTube upload at https://youtu.be/gNNQefKfcTs with contest metadata, AI-use disclosure, and a completed copyright check reporting no issues.
+- Public YouTube video at https://youtu.be/gNNQefKfcTs with contest metadata, AI-use disclosure, custom thumbnail, signed-out playback verification, and a completed copyright check reporting no issues.
+- Public MIT-licensed source repository verified from its rendered public page; the release commit is `87c2dda2c872a0fa050a8ee72eb22868c27bdcda`.
+- Devpost draft populated with the live URL, public repository, public video, concise judge instructions, and a five-image narrative gallery.
 - Completed missions now report 100% discovery, unique inbound routes become authoritative automatically, ambiguous approaches require an explicit route choice, and opening New closes any scenario dialog.
 
 ## External blockers
 
-1. Deploy the final source candidate and repeat the live WebMCP, desktop, mobile, and Basecamp-to-Summit checks against that exact version.
-2. Attach a public Git remote and push the audited MIT-licensed final release commit; this checkout currently has no configured remote.
-3. Perform one owner mix-approval listen, add the public repository URL to the description, then change the private V7.1 upload to Public.
-4. Complete the Devpost description, screenshots, required metadata, rules review, and final submission before September 3 at 1:00 PM PT.
-5. Freeze the submitted live deployment, public repository, video, and submission during judging.
+1. Review the rendered Devpost preview, official rules, team state, and finalization page line by line.
+2. Record the exact deployed Cloudflare Worker version if authenticated deployment metadata becomes available; do not claim the public release commit is deployed without that evidence.
+3. Obtain explicit owner approval immediately before the final Devpost submission.
+4. Freeze the submitted live deployment, public repository, video, and submission during judging.
 
 ## Explicitly not required for the judge path
 
@@ -33,8 +34,8 @@
 
 ## Highest-value remaining work
 
-1. Deploy and verify the final consistency fixes.
-2. Attach the intended public Git remote and push the audited release commit.
-3. Approve the final mix, publish the chosen master on YouTube, and paste the public link into `DEVPOST_SUBMISSION.md`.
-4. Paste the completed Devpost copy, upload the five production screenshots, review contest fields, and submit.
-5. Stop changing the frozen candidate unless the public upload reveals a reproducible playback defect.
+1. Review the rendered Devpost preview and ensure the video and five-image gallery tell the intended story above the fold.
+2. Run one final supported-browser judge-path check from Basecamp to the human decision and Verified Summit.
+3. Review the finalization page without accepting terms or submitting.
+4. Obtain explicit owner approval and submit before the contest deadline.
+5. Freeze the candidate unless a reproducible judging defect appears.

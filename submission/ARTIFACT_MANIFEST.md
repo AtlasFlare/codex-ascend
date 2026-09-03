@@ -18,5 +18,6 @@ Updated locally on 2026-09-03.
 - Audio RMS: -21.40 dBFS
 - Audio peak: -3.51 dBFS
 - Representative frames verified at the corrected WebMCP proof sequence and final Summit
-- Uploaded privately to YouTube: https://youtu.be/gNNQefKfcTs
+- Published on YouTube: https://youtu.be/gNNQefKfcTs
 - YouTube copyright check: no issues found
+- Custom cinematic thumbnail uploaded after channel phone verification

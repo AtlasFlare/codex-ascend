@@ -1,6 +1,6 @@
 # Public Repository Release Preparation
 
-Nothing here authorizes repository creation or a push.
+Repository publication and push were completed with owner approval. Final Devpost submission remains separately approval-gated.
 
 ## Recommended repository metadata
 
@@ -40,9 +40,9 @@ Nothing here authorizes repository creation or a push.
 - Worker TypeScript build: pass.
 - Wrangler 4.127.0 generated-binding check: up to date.
 
-## Proposed release commit
+## Release commit
 
-Commit title:
+Published release title:
 
 `Finalize Codex Ascend WebMCP contest submission`
 
@@ -50,11 +50,10 @@ Commit body:
 
 `Complete the mountain-first human-agent journey, native WebMCP tool proof, responsive scenario cards, semantic weather and topology, evidence-gated Summit, Cloudflare/OpenAI generation boundary, and final contest documentation.`
 
-## Publication sequence after approval
+## Publication record
 
-1. Review the prepared release commit and record its exact SHA.
-2. Create or attach the approved public repository remote.
-3. Push only `main`; do not mirror local tool-managed refs.
-4. Verify README images, license, and repository visibility signed out.
-5. Perform a clean clone and run `pnpm check && pnpm check:public`.
-6. Put the final repository URL into YouTube and Devpost.
+1. The audited public release commit was pushed to `main`: `87c2dda2c872a0fa050a8ee72eb22868c27bdcda`.
+2. Only `main` was pushed; local tool-managed refs were not mirrored.
+3. The public repository page, README, neutral About copy, and MIT license were verified.
+4. The canonical repository URL was added to Devpost.
+5. Re-run `pnpm check && pnpm check:public`, commit this documentation-only consistency pass, push it, and verify the new public HEAD before submission.

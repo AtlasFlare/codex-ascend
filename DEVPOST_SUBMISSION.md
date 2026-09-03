@@ -78,7 +78,7 @@ OpenAI credentials and the generation administration token remain server-side. R
 - A native 3840×2160 accepted OpenAI canonical mountain served through Cloudflare.
 - Stable camera focus, moving clouds, semantic weather, waypoint imagery and an interactive elevation navigator in one coherent experience.
 - Explicit generated-art review, safe retries, provider request evidence and last-known-good world behavior.
-- Sixty automated tests plus deployed desktop, mobile and full-journey browser verification.
+- Sixty-three automated tests plus deployed desktop, mobile and full-journey browser verification.
 
 ## What we learned
 
@@ -105,8 +105,8 @@ After the contest, the highest-value work is not more visual themes. It is durab
 ## Links
 
 - **Live experience:** use the deployment URL entered directly in Devpost; do not commit an account-scoped hostname
-- **Source repository:** `[PUBLIC_REPOSITORY_URL]`
-- **Demo video:** https://youtu.be/gNNQefKfcTs *(currently Private; change to Public only after final approval)*
+- **Source repository:** this public repository
+- **Demo video:** https://youtu.be/gNNQefKfcTs *(Public and verified signed out)*
 
 ## Testing instructions
 
