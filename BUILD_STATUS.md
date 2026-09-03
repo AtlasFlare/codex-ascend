@@ -120,6 +120,7 @@
 - Final live responsive interaction: pass at 390 × 844 with zero horizontal overflow, contained Security Ridge card imagery, working **View mission detail**, working elevation checkpoint selection, and zero browser warnings or errors.
 - Final automated gate: pass; ESLint, 65 tests across 18 files, the 860-module frontend production build, and Worker TypeScript build all succeeded. The public-release audit passed for 157 candidate files.
 - Public distribution: pass; the GitHub repository renders signed out as Public with an MIT license in the About panel, and the 1:45 V7.1 YouTube video is Public with signed-out playback verification.
+- Devpost content finalization: pass; the judge-only recovery instruction now matches the prefilled Basecamp reset, and the public story explicitly identifies developers and technical leads supervising long-running AI execution as the target audience.
 
 ## Current boundary
 
@@ -133,7 +134,6 @@
 
 ## External gates
 
-- Save the corrected judge-only reset instruction in Devpost.
 - Accept the official rules and Devpost terms after owner review.
 - Obtain fresh owner approval immediately before final Devpost submission.
 - Freeze the live deployment, repository, video, and Devpost entry during judging.

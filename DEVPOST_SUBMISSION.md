@@ -78,7 +78,7 @@ OpenAI credentials and the generation administration token remain server-side. R
 - A native 3840×2160 accepted OpenAI canonical mountain served through Cloudflare.
 - Stable camera focus, moving clouds, semantic weather, waypoint imagery and an interactive elevation navigator in one coherent experience.
 - Explicit generated-art review, safe retries, provider request evidence and last-known-good world behavior.
-- Sixty-three automated tests plus deployed desktop, mobile and full-journey browser verification.
+- Sixty-five automated tests across eighteen files plus deployed desktop, mobile and full-journey browser verification.
 
 ## What we learned
 
@@ -111,6 +111,8 @@ After the contest, the highest-value work is not more visual themes. It is durab
 ## Testing instructions
 
 No login is required. Open the live experience in ChatGPT’s in-app browser or Chrome with WebMCP enabled and confirm it reports **WebMCP native**. Ask the agent: “Inspect this mission, discover its route, and advance carefully. Stop when human authorization is required.” At the Camp III persistence blocker, choose **Repair persistence** in the mountain card. Then ask: “Inspect my decision, resolve the blocker, continue with evidence, verify completion, and finish the mission.” The expected ending is **Verified Summit**, 100% progress, 6,430 m secured, and evidence verified.
+
+If a prior session is already complete, select **New**, keep the editable defaults, then select **Establish basecamp**. Do not trigger image generation; the accepted world is already deployed.
 
 See `submission/JUDGE_TESTING_INSTRUCTIONS.md` for recovery steps and detailed proof points.
 

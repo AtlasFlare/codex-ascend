@@ -48,9 +48,10 @@ Publication actions already completed with owner approval are recorded below. Fi
 - [x] MIT license present and publicly detectable.
 - [x] Five screenshots uploaded in the documented order with concise captions.
 - [x] Submitter, country, app status, tested clients, AI tools, and required learning fields completed.
-- [ ] Confirm no teammate is required for this individual submission.
+- [x] Confirm no teammate is required for this submission; submitter type is Individual.
 - [x] Submission preview and finalization reminder reviewed line by line without accepting terms or submitting.
-- [ ] Official rules reviewed and terms accepted by the owner.
+- [x] Official rules reviewed against eligibility and submission requirements.
+- [ ] Owner accepts the binding official rules and Devpost terms.
 - [ ] **EXTERNAL GATE:** obtain approval immediately before final Devpost submission.
 
 ## Freeze after submission
