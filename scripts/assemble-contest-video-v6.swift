@@ -38,26 +38,39 @@ enum V6AssemblyError: LocalizedError {
 
 @main
 struct ContestVideoAssemblerV6 {
-    static let totalDuration = 105.0
-
     static func seconds(_ value: Double) -> CMTime {
         CMTime(seconds: value, preferredTimescale: 600)
     }
 
     static func main() async throws {
-        let isV9 = CommandLine.arguments.contains("--v9")
+        let isV13 = CommandLine.arguments.contains("--v13")
+        let isV12 = CommandLine.arguments.contains("--v12") || isV13
+        let isV11 = CommandLine.arguments.contains("--v11") || isV12
+        let isV10 = CommandLine.arguments.contains("--v10") || isV11
+        let isV9 = CommandLine.arguments.contains("--v9") || isV10
         let isV8 = CommandLine.arguments.contains("--v8")
         let isV71 = CommandLine.arguments.contains("--v7-1")
         let isV7 = CommandLine.arguments.contains("--v7") || isV71 || isV8 || isV9
         let repository = URL(fileURLWithPath: FileManager.default.currentDirectoryPath)
+        let totalDuration = isV10 ? 105.66 : 105.0
         let captures = repository.appendingPathComponent("artifacts/video/captures")
         let voiceover = repository.appendingPathComponent(
-            isV9
+            isV13
+                ? "artifacts/video/voiceover/codex-ascend-v13-voiceover/codex-ascend-v13-voiceover.wav"
+                : isV12
+                ? "artifacts/video/voiceover/codex-ascend-v12-voiceover/codex-ascend-v12-voiceover.wav"
+                : isV11
+                ? "artifacts/video/voiceover/codex-ascend-v11-voiceover/codex-ascend-v11-voiceover.wav"
+                : isV10
+                ? "artifacts/video/voiceover/codex-ascend-v10-voiceover/codex-ascend-v10-voiceover.wav"
+                : isV9
                 ? "artifacts/video/voiceover/codex-ascend-v9-voiceover/codex-ascend-v9-voiceover.wav"
                 : "artifacts/video/voiceover/codex-ascend-v6-voiceover/codex-ascend-v6-voiceover.wav"
         )
         let music = repository.appendingPathComponent(
-            isV8 || isV9
+            isV10
+                ? "artifacts/video/music/riser-inspirational-by-atlasaudio-pixabay.wav"
+                : isV8 || isV9
                 ? "artifacts/video/music/dreaming-big-by-ahjay-stelino-mixkit.mp3"
                 : "artifacts/video/music/mountains-by-andrew-ev-mixkit.mp3"
         )
@@ -69,7 +82,15 @@ struct ContestVideoAssemblerV6 {
         let topologyPlate = repository.appendingPathComponent("artifacts/video/graphics/v6-topology-transition.png")
         let onboardingFrame = repository.appendingPathComponent("artifacts/video/graphics/v7-webmcp-onboarding.png")
         let output = repository.appendingPathComponent(
-            isV9
+            isV13
+                ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v13.mp4"
+                : isV12
+                ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v12.mp4"
+                : isV11
+                ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v11.mp4"
+                : isV10
+                ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v10.mp4"
+                : isV9
                 ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v9.mp4"
                 : isV8
                 ? "artifacts/video/final/codex-ascend-webmcp-challenge-demo-v8.mp4"
@@ -93,7 +114,7 @@ struct ContestVideoAssemblerV6 {
             V6Segment(filename: "v9-live/04-verify.mov", sourceStart: 0.0, timelineStart: 87.0, duration: 4.33),
             V6Segment(filename: "v9-live/05-complete.mov", sourceStart: 0.0, timelineStart: 91.33, duration: 4.33),
             V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 0.0, timelineStart: 95.66, duration: 5.34),
-            V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 5.34, timelineStart: 101.0, duration: 4.0),
+            V6Segment(filename: "v9/05-verified-summit.mov", sourceStart: 5.34, timelineStart: 101.0, duration: isV10 ? 4.66 : 4.0),
         ] : [
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 0.0, timelineStart: 0.0, duration: 10.0),
             V6Segment(filename: "13-v5-blocker.mov", sourceStart: 4.4, timelineStart: 10.0, duration: 5.6),
@@ -168,7 +189,7 @@ struct ContestVideoAssemblerV6 {
         guard let sourceMusic = try await musicAsset.loadTracks(withMediaType: .audio).first else {
             throw V6AssemblyError.missingTrack(music.path)
         }
-        let musicSourceStart = isV8 || isV9 ? 5.2 : 7.0
+        let musicSourceStart = isV10 ? 81.5 : (isV8 || isV9 ? 5.2 : 7.0)
         try musicTrack.insertTimeRange(
             CMTimeRange(start: seconds(musicSourceStart), duration: seconds(totalDuration)),
             of: sourceMusic,
@@ -179,7 +200,38 @@ struct ContestVideoAssemblerV6 {
         let narrationMix = AVMutableAudioMixInputParameters(track: narrationTrack)
         narrationMix.setVolume(1.0, at: .zero)
         let musicMix = AVMutableAudioMixInputParameters(track: musicTrack)
-        if isV8 || isV9 {
+        if isV11 {
+            // Preserve a quiet musical bed beneath every spoken line, then let
+            // the score carry the final Summit hold and resolve at picture end.
+            musicMix.setVolumeRamp(fromStartVolume: 0.0, toEndVolume: 0.07, timeRange: CMTimeRange(start: .zero, duration: seconds(3.2)))
+            musicMix.setVolume(0.07, at: seconds(3.2))
+            musicMix.setVolumeRamp(fromStartVolume: 0.07, toEndVolume: 0.058, timeRange: CMTimeRange(start: seconds(32.5), duration: seconds(1.5)))
+            musicMix.setVolume(0.058, at: seconds(34.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.058, toEndVolume: 0.048, timeRange: CMTimeRange(start: seconds(48.5), duration: seconds(1.5)))
+            musicMix.setVolume(0.048, at: seconds(50.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.048, toEndVolume: 0.072, timeRange: CMTimeRange(start: seconds(68.2), duration: seconds(1.8)))
+            musicMix.setVolume(0.072, at: seconds(70.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.072, toEndVolume: 0.11, timeRange: CMTimeRange(start: seconds(94.0), duration: seconds(2.5)))
+            musicMix.setVolume(0.11, at: seconds(96.5))
+            musicMix.setVolumeRamp(fromStartVolume: 0.11, toEndVolume: 0.138, timeRange: CMTimeRange(start: seconds(96.5), duration: seconds(7.6)))
+            musicMix.setVolume(0.138, at: seconds(104.1))
+            musicMix.setVolumeRamp(fromStartVolume: 0.138, toEndVolume: 0.0, timeRange: CMTimeRange(start: seconds(104.1), duration: seconds(1.56)))
+        } else if isV10 {
+            // Keep the cinematic riser firmly behind the continuous narration.
+            // Its closing lift reaches the verified Summit without turning the
+            // product demo into a trailer.
+            musicMix.setVolumeRamp(fromStartVolume: 0.0, toEndVolume: 0.075, timeRange: CMTimeRange(start: .zero, duration: seconds(3.0)))
+            musicMix.setVolume(0.075, at: seconds(3.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.075, toEndVolume: 0.06, timeRange: CMTimeRange(start: seconds(32.8), duration: seconds(1.2)))
+            musicMix.setVolume(0.06, at: seconds(34.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.06, toEndVolume: 0.045, timeRange: CMTimeRange(start: seconds(49.0), duration: seconds(1.0)))
+            musicMix.setVolume(0.045, at: seconds(50.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.045, toEndVolume: 0.075, timeRange: CMTimeRange(start: seconds(68.5), duration: seconds(1.5)))
+            musicMix.setVolume(0.075, at: seconds(70.0))
+            musicMix.setVolumeRamp(fromStartVolume: 0.075, toEndVolume: 0.105, timeRange: CMTimeRange(start: seconds(94.5), duration: seconds(2.0)))
+            musicMix.setVolume(0.105, at: seconds(96.5))
+            musicMix.setVolumeRamp(fromStartVolume: 0.105, toEndVolume: 0.0, timeRange: CMTimeRange(start: seconds(102.0), duration: seconds(3.66)))
+        } else if isV8 || isV9 {
             // The score was auditioned against the narration arc. Keep the strings
             // present, duck the mid-track swell beneath the human-decision beat,
             // then give the verified summit a restrained lift.
@@ -238,7 +290,7 @@ struct ContestVideoAssemblerV6 {
             let liveWideTransform = CGAffineTransform(a: 1.5, b: 0, c: 0, d: 1.5, tx: 0, ty: 0)
             let liveRailTransform = CGAffineTransform(a: 1.66, b: 0, c: 0, d: 1.66, tx: -205, ty: -58)
             let decisionTransform = CGAffineTransform(a: 1.38, b: 0, c: 0, d: 1.38, tx: -8, ty: -132)
-            let ramp: Double = 0.8
+            let ramp: Double = isV11 ? 1.4 : (isV10 ? 0.95 : 0.8)
             foregroundInstruction.setTransform(liveWideTransform, at: seconds(17.0))
             foregroundInstruction.setTransformRamp(fromStart: liveWideTransform, toEnd: liveRailTransform, timeRange: CMTimeRange(start: seconds(17.0), duration: seconds(ramp)))
             foregroundInstruction.setTransform(liveRailTransform, at: seconds(17.0 + ramp))
@@ -276,7 +328,97 @@ struct ContestVideoAssemblerV6 {
         videoLayer.frame = parentLayer.frame
         parentLayer.addSublayer(videoLayer)
 
-        if !isV9 {
+        if isV13 {
+            // Keep a permanent overscan reserve during the opening move so the
+            // parent matte can never appear at either side. Return to a centered,
+            // unscaled frame at the first live WebMCP cut; those captures already
+            // provide their own purposeful camera movement.
+            let cameraDrift = CAKeyframeAnimation(keyPath: "transform.scale")
+            cameraDrift.values = [1.03, 1.05, 1.075, 1.035, 1.0, 1.0]
+            cameraDrift.keyTimes = [0, 0.076, 0.147, 0.156, 0.161, 1]
+            cameraDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            cameraDrift.duration = totalDuration
+            cameraDrift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            cameraDrift.isRemovedOnCompletion = false
+            cameraDrift.fillMode = .both
+            videoLayer.add(cameraDrift, forKey: "v13-opening-full-bleed-scale")
+
+            let lateralDrift = CAKeyframeAnimation(keyPath: "position.x")
+            lateralDrift.values = [960, 952, 946, 956, 960, 960]
+            lateralDrift.keyTimes = cameraDrift.keyTimes
+            lateralDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            lateralDrift.duration = totalDuration
+            lateralDrift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            lateralDrift.isRemovedOnCompletion = false
+            lateralDrift.fillMode = .both
+            videoLayer.add(lateralDrift, forKey: "v13-opening-bounded-pan-x")
+
+            let verticalDrift = CAKeyframeAnimation(keyPath: "position.y")
+            verticalDrift.values = [540, 535, 530, 537, 540, 540]
+            verticalDrift.keyTimes = cameraDrift.keyTimes
+            verticalDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            verticalDrift.duration = totalDuration
+            verticalDrift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            verticalDrift.isRemovedOnCompletion = false
+            verticalDrift.fillMode = .both
+            videoLayer.add(verticalDrift, forKey: "v13-opening-bounded-pan-y")
+        } else if isV12 {
+            // The opening now reads as a deliberate camera move: push toward
+            // the generated mountain, ease back at the live-tool cut, then
+            // continue a second slow push through the first WebMCP proof beat.
+            // Later movement stays restrained so interface text remains crisp.
+            let cameraDrift = CAKeyframeAnimation(keyPath: "transform.scale")
+            cameraDrift.values = [1.0, 1.022, 1.042, 1.018, 1.038, 1.008, 1.014, 1.007, 1.0]
+            cameraDrift.keyTimes = [0, 0.08, 0.16, 0.19, 0.32, 0.35, 0.64, 0.84, 1]
+            cameraDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            cameraDrift.duration = totalDuration
+            cameraDrift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            cameraDrift.isRemovedOnCompletion = false
+            cameraDrift.fillMode = .both
+            videoLayer.add(cameraDrift, forKey: "v12-opening-ken-burns-scale")
+
+            let lateralDrift = CAKeyframeAnimation(keyPath: "position.x")
+            lateralDrift.values = [960, 950, 938, 960, 946, 960, 963, 958, 960]
+            lateralDrift.keyTimes = cameraDrift.keyTimes
+            lateralDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            lateralDrift.duration = totalDuration
+            lateralDrift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            lateralDrift.isRemovedOnCompletion = false
+            lateralDrift.fillMode = .both
+            videoLayer.add(lateralDrift, forKey: "v12-opening-ken-burns-pan-x")
+
+            let verticalDrift = CAKeyframeAnimation(keyPath: "position.y")
+            verticalDrift.values = [540, 535, 529, 540, 533, 540, 542, 538, 540]
+            verticalDrift.keyTimes = cameraDrift.keyTimes
+            verticalDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            verticalDrift.duration = totalDuration
+            verticalDrift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            verticalDrift.isRemovedOnCompletion = false
+            verticalDrift.fillMode = .both
+            videoLayer.add(verticalDrift, forKey: "v12-opening-ken-burns-pan-y")
+        } else if isV11 {
+            // Barely perceptible Ken Burns motion keeps the long product frames
+            // alive without softening interface text or shifting waypoints.
+            let cameraDrift = CAKeyframeAnimation(keyPath: "transform.scale")
+            cameraDrift.values = [1.0, 1.008, 1.003, 1.010, 1.005, 1.012, 1.007, 1.0]
+            cameraDrift.keyTimes = [0, 0.16, 0.31, 0.46, 0.64, 0.80, 0.93, 1]
+            cameraDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            cameraDrift.duration = totalDuration
+            cameraDrift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            cameraDrift.isRemovedOnCompletion = false
+            cameraDrift.fillMode = .both
+            videoLayer.add(cameraDrift, forKey: "v11-ken-burns-scale")
+
+            let lateralDrift = CAKeyframeAnimation(keyPath: "position.x")
+            lateralDrift.values = [960, 957, 962, 958, 963, 959, 961, 960]
+            lateralDrift.keyTimes = cameraDrift.keyTimes
+            lateralDrift.beginTime = AVCoreAnimationBeginTimeAtZero
+            lateralDrift.duration = totalDuration
+            lateralDrift.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+            lateralDrift.isRemovedOnCompletion = false
+            lateralDrift.fillMode = .both
+            videoLayer.add(lateralDrift, forKey: "v11-ken-burns-pan")
+        } else if !isV9 {
             let cameraDrift = CAKeyframeAnimation(keyPath: "transform.scale")
             cameraDrift.values = isV8
                 ? [1.0, 1.018, 1.008, 1.022, 1.01, 1.025, 1.012]
@@ -339,7 +481,11 @@ struct ContestVideoAssemblerV6 {
         }
 
         let chapters = isV9 ? [
-            V6Chapter(title: "A LIVING CONTROL ROOM", proof: "long-running agent work  ·  made visible", start: 0.25),
+            V6Chapter(
+                title: isV12 ? "EVERY MISSION GENERATES ITS MOUNTAIN" : "A LIVING CONTROL ROOM",
+                proof: isV12 ? "OpenAI-generated mountain  ·  scenario-card imagery" : "long-running agent work  ·  made visible",
+                start: 0.25
+            ),
             V6Chapter(title: "ONE SHARED MISSION", proof: "WebMCP tools  ·  actual structured results", start: 17.82),
             V6Chapter(title: "BLOCKERS CHANGE THE WORLD", proof: "report_obstacle  →  Camp III blocked", start: 34.0),
             V6Chapter(title: "THE AGENT ASKS. YOU DECIDE.", proof: "Repair persistence  →  human authority", start: 50.0),
@@ -393,10 +539,13 @@ struct ContestVideoAssemblerV6 {
                 : CGColor(red: 0.72, green: 0.86, blue: 0.90, alpha: 1)
             transitionVeil.opacity = 0
             let flash = CAKeyframeAnimation(keyPath: "opacity")
-            flash.values = [0, isV9 ? 0.30 : (isV8 ? 0.14 : 0.24), 0]
-            flash.keyTimes = [0, 0.5, 1]
-            flash.beginTime = AVCoreAnimationBeginTimeAtZero + boundary - (isV9 ? 0.25 : (isV8 ? 0.45 : 0.32))
-            flash.duration = isV9 ? 0.5 : (isV8 ? 0.9 : 0.64)
+            flash.values = isV11
+                ? [0, 0.12, 0.22, 0.12, 0]
+                : [0, isV10 ? 0.30 : (isV9 ? 0.30 : (isV8 ? 0.14 : 0.24)), 0]
+            flash.keyTimes = isV11 ? [0, 0.28, 0.5, 0.72, 1] : [0, 0.5, 1]
+            flash.beginTime = AVCoreAnimationBeginTimeAtZero + boundary - (isV11 ? 0.6 : (isV10 ? 0.35 : (isV9 ? 0.25 : (isV8 ? 0.45 : 0.32))))
+            flash.duration = isV11 ? 1.2 : (isV10 ? 0.7 : (isV9 ? 0.5 : (isV8 ? 0.9 : 0.64)))
+            flash.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
             flash.isRemovedOnCompletion = false
             flash.fillMode = .both
             transitionVeil.add(flash, forKey: "chapter-transition")
@@ -661,6 +810,26 @@ struct ContestVideoAssemblerV6 {
             }
         }
 
+        if isV10, let summitImage = NSImage(contentsOf: repository.appendingPathComponent("artifacts/screenshots/summit.png")) {
+            var summitRect = CGRect(origin: .zero, size: summitImage.size)
+            if let summitCG = summitImage.cgImage(forProposedRect: &summitRect, context: nil, hints: nil) {
+                let summitHold = CALayer()
+                summitHold.frame = parentLayer.frame
+                summitHold.contents = summitCG
+                summitHold.contentsGravity = .resizeAspectFill
+                summitHold.opacity = 0
+                let holdFade = CAKeyframeAnimation(keyPath: "opacity")
+                holdFade.values = [0, 1, 1]
+                holdFade.keyTimes = [0, 0.25, 1]
+                holdFade.beginTime = AVCoreAnimationBeginTimeAtZero + 105.35
+                holdFade.duration = 0.31
+                holdFade.isRemovedOnCompletion = false
+                holdFade.fillMode = .both
+                summitHold.add(holdFade, forKey: "summit-final-frame-hold")
+                parentLayer.addSublayer(summitHold)
+            }
+        }
+
         let endCard = CALayer()
         endCard.frame = parentLayer.frame
         endCard.opacity = 0
@@ -675,10 +844,10 @@ struct ContestVideoAssemblerV6 {
         endCard.addSublayer(textLayer("THE MISSION IS THE MOUNTAIN", frame: CGRect(x: 550, y: 186, width: 820, height: 40), size: 22, color: orange, alignment: .center))
         endCard.addSublayer(textLayer("18 WebMCP tools  ·  Human authority  ·  Verified completion", frame: CGRect(x: 550, y: 142, width: 820, height: 34), size: 18, color: muted, fontName: "AvenirNext-Medium", alignment: .center))
         let endFade = CAKeyframeAnimation(keyPath: "opacity")
-        endFade.values = [0, 1, 1, 0]
-        endFade.keyTimes = [0, 0.22, 0.84, 1]
+        endFade.values = isV11 ? [0, 1, 1] : [0, 1, 1, 0]
+        endFade.keyTimes = isV11 ? [0, 0.14, 1] : [0, 0.22, 0.84, 1]
         endFade.beginTime = AVCoreAnimationBeginTimeAtZero + 102.0
-        endFade.duration = 3.0
+        endFade.duration = isV10 ? 3.66 : 3.0
         endFade.isRemovedOnCompletion = false
         endFade.fillMode = .both
         endCard.add(endFade, forKey: "end-card")
@@ -700,7 +869,11 @@ struct ContestVideoAssemblerV6 {
             fontName: "AvenirNext-DemiBold"
         ))
         parentLayer.addSublayer(textLayer(
-            isV8 || isV9
+            isV13
+                ? "AI VOICE: GPT-4O MINI TTS  ·  MUSIC: ‘RISER INSPIRATIONAL’ — ATLASAUDIO / PIXABAY"
+                : isV10
+                ? "AI VOICE: GPT-AUDIO-1.5  ·  MUSIC: ‘RISER INSPIRATIONAL’ — ATLASAUDIO / PIXABAY"
+                : isV8 || isV9
                 ? "AI VOICE  ·  MUSIC: ‘DREAMING BIG’ — AHJAY STELINO / MIXKIT"
                 : "AI VOICE  ·  MUSIC: ‘MOUNTAINS’ — ANDREW EV / MIXKIT",
             frame: CGRect(x: 1110, y: 2, width: 774, height: 18),

@@ -65,27 +65,32 @@ struct YouTubeThumbnailBuilder {
         let white = NSColor(calibratedRed: 0.97, green: 0.99, blue: 1.0, alpha: 1)
         let muted = NSColor(calibratedRed: 0.74, green: 0.88, blue: 0.92, alpha: 1)
 
-        let badgeRect = NSRect(x: 64, y: 604, width: 365, height: 42)
+        // Devpost displays YouTube embeds inside a 3:2 gallery frame, which
+        // center-crops roughly 12.5% from either side of the 16:9 thumbnail.
+        // Keep the complete copy lockup inside that shared safe area and below
+        // YouTube's title treatment.
+        let safeLeft: CGFloat = 190
+        let badgeRect = NSRect(x: safeLeft, y: 548, width: 365, height: 42)
         let badgePath = NSBezierPath(roundedRect: badgeRect, xRadius: 21, yRadius: 21)
         NSColor(calibratedRed: 0.02, green: 0.11, blue: 0.14, alpha: 0.86).setFill()
         badgePath.fill()
         orange.setStroke()
         badgePath.lineWidth = 2
         badgePath.stroke()
-        drawText("OPENAI WEBMCP CHALLENGE", rect: NSRect(x: 88, y: 614, width: 320, height: 23), font: NSFont.systemFont(ofSize: 17, weight: .bold), color: white, tracking: 1.1)
+        drawText("OPENAI WEBMCP CHALLENGE", rect: NSRect(x: safeLeft + 24, y: 558, width: 320, height: 23), font: NSFont.systemFont(ofSize: 17, weight: .bold), color: white, tracking: 1.1)
 
-        drawText("CODEX", rect: NSRect(x: 58, y: 408, width: 550, height: 92), font: NSFont.systemFont(ofSize: 78, weight: .black), color: white, tracking: 0.3)
-        drawText("ASCEND", rect: NSRect(x: 58, y: 323, width: 600, height: 92), font: NSFont.systemFont(ofSize: 78, weight: .black), color: orange, tracking: 0.3)
-        drawText("THE MISSION IS THE MOUNTAIN", rect: NSRect(x: 64, y: 268, width: 620, height: 40), font: NSFont.systemFont(ofSize: 27, weight: .bold), color: white, tracking: 0.5)
+        drawText("CODEX", rect: NSRect(x: safeLeft, y: 408, width: 500, height: 86), font: NSFont.systemFont(ofSize: 72, weight: .black), color: white, tracking: 0.3)
+        drawText("ASCEND", rect: NSRect(x: safeLeft, y: 329, width: 520, height: 86), font: NSFont.systemFont(ofSize: 72, weight: .black), color: orange, tracking: 0.3)
+        drawText("THE MISSION IS THE MOUNTAIN", rect: NSRect(x: safeLeft, y: 275, width: 500, height: 36), font: NSFont.systemFont(ofSize: 23, weight: .bold), color: white, tracking: 0.35)
 
         let rule = NSBezierPath()
-        rule.move(to: NSPoint(x: 64, y: 247))
-        rule.line(to: NSPoint(x: 520, y: 247))
+        rule.move(to: NSPoint(x: safeLeft, y: 253))
+        rule.line(to: NSPoint(x: 590, y: 253))
         orange.setStroke()
         rule.lineWidth = 5
         rule.stroke()
 
-        drawText("18 native tools  •  Human authority  •  Verified Summit", rect: NSRect(x: 64, y: 194, width: 760, height: 36), font: NSFont.systemFont(ofSize: 21, weight: .semibold), color: muted)
+        drawText("18 native tools  •  Human authority  •  Verified Summit", rect: NSRect(x: safeLeft, y: 201, width: 650, height: 32), font: NSFont.systemFont(ofSize: 18, weight: .semibold), color: muted)
 
         canvas.unlockFocus()
 

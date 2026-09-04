@@ -72,8 +72,8 @@ The deterministic controls remain the recording safety net; they execute the sam
 
 ## Recording and submission checklist
 
-- Final local master: `artifacts/video/final/codex-ascend-webmcp-challenge-demo-v9.mp4`.
-- V9 runs 1:45 and opens on the living control-room premise, establishes the shared mission and native WebMCP surface, then shows the blocker transformation, actual Repair persistence click, structured human-decision proof, Security Ridge scope expansion, live elevation/evidence state, and Verified Summit.
+- Final local master: `artifacts/video/final/codex-ascend-webmcp-challenge-demo-v13.mp4`.
+- V13 runs 1:45 and opens on the dynamically generated mountain, establishes the shared mission and native WebMCP surface, then shows the blocker transformation, actual Repair persistence click, structured human-decision proof, Security Ridge scope expansion, live elevation/evidence state, and Verified Summit. It uses one continuous narration take, a restrained full-length music bed, bounded camera motion, and a clean closing crescendo.
 - The elevation sequence is a live topology-derived full-page capture: 100% surveyed, 6,430 m secured, with the expedition journal visible below the mountain.
 - The master contains no browser tabs, address bars, or Cloudflare administration URLs; the small footer credits the AI voice and Mixkit music.
 - Public YouTube video, under three minutes, with audible narration.

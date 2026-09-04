@@ -1,6 +1,6 @@
 # Submission Readiness
 
-**Candidate verdict:** submitted and ready for judging. The product source, public repository, live experience, and 1:45 V9 demo are public. Devpost embeds the verified V9 video, and the submitted project remains complete at 5/5 steps.
+**Candidate verdict:** submitted and ready for judging. The product source, public repository, live experience, and 1:45 V13 demo are public. Devpost embeds the verified V13 video, and the submitted project remains complete at 5/5 steps.
 
 ## Ready
 
@@ -12,10 +12,10 @@
 - Deterministic reset, autoplay pause at the human gate, last-known-good world retention, structured tool errors, and generation failure metadata.
 - MIT license and final three-minute demo runbook.
 - A deployed, dismissible WebMCP connection guide with current ChatGPT desktop instructions, a copyable judge prompt, Chrome testing guidance, and an accessible visual-demo fallback.
-- A 1920 × 1080, 30 fps V9 video master with a stronger OpenAI Marin narration, credited music, smoother transitions, corrected waypoint focus and route alignment, the actual human route choice, live topology, and Verified Summit.
-- Public YouTube video at https://youtu.be/N8iQ5qR3ytg with contest metadata, AI-use disclosure, a custom thumbnail, timed English captions, signed-out playback verification, and a completed copyright check reporting no issues.
+- A 1920 × 1080, 30 fps V13 video master with one continuous OpenAI voice take, credited music, bounded camera motion, smoother transitions, corrected waypoint focus and route alignment, the actual human route choice, live topology, and Verified Summit.
+- Public YouTube video at https://youtu.be/NS8YRo-maKw with contest metadata, AI-use disclosure, a custom thumbnail, timed English captions, signed-out playback verification, and a completed copyright check reporting no issues.
 - Public MIT-licensed source repository verified signed out from its rendered public page; the deployed runtime source commit is `f6814a54d50cfb403f414d042e775555cff196a8`.
-- Submitted Devpost project populated with the live URL, public repository, verified V9 video, corrected judge instructions, explicit technical-lead impact statement, and a five-image narrative gallery.
+- Submitted Devpost project populated with the live URL, public repository, verified V13 video, corrected judge instructions, explicit technical-lead impact statement, and a four-image narrative gallery. The internal Demo Lab screenshot was removed before finalization.
 - Completed missions now report 100% discovery after fresh completion and legacy-session restoration, unique inbound routes become authoritative automatically, ambiguous approaches require an explicit route choice, and opening New provides an immediately usable default Basecamp mission.
 - Final Cloudflare Worker version `a485f494-19dc-4f29-b922-9a4589e6bfdb` was deployed with existing dashboard variables and secrets preserved. Live `inspect_mission` verification proved a cached 52% completed session migrates to 100% after reload.
 - Final responsive smoke at 390 × 844 passed with zero horizontal overflow, contained scenario imagery, working detail/elevation navigation, and no browser warnings or errors.
@@ -23,8 +23,8 @@
 ## Submission state
 
 - Official rules and Devpost terms were accepted by the owner.
-- Final submission and the V9 publication/update were explicitly approved.
-- The public Devpost page embeds YouTube video `N8iQ5qR3ytg` and the submission remains marked Submitted.
+- Final submission and the V13 publication/update were explicitly approved.
+- The public Devpost page embeds YouTube video `NS8YRo-maKw` and the submission remains marked Submitted.
 - Freeze the live deployment, public repository, video, and submission during judging unless a reproducible judging defect appears.
 
 ## Explicitly not required for the judge path

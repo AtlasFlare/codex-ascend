@@ -1,0 +1,51 @@
+{
+  "title": "Codex Ascend — WebMCP Challenge demo V13",
+  "targetDurationSeconds": 105.66,
+  "voice": {
+    "mode": "speech-api-continuous",
+    "model": "gpt-4o-mini-tts-2025-12-15",
+    "name": "marin",
+    "format": "wav",
+    "speed": 1.0,
+    "instructions": "Deliver premium documentary narration in a warm, friendly feminine voice with a natural American accent and a subtle smile. Speak like one thoughtful product guide addressing technical judges: conversational, intelligent, clear, and confident. Use a measured but energetic pace, with short breaths and no theatrical pauses. Pause for about one second at each paragraph break. Begin with welcoming curiosity, build restrained momentum as the mountain changes, become calmly decisive at the user-choice moment, and finish with earned optimism at the verified Summit. Pronounce Web M C P as four individual letters. Pronounce route as rout, rhyming with out. Say topology with a crisp opening T. Say Camp Three, persistence checks, report obstacle, dynamically, generated, and Codex Ascend with full articulation. Never sound like a movie trailer, announcer, advertisement, or synthetic assistant. Never switch voice, character, accent, timbre, microphone perspective, or energy style.",
+    "disclosure": "AI-generated narration via OpenAI GPT-4o Mini TTS"
+  },
+  "chapters": [
+    {
+      "id": "01-introduction",
+      "label": "Meet Codex Ascend",
+      "targetSeconds": 19,
+      "narration": "Meet Codex Ascend, visual mission control for work shared by a user and an AI agent. Give it one objective. OpenAI generates a unique mountain and original scenario-card imagery for that mission. Camps, dependencies, and the route are composed for the specific climb."
+    },
+    {
+      "id": "02-shared-route",
+      "label": "One objective becomes a route",
+      "targetSeconds": 15,
+      "narration": "Through Web M C P, the agent advances the mission while the user retains authority over consequential choices. Work becomes camps, dependencies become the trail, and fog reveals the unknown. Eighteen Web M C P tools share the interface's deterministic mission engine, not brittle pixel automation."
+    },
+    {
+      "id": "03-world-reacts",
+      "label": "A blocker changes the mountain",
+      "targetSeconds": 15.5,
+      "narration": "When persistence checks report an error, report obstacle changes the world. Weather closes in, the trail fractures at Camp Three, and progress stops. Mission truth becomes spatial and readable."
+    },
+    {
+      "id": "04-human-authority",
+      "label": "The agent asks; the user decides",
+      "targetSeconds": 20,
+      "narration": "The agent proposes repair persistence or a risky bypass. The user chooses Repair persistence directly on the mountain, and the result confirms that exact choice. Only then can the agent resolve the blocker and continue."
+    },
+    {
+      "id": "05-live-topology",
+      "label": "New work reshapes the ascent",
+      "targetSeconds": 17.5,
+      "narration": "When security work appears, expand scope reveals a new ridge. One topology map drives the camera, waypoints, evidence, and elevation profile. Choose a waypoint, and Ascend returns to that mountain location."
+    },
+    {
+      "id": "06-verified-summit",
+      "label": "Evidence unlocks the Summit",
+      "targetSeconds": 18.5,
+      "narration": "On final approach, every outcome receives evidence. Verify completion checks blockers, dependencies, and success criteria. Only then does complete mission unlock the Summit. Codex Ascend makes ambitious agent work visible, steerable, and trustworthy, from Basecamp to a verified Summit."
+    }
+  ]
+}

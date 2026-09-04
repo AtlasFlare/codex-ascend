@@ -70,6 +70,14 @@ struct VideoMasterVerifier {
         var squaredTotal = 0.0
         var peak = 0.0
         var lastAudioTime = 0.0
+        let audioWindows: [(label: String, start: Double, end: Double)] = [
+            ("musicUnderClosingLine", 102.0, 104.0),
+            ("musicAfterVoice", 104.1, 105.0),
+            ("finalFade", 105.0, 105.65),
+        ]
+        var windowSquaredTotals = Array(repeating: 0.0, count: audioWindows.count)
+        var windowSampleCounts = Array(repeating: 0, count: audioWindows.count)
+        var windowPeaks = Array(repeating: 0.0, count: audioWindows.count)
         while let sample = audioOutput.copyNextSampleBuffer() {
             lastAudioTime = CMSampleBufferGetPresentationTimeStamp(sample).seconds
             guard let block = CMSampleBufferGetDataBuffer(sample) else { continue }
@@ -84,6 +92,12 @@ struct VideoMasterVerifier {
                     squaredTotal += normalized * normalized
                     peak = max(peak, abs(normalized))
                     audioSamples += 1
+                    for (index, window) in audioWindows.enumerated()
+                        where lastAudioTime >= window.start && lastAudioTime < window.end {
+                        windowSquaredTotals[index] += normalized * normalized
+                        windowSampleCounts[index] += 1
+                        windowPeaks[index] = max(windowPeaks[index], abs(normalized))
+                    }
                 }
             }
         }
@@ -92,6 +106,20 @@ struct VideoMasterVerifier {
         let rms = audioSamples > 0 ? sqrt(squaredTotal / Double(audioSamples)) : 0
         let rmsDBFS = rms > 0 ? 20 * log10(rms) : -.infinity
         let peakDBFS = peak > 0 ? 20 * log10(peak) : -.infinity
+
+        let audioWindowReport = Dictionary(uniqueKeysWithValues: audioWindows.enumerated().map { index, window in
+            let count = windowSampleCounts[index]
+            let windowRMS = count > 0 ? sqrt(windowSquaredTotals[index] / Double(count)) : 0
+            let windowRMSDBFS = windowRMS > 0 ? 20 * log10(windowRMS) : -.infinity
+            let windowPeakDBFS = windowPeaks[index] > 0 ? 20 * log10(windowPeaks[index]) : -.infinity
+            return (window.label, [
+                "startSeconds": window.start,
+                "endSeconds": window.end,
+                "sampleValues": count,
+                "rmsDBFS": windowRMSDBFS,
+                "peakDBFS": windowPeakDBFS,
+            ] as [String: Any])
+        })
 
         let report: [String: Any] = [
             "durationSeconds": duration,
@@ -104,6 +132,7 @@ struct VideoMasterVerifier {
             "lastAudioTimestamp": lastAudioTime,
             "audioRMSdBFS": rmsDBFS,
             "audioPeakdBFS": peakDBFS,
+            "audioTailWindows": audioWindowReport,
             "videoDecode": "complete",
             "audioDecode": "complete",
         ]

@@ -182,6 +182,92 @@ async function generateChapter(apiKey, plan, chapter, outputPath) {
   console.log(`Generated ${chapter.id} (${Math.round(bytes.length / 1024)} KB)`)
 }
 
+async function generateContinuousNarration(apiKey, plan, outputPath, transcriptPath) {
+  const script = plan.chapters.map((chapter) => chapter.narration).join('\n\n')
+  if (plan.voice.mode === 'speech-api-continuous') {
+    const response = await fetch('https://api.openai.com/v1/audio/speech', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: plan.voice.model,
+        voice: plan.voice.name,
+        response_format: plan.voice.format,
+        speed: plan.voice.speed ?? 1,
+        input: script,
+        instructions: `${plan.voice.instructions} Read the complete supplied script as one uninterrupted take. Read it verbatim. Do not add commentary, stage directions, or a sign-off. Preserve paragraph breaks as brief natural breaths, while keeping exactly one voice, one microphone perspective, and one energy arc from beginning to end.`,
+      }),
+    })
+
+    if (!response.ok) {
+      let detail = `HTTP ${response.status}`
+      try {
+        const payload = await response.json()
+        detail = payload?.error?.message ?? detail
+      } catch {
+        // The status code remains sufficient and does not risk logging credentials.
+      }
+      throw new Error(`Continuous speech generation failed: ${detail}`)
+    }
+
+    const bytes = Buffer.from(await response.arrayBuffer())
+    parseWav(bytes)
+    await writeFile(outputPath, bytes)
+    await writeFile(transcriptPath, `${script}\n`)
+    console.log(`Generated one-request continuous narration (${Math.round(bytes.length / 1024)} KB)`)
+    return
+  }
+
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: plan.voice.model,
+      modalities: ['text', 'audio'],
+      audio: {
+        voice: plan.voice.name,
+        format: plan.voice.format,
+      },
+      messages: [
+        {
+          role: 'system',
+          content: `${plan.voice.instructions} Read the supplied script verbatim. Do not add an introduction, commentary, stage directions, or a sign-off. Preserve the paragraph breaks as brief natural pauses.`,
+        },
+        {
+          role: 'user',
+          content: `Read this narration exactly as written:\n\n${script}`,
+        },
+      ],
+    }),
+  })
+
+  if (!response.ok) {
+    let detail = `HTTP ${response.status}`
+    try {
+      const payload = await response.json()
+      detail = payload?.error?.message ?? detail
+    } catch {
+      // The status code remains sufficient and does not risk logging credentials.
+    }
+    throw new Error(`Continuous voice generation failed: ${detail}`)
+  }
+
+  const payload = await response.json()
+  const audio = payload?.choices?.[0]?.message?.audio
+  if (!audio?.data) throw new Error('Continuous voice generation returned no audio data.')
+
+  const bytes = Buffer.from(audio.data, 'base64')
+  parseWav(bytes)
+  await writeFile(outputPath, bytes)
+  await writeFile(transcriptPath, `${audio.transcript ?? ''}\n`)
+  console.log(`Generated continuous narration (${Math.round(bytes.length / 1024)} KB)`)
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2))
   const planPath = path.resolve(ROOT, args.plan)
@@ -196,6 +282,84 @@ async function main() {
 
   await mkdir(chapterDir, { recursive: true })
   const apiKey = await getApiKey()
+
+  if (plan.voice.mode === 'chat-completions-audio-continuous' || plan.voice.mode === 'speech-api-continuous') {
+    if (args.chapter) throw new Error('Continuous narration mode does not support --chapter.')
+
+    const continuousPath = path.join(outputDir, 'continuous.wav')
+    const transcriptPath = path.join(outputDir, 'continuous-transcript.txt')
+    if (args.force || !await fileExists(continuousPath)) {
+      await generateContinuousNarration(apiKey, plan, continuousPath, transcriptPath)
+    } else {
+      console.log('Reusing continuous narration')
+    }
+
+    const bytes = await readFile(continuousPath)
+    const continuous = parseWav(bytes)
+    const speechDuration = continuous.data.length / continuous.byteRate
+    const leadSeconds = 0.25
+    const tailSeconds = 0.15
+    const targetDuration = plan.targetDurationSeconds ?? speechDuration + leadSeconds + tailSeconds
+    if (speechDuration + leadSeconds + tailSeconds > targetDuration) {
+      throw new Error(`Continuous narration is ${(speechDuration + leadSeconds + tailSeconds).toFixed(2)}s, longer than the ${targetDuration}s target.`)
+    }
+
+    const targetWeight = plan.chapters.reduce((sum, chapter) => sum + chapter.targetSeconds, 0)
+    const timings = []
+    let chapterCursor = leadSeconds
+    plan.chapters.forEach((chapter, index) => {
+      const durationSeconds = index === plan.chapters.length - 1
+        ? leadSeconds + speechDuration - chapterCursor
+        : speechDuration * chapter.targetSeconds / targetWeight
+      const startSeconds = chapterCursor
+      const endSeconds = startSeconds + durationSeconds
+      timings.push({
+        id: chapter.id,
+        label: chapter.label,
+        startSeconds,
+        endSeconds,
+        durationSeconds,
+        targetSeconds: chapter.targetSeconds,
+        deltaSeconds: durationSeconds - chapter.targetSeconds,
+        shots: chapter.shots,
+      })
+      chapterCursor = endSeconds
+    })
+
+    const paddingSeconds = targetDuration - leadSeconds - speechDuration
+    const masterPath = path.join(outputDir, `${args.outputName}.wav`)
+    await writeFile(masterPath, buildWav(continuous.format, Buffer.concat([
+      silenceBuffer(leadSeconds, continuous),
+      continuous.data,
+      silenceBuffer(paddingSeconds, continuous),
+    ])))
+
+    const cueSheet = {
+      title: plan.title,
+      disclosure: plan.disclosure,
+      generatedAt: new Date().toISOString(),
+      totalDurationSeconds: targetDuration,
+      speechDurationSeconds: speechDuration,
+      chapters: timings,
+    }
+    await writeFile(path.join(outputDir, 'director-cues.json'), `${JSON.stringify(cueSheet, null, 2)}\n`)
+
+    const cues = timings.flatMap((timing, index) => captionCues(plan.chapters[index], timing.startSeconds, timing.endSeconds))
+    const vtt = ['WEBVTT', '', ...cues.flatMap((cue, index) => [
+      String(index + 1),
+      `${formatTimestamp(cue.start)} --> ${formatTimestamp(cue.end)}`,
+      cue.text,
+      '',
+    ])].join('\n')
+    await writeFile(path.join(outputDir, `${args.outputName}.vtt`), vtt)
+
+    console.log(`Master track: ${targetDuration.toFixed(2)} seconds (${speechDuration.toFixed(2)} seconds spoken)`)
+    for (const timing of timings) {
+      const delta = timing.deltaSeconds >= 0 ? `+${timing.deltaSeconds.toFixed(2)}` : timing.deltaSeconds.toFixed(2)
+      console.log(`${timing.id}: ${timing.durationSeconds.toFixed(2)}s (target ${timing.targetSeconds}s, ${delta}s)`)
+    }
+    return
+  }
 
   for (const chapter of selectedChapters) {
     const outputPath = path.join(chapterDir, `${chapter.id}.wav`)
