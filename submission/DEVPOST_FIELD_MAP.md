@@ -1,6 +1,6 @@
 # Devpost Field Map
 
-This is a local paste map. Do not submit without the final approval gate.
+This is the verified field map for the submitted entry. Keep it frozen during judging unless a reproducible defect appears.
 
 | Devpost field | Prepared value/source |
 | --- | --- |
@@ -32,7 +32,7 @@ This is a local paste map. Do not submit without the final approval gate.
 5. `artifacts/screenshots/summit.png`
    Evidence before Summit. Completion activates only after every dependency, blocker, and success criterion passes deterministic verification.
 
-All five files are 1280 × 720 PNGs and below 110 KB.
+All five files are 1280 × 720 PNGs and below 1.4 MB, within Devpost's 5 MB per-image limit.
 
 ## Final review pass
 

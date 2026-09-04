@@ -1,6 +1,6 @@
 # Public Repository Release Preparation
 
-Repository publication and push were completed with owner approval. Final Devpost submission remains separately approval-gated.
+Repository publication, the owner-approved Devpost submission, and the V9 video refresh are complete. The submitted candidate is frozen unless a reproducible judging defect appears.
 
 ## Recommended repository metadata
 

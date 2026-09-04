@@ -106,7 +106,7 @@ After the contest, the highest-value work is not more visual themes. It is durab
 
 - **Live experience:** use the deployment URL entered directly in Devpost; do not commit an account-scoped hostname
 - **Source repository:** this public repository
-- **Demo video:** https://youtu.be/gNNQefKfcTs *(Public and verified signed out)*
+- **Demo video:** https://youtu.be/N8iQ5qR3ytg *(Public, captioned, embedded in Devpost, and verified signed out)*
 
 ## Testing instructions
 
